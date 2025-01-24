@@ -54,7 +54,6 @@ public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
                 GameManager.GetInstance().currentDevices[1] = player2_input;
         }
 
-
         CharacterData[] characters = GameManager.GetInstance().currentCharactersData;
         InputDevice[] devices = GameManager.GetInstance().currentDevices;
 
@@ -84,18 +83,4 @@ public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
     {
         return allPlayers;
     }
-
-    // This function is called everytime a player joined
-    //public void PlayerJoined(PlayerInput newplayer)
-    //{
-    //    // Get a reference
-    //    PlayerController newPlayerController = newplayer.GetComponent<PlayerController>();
-
-    //    // Set player index
-    //    int playerIndex = playerInputManager.playerCount - 1;
-    //    newPlayerController.playerIndex = playerIndex;
-    //    newPlayerController.transform.SetParent(playerContainer);
-
-    //    allPlayers.Add(newPlayerController);
-    //}
 }
