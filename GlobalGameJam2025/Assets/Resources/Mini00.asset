@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Mini00
   m_EditorClassIdentifier: 
   minigameName: Minigame 00
-  minigamePrefab: {fileID: 0}
+  usesTimer: 0
   maxTimer: 999
+  minigamePrefab: {fileID: 31130931825777059, guid: 35eda3c676f53cb44b3274f751f8d284, type: 3}
