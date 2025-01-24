@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
   m_Name: Shooting Bubbles Minigame
   m_EditorClassIdentifier: 
-  minigamePrefab: {fileID: 0}
+  minigamePrefab: {fileID: 1722444747706364920, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
   maxTimer: 999
