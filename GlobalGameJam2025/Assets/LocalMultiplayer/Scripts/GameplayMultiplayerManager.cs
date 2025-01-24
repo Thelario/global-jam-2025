@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameplayMultiplayerManager : MonoBehaviour
+public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
 {
-
     [Header("Debug")]
     [SerializeField] bool firstPlayerAsGamepad;
     [SerializeField] CharacterData FirstPlayerData_Debug;

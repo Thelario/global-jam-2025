@@ -264,6 +264,8 @@ public class PlayerController : MonoBehaviour
 
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
 
+        GameplayMultiplayerManager.Instance.GetAllPlayers();
+
         if (otherPlayer != null)
         {
             // El player que tenga mas velocidad resuelve las velocidades
