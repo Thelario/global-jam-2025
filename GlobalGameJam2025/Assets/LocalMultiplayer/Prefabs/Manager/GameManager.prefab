@@ -660,7 +660,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerPref: {fileID: 5245253335259571144, guid: a90e2e752840a9240ab25bce650c5210, type: 3}
+  playerPref: {fileID: 7339635329292493138, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
   left: {fileID: 8485692226985410821}
   right: {fileID: 1895215293}
   level_Text: {fileID: 8621253407450473402}
