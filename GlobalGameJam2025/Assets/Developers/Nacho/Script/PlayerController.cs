@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
         OnCollisionEntered?.Invoke(collision);
     }
 
-    public void AddLineaVelocity(Vector3 vector)
+    public void AddLinearVelocity(Vector3 vector)
     {
         rb.linearVelocity += vector;
     }
