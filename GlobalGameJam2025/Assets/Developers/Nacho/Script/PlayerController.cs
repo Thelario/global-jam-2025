@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
     float groundRememberTimer = -1;
 
     [HideInInspector] public bool stunned;
+
+    public event Action<Collision> OnCollisionEntered;
 
     // Components
     Rigidbody rb;
@@ -107,13 +110,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!canUseDash)
         {
-            if (dashDelayTimer + Time.deltaTime >= dashDelayTime)
+            if (dashDelayTimer >= dashDelayTime * 0.9f)
             {
-                dashDelayTimer = 0;
+                dashDelayTimer = dashDelayTime;
                 canUseDash = true;
             }
             else
-                dashDelayTimer += Time.deltaTime;
+                dashDelayTimer += Time.deltaTime * (1 + dashDelayTimer / dashDelayTime);
         }
 
         dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
@@ -137,6 +140,7 @@ public class PlayerController : MonoBehaviour
         if (context.started && canUseDash)
         {
             canUseDash = false;
+            dashDelayTimer = 0;
 
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             dashDirection = movementInput;
@@ -320,6 +324,8 @@ public class PlayerController : MonoBehaviour
         }
 
         bubbleScript.Collision(collision);
+
+        OnCollisionEntered?.Invoke(collision);
     }
 
 
