@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MinigameBase : ScriptableObject
 {
+    [SerializeField] protected string minigameName = "Minigame Default";
+    public string Name() => minigameName;
     [SerializeField] protected GameObject minigamePrefab;
     [SerializeField] protected int maxTimer = 999;
 
