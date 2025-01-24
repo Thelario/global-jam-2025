@@ -4,8 +4,9 @@ public class MinigameBase : ScriptableObject
 {
     [SerializeField] protected string minigameName = "Minigame Default";
     public string Name() => minigameName;
-    [SerializeField] protected GameObject minigamePrefab;
+    [SerializeField] protected bool usesTimer = false;
     [SerializeField] protected int maxTimer = 999;
+    [SerializeField] protected GameObject minigamePrefab;
 
     //protected SceneSearch targetScene;
     public virtual void MinigameInit() { }
