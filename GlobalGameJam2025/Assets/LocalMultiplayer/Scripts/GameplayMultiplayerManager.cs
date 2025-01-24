@@ -20,7 +20,7 @@ public class GameplayMultiplayerManager : MonoBehaviour
 
     List<MultiplayerInstance> allPlayers;
 
-    private void Awake()
+    private void Start()
     {
         playerPositions = new Transform[playerPositionsContainer.childCount];
         for (int i = 0; i < playerPositionsContainer.childCount; i++)
