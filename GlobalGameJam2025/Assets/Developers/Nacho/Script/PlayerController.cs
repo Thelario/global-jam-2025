@@ -108,17 +108,11 @@ public class PlayerController : MonoBehaviour
 
     void UpdateDashDelay()
     {
-        if (!canUseDash)
+        if (dashDelayTimer >= dashDelayTime * 0.9f)
         {
-            if (dashDelayTimer >= dashDelayTime * 0.9f)
-            {
-                dashDelayTimer = dashDelayTime;
-                canUseDash = true;
-            }
-            else
-                dashDelayTimer += Time.deltaTime * (1 + dashDelayTimer / dashDelayTime);
+            canUseDash = true;
         }
-
+        dashDelayTimer += Time.deltaTime;
         dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
     }
 
@@ -127,7 +121,6 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Jump_Input(InputAction.CallbackContext context)
     {
-
         if (context.started)
             jumpRememberTimer = jumpRemember;
 
