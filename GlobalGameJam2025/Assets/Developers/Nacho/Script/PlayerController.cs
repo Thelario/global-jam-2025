@@ -334,6 +334,11 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = linearVelocity;
     }
 
+    public Vector3 GetLinearVelocity()
+    {
+        return rb.linearVelocity;
+    }
+
     public float GetVelocityMagnitude()
     {
         return rb.linearVelocity.magnitude;
