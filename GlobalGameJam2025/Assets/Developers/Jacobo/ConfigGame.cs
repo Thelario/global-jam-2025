@@ -15,14 +15,28 @@ public class ConfigGame : MonoBehaviour
 
     private List<string> gameNames;
     private readonly int[] roundList = new int[] { 1,2,3,4,5,6};
-    private readonly int[] timerList = new int[] { 0,40,60,120,999};
+    private readonly int[] timerList = new int[] { 30,40,60,999};
 
-    [SerializeField] private TextMeshProUGUI gameText, roundText, timerText;
+    [Header("UI Texts")]
+    [SerializeField] private TextMeshProUGUI gameText;
+    [SerializeField] private TextMeshProUGUI roundText, timerText;
+    [Header("Players")]
+    [SerializeField] private List<CanvasGroup> playerList;
+    
+    
     private void Start()
     {
         if (!MinigameManager.Instance) return;
         gameNames = new List<string>(MinigameManager.GamesLoaded().Values);
         gameNames.Insert(0, "Random");
+
+        //Grayout Players Connected
+        //if (!GameManager.instance) return;
+        int connectedPlys = GameManager.instance.currentCharactersData.Length;
+        for (int i = 4- connectedPlys; i >0;i--)
+        {
+            playerList[i].alpha = 0.2f;
+        }
     }
 
     public void SelectGame(bool right)
@@ -50,7 +64,7 @@ public class ConfigGame : MonoBehaviour
     }
     public void ChangeScene()
     {
-        if (indexGame == 0) MinigameManager.AssignMinigamesRandom();
-        SceneManager.LoadScene("Gameplay");
+        MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
+        //SceneManager.LoadScene("Gameplay");
     }
 }

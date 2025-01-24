@@ -3,7 +3,6 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// MINIGAME MANAGER: Al comienzo, busca 
@@ -14,6 +13,16 @@ public class MinigameManager : Singleton<MinigameManager>
     public event UnityAction OnMinigameInit;
     public event UnityAction OnMinigameStart;
     public event UnityAction OnMinigameEnd;
+
+    private static List<MinigameBase> m_GameList;//Todos los juegos que se van a jugar
+    private MinigameBase m_currentMinigame;
+    public MinigameBase CurrentMinigame => m_currentMinigame;
+    
+    private int m_GameRounds = 4;
+    public int GameRounds => m_GameRounds;
+
+    private int m_GameTimer = 60;
+    public int GameTimer => m_GameTimer;
 
     #region Assign Minigame
     //Diccionario cargado por Lazy, carga todos los minijuegos en Resources
@@ -29,26 +38,40 @@ public class MinigameManager : Singleton<MinigameManager>
     
     [SerializeField] private MinigameBase TESTING_GAME;//TODO:SOLO TESTEO
 
+    public void InitMinigameInfo(int rounds, int timer, int gameIndex = 0)
+    {
+        m_GameRounds = rounds;
+        m_GameTimer = timer;
+        if (gameIndex == 0) AssignMinigamesRandom();
+        else AssignMinigame(gameIndex);
+        Debug.Log($"Rounds:{m_GameRounds}, Timer:{m_GameTimer}, Random:{m_GameList}");
+    }
 
-    public static void AssignMinigamesRandom()
+    public void AssignMinigamesRandom()//Assign Random Levels
     {
         if (m_GamesLoaded.Value.Count < 4) return;
         
         var availableMinigames = new List<MinigameBase>(m_GamesLoaded.Value.Keys);
-        for (int i = availableMinigames.Count - 1; i > 0; i--)
+        for (int i = m_GameRounds; i > 0; i--)
         {
             int randomIndex = UnityEngine.Random.Range(0, i + 1);
             var temp = availableMinigames[i];
             availableMinigames[i] = availableMinigames[randomIndex];
-            availableMinigames[randomIndex] = temp;
         }
+        m_GameList = availableMinigames;
+    }
+    public void AssignMinigame(int index)//Assign specific minigame
+    {
+        if (m_GamesLoaded.Value.Count < 4) return;
 
-        m_GameList = availableMinigames.GetRange(0, 4);
+        m_GameList = new List<MinigameBase>();
+        var availableMinigames = new List<MinigameBase>(m_GamesLoaded.Value.Keys);
+        for (int i = m_GameRounds; i > 0; i--)
+        {
+            m_GameList.Add(availableMinigames[index]);
+        }
     }
     #endregion
-    
-    private static List<MinigameBase> m_GameList;//Todos los juegos que se van a jugar
-    private MinigameBase m_currentMinigame;
 
     protected override void Awake()
     {
