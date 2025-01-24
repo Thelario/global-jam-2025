@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class PlayerController : MonoBehaviour
     [Header("Dash")]
     [SerializeField] float dashForce = 500;
     [SerializeField] float dashTime = .1f;
+    [SerializeField] Image dashRecharge;
+    [SerializeField] float dashDelayTime = 2;
+    float dashDelayTimer;
+    bool canUseDash = true;
+
     Vector2 dashDirection;
     bool dashing;
 
@@ -59,6 +65,7 @@ public class PlayerController : MonoBehaviour
         playerFollow.name = gameObject.name + "_PlayerFollow";
         playerFollow.parent = null;
 
+        dashDelayTimer = dashDelayTime;
 
         // Set up character variables
 
@@ -71,6 +78,8 @@ public class PlayerController : MonoBehaviour
         JumpCheck();
 
         playerFollow.transform.position = transform.position;
+
+        UpdateDashDelay();
 
         // Limitar velocidad descendente en caso de estar stuneado
         //if (!stunned && !ignoreVelocityLimit)
@@ -91,6 +100,22 @@ public class PlayerController : MonoBehaviour
         //anim.SetBool("OnGround", onGround);
     }
 
+    void UpdateDashDelay()
+    {
+        if (!canUseDash)
+        {
+            if (dashDelayTimer + Time.deltaTime >= dashDelayTime)
+            {
+                dashDelayTimer = 0;
+                canUseDash = true;
+            }
+            else
+                dashDelayTimer += Time.deltaTime;
+        }
+
+        dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
+    }
+
 
     #region Input
 
@@ -106,8 +131,10 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Dash_Input(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && canUseDash)
         {
+            canUseDash = false;
+
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             dashDirection = movementInput;
             rb.AddForce(TwoToThreeVector(dashDirection) * dashForce);
@@ -290,6 +317,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
     public void SetLinearVelocity(Vector3 linearVelocity)
     {
