@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BubbleScript : MonoBehaviour
 {
-    Renderer _renderer;
+    public Renderer _renderer;
     [SerializeField] AnimationCurve _DisplacementCurve;
     [SerializeField] AnimationCurve _DisplacementCurveFloor;
     [SerializeField] float _DisplacementMagnitude;
-    [SerializeField] float _DisplacementMagnitudeFloor;
+   [SerializeField] float _DisplacementMagnitudeFloor;
     [SerializeField] float _LerpSpeed;
     [SerializeField] float _DisolveSpeed;
     bool _shieldOn;
@@ -16,7 +16,7 @@ public class BubbleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _renderer = GetComponent<Renderer>();
+        //_renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -70,6 +70,7 @@ public class BubbleScript : MonoBehaviour
         {
             _renderer.material.SetFloat("_DisplacementStrength", _DisplacementCurve.Evaluate(lerp) * _DisplacementMagnitude);
             lerp += Time.deltaTime * _LerpSpeed;
+            
             yield return null;
         }
     }
@@ -87,6 +88,7 @@ public class BubbleScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            
             _renderer.material.SetVector("_HitPos", collision.contacts[0].point);
             StopAllCoroutines();
             StartCoroutine(Coroutine_HitDisplacement());
@@ -97,6 +99,7 @@ public class BubbleScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("COLLISIOOOOOON");
             _renderer.material.SetVector("_HitPos", collision.contacts[0].point);
             StopAllCoroutines();
             StartCoroutine(Coroutine_HitDisplacement());
