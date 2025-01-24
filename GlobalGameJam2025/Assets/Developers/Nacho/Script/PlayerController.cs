@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform playerFollow;
 
+    [Header("Collision")]
+    [SerializeField] float minimunVelocityOnCollision = 5;
+
     [Header("Movement")]
     [SerializeField] float movementForce = 5;
-    [SerializeField] float maxVelocity = 5;
+    //[SerializeField] float maxVelocity = 5;
 
     // Dash
     [Header("Dash")]
@@ -272,16 +275,18 @@ public class PlayerController : MonoBehaviour
             float playerVelocity = GetVelocityMagnitude();
             float otherPlayerVelocity = otherPlayer.GetVelocityMagnitude();
 
-            float velocityMid = (playerVelocity + otherPlayerVelocity) / 2;
+            float velocityMid = (playerVelocity + otherPlayerVelocity);
 
             Vector3 dir = transform.position - otherPlayer.transform.position;
             dir.Normalize();
 
+            float resultVelocity = Mathf.Clamp(velocityMid, minimunVelocityOnCollision, 1000);
+
             // El jugador que va mas rapido se encarga de resolver la colision
             if (playerVelocity > otherPlayerVelocity)
             {
-                SetLinearVelocity(dir * velocityMid * 2);
-                otherPlayer.SetLinearVelocity(-dir * velocityMid * 2);
+                SetLinearVelocity(dir * resultVelocity);
+                otherPlayer.SetLinearVelocity(-dir * resultVelocity);
             }
         }
     }
