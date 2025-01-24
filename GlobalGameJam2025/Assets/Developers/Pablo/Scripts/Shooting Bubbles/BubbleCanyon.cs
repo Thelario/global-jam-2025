@@ -7,6 +7,6 @@ public class BubbleCanyon : MonoBehaviour
 
     public void Shoot()
     {
-        
+        Instantiate(bubbleToShoot, shootPoint.position, shootPoint.rotation, shootPoint);
     }
 }
