@@ -83,19 +83,20 @@ public class BubbleScript : MonoBehaviour
             yield return null;
         }
     }
-    public void Collision(Vector3 contactPoint)
+    public void Collision(Collision collision)
     {
-        _renderer.material.SetVector("_HitPos", contactPoint);
-        StopAllCoroutines();
-        StartCoroutine(Coroutine_HitDisplacement());
+        if (collision.gameObject.tag == "Player")
+        {
+            _renderer.material.SetVector("_HitPos", collision.contacts[0].point);
+            StopAllCoroutines();
+            StartCoroutine(Coroutine_HitDisplacement());
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        
         if (collision.gameObject.tag == "Player")
         {
-            
             _renderer.material.SetVector("_HitPos", collision.contacts[0].point);
             StopAllCoroutines();
             StartCoroutine(Coroutine_HitDisplacement());

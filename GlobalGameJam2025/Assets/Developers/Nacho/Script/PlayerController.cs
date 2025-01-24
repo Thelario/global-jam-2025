@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     // Components
     Rigidbody rb;
     Animator anim;
+    BubbleScript bubbleScript;
 
     // Movement
     Vector2 movementInput;
@@ -61,11 +62,13 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        bubbleScript = GetComponentInChildren<BubbleScript>();
 
         playerFollow.name = gameObject.name + "_PlayerFollow";
         playerFollow.parent = null;
 
         dashDelayTimer = dashDelayTime;
+
 
         // Set up character variables
 
@@ -290,8 +293,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISION");
-
+        // Aplicar velocidades de impacto
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
 
         GameplayMultiplayerManager.Instance.GetAllPlayers();
@@ -316,6 +318,8 @@ public class PlayerController : MonoBehaviour
                 otherPlayer.SetLinearVelocity(-dir * resultVelocity);
             }
         }
+
+        bubbleScript.Collision(collision);
     }
 
 
