@@ -798,87 +798,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3773079240539793540, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3773079240539793540, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8279337039910162350, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5690259259329346059, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-    - {fileID: 3023553174242637294, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-    - {fileID: 7481581451152667793, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8279337039910162350, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7687908004675391490}
-    - targetCorrespondingSourceObject: {fileID: 8279337039910162350, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7687908004675391495}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
---- !u!1 &7687908004675391489 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8279337039910162350, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
-  m_PrefabInstance: {fileID: 7687908004675391488}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &7687908004675391490
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7687908004675391489}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &7687908004675391495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7687908004675391489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0093f022b168f554da13ad41a42fcfb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 500
-  debugRaycast: 1
-  desiredHeight: 1.5
-  raycastDistance: 3
-  springForceMultiplier: 2.5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  jumpDesiredHeight: 4
-  desiredHeightDecreaseRate: 2
-  rb: {fileID: 7687908004675391490}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class BubbleCanyonsManager : Singleton<BubbleCanyonsManager>
     {
         _previousCanyon = 0;
         _timeBetweenBubbles = timeBetweenBubbles;
-        _timeBetweenBubblesCounter = timeBetweenBubbles;
+        _timeBetweenBubblesCounter = 0f;
     }
 
     private void Update()
