@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
 
-
         playerFollow.name = gameObject.name + "_PlayerFollow";
         playerFollow.parent = null;
 
@@ -257,5 +256,41 @@ public class PlayerController : MonoBehaviour
     Vector3 IgnoreY(Vector3 vector)
     {
         return new Vector3(vector.x, 0, vector.z);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("COLLISION");
+
+        PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
+
+        if (otherPlayer != null)
+        {
+            // El player que tenga mas velocidad resuelve las velocidades
+            float playerVelocity = GetVelocityMagnitude();
+            float otherPlayerVelocity = otherPlayer.GetVelocityMagnitude();
+
+            float velocityMid = (playerVelocity + otherPlayerVelocity) / 2;
+
+            Vector3 dir = transform.position - otherPlayer.transform.position;
+            dir.Normalize();
+
+            // El jugador que va mas rapido se encarga de resolver la colision
+            if (playerVelocity > otherPlayerVelocity)
+            {
+                SetLinearVelocity(dir * velocityMid * 2);
+                otherPlayer.SetLinearVelocity(-dir * velocityMid * 2);
+            }
+        }
+    }
+
+    public void SetLinearVelocity(Vector3 linearVelocity)
+    {
+        rb.linearVelocity = linearVelocity;
+    }
+
+    public float GetVelocityMagnitude()
+    {
+        return rb.linearVelocity.magnitude;
     }
 }

@@ -81,6 +81,11 @@ public class GameplayMultiplayerManager : MonoBehaviour
         }
     }
 
+    public List<MultiplayerInstance> GetAllPlayers()
+    {
+        return allPlayers;
+    }
+
     // This function is called everytime a player joined
     //public void PlayerJoined(PlayerInput newplayer)
     //{
