@@ -7,6 +7,7 @@ public class DeathTrigger : MonoBehaviour
         if (other.gameObject.TryGetComponent<PlayerController>(out var playerController) != true)
             return;
         
+        SoundManager.Instance.PlaySound(Sound.BubbleExplosion);
         Destroy(other.gameObject);
     }
 }
