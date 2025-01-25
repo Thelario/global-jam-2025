@@ -3,6 +3,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public Transform endPoint;
+    public float speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,7 +13,7 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.position = Vector3.forward * 2 * Time.deltaTime ;
-        
+        transform.Translate(Vector3.back * speed * Time.deltaTime);
+
     }
 }
