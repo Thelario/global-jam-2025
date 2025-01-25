@@ -83,17 +83,16 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void InitMinigame()
     {
-        if (m_currentMinigame)
-        {
-            //Terminar el current, asignar y quitarlo de la lista. Inicializarlo y empezar
-            EndMinigame();
-            m_currentMinigame = m_GameList[0];
-            m_GameList.RemoveAt(0);
+        if (m_GameList == null) return;
+        if (m_currentMinigame) EndMinigame();
+        //Terminar el current, asignar y quitarlo de la lista. Inicializarlo y empezar
+        m_currentMinigame = m_GameList[0];
+        m_GameList.RemoveAt(0);
 
-            OnMinigameInit?.Invoke();
-            m_currentMinigame.MinigameInit();
-            StartMinigame();
-        }
+        OnMinigameInit?.Invoke();
+        m_currentMinigame.MinigameInit();
+        if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
+        StartMinigame();
     }
 
     public void StartMinigame()

@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     public CharacterData[] currentCharactersData = new CharacterData[maxPlayers];
     public InputDevice[] currentDevices = new InputDevice[maxPlayers];
 
+    // Esta variable se utiliza en la escena de earnPoints para saber el orden de puntuacion
+    // El primero es el mas perdedor, y el ultimo el mas ganador
+    public CharacterData[] winPositions = new CharacterData[maxPlayers];
+
     [SerializeField] public GameObject playerPref;
 
     // TRANSITION STUFF
@@ -166,5 +170,20 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    // Se van a�adiendo a los jugadores que van perdiendo
+    public void AddLoser(PlayerCharacterController playerController)
+    {
+        int loserPlayerIndex = playerController.GetComponent<MultiplayerInstance>().playerIndex;
+
+        for (int i = winPositions.Length - 1; i >= 0; i--)
+        {
+            if (winPositions[i] == null)
+            {
+                winPositions[i] = currentCharactersData[loserPlayerIndex];
+                break;
+            }
+        }
     }
 }
