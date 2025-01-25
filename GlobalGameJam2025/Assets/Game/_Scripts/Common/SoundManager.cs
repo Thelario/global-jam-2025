@@ -22,11 +22,6 @@ public class SoundManager : Singleton<SoundManager>
         Configure();
     }
 
-    private void Update()
-    {
-        PlaySound(Sound.BubbleRoll);
-    }
-
     private void Configure()
     {
         _sounds = new Dictionary<Sound, SoundSO>();
