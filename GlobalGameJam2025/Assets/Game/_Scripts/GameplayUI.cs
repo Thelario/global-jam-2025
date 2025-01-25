@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class GameplayUI : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite finishSprite;
     [SerializeField] private Sprite readySprite, setSprite, goSprite;
+    [SerializeField] private List<TextMeshProUGUI> playerStats;
     private MinigameManager manager;
     private bool shoudlCount = false;
     private void OnEnable()
@@ -29,6 +31,15 @@ public class GameplayUI : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        List<PlayerData> buenaDataCrack = GameManager.Instance.GetAllPlayer();
+        foreach(var tt in playerStats) tt.text = "0<size=60%>pts.";
+        if (playerStats != null && buenaDataCrack != null)
+        {
+            for(int i= 0; i < buenaDataCrack.Count; i++)
+            {
+                playerStats[i].text = $"{buenaDataCrack[i].TotalPoints}<size=60%>pts.";
+            }
+        }
         if (!mainImage) yield return null;
         blocker.alpha = 1.0f;
         mainImage.sprite = readySprite;
