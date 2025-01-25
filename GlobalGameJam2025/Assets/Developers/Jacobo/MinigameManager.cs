@@ -90,6 +90,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
         OnMinigameInit?.Invoke();
         m_currentMinigame.MinigameInit();
+        if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
         StartMinigame();
     }
 

@@ -14,4 +14,5 @@ public static class AssetLocator
 
     public static GameObject PlayerPrefab => assetData.PlayerPrefab;
     public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;
+    public static GameObject MainCanvasPrefab => assetData.MainCanvasPrefab;
 }
