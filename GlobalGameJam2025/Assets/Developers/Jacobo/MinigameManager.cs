@@ -90,7 +90,7 @@ public class MinigameManager : Singleton<MinigameManager>
         if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
         SpawnPlayers();
 
-        StartMinigame();
+        //StartMinigame();
     }
 
     public void StartMinigame()

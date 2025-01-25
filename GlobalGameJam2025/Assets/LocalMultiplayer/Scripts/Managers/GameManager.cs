@@ -43,6 +43,10 @@ public class PlayerData
     
     private int m_totalPoints;
     public int TotalPoints => m_totalPoints;
+    public void SetTotalPoints(int value)
+    {
+        m_totalPoints = value;
+    }
 }
 
 public class GameManager : Singleton<GameManager>

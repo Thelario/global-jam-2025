@@ -696,7 +696,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 5843969868222508015}
   blocker: {fileID: 5789028607359613517}
-  gameSprite: {fileID: 643336280855318449}
+  mainImage: {fileID: 4151016292220815153}
+  readySprite: {fileID: 21300000, guid: 5a3db7847eef12649aee21faee0df776, type: 3}
+  finishSprite: {fileID: 21300000, guid: 84f03c83a0084c14abce5cb0b8e9bc3d, type: 3}
 --- !u!1 &3173603738114949297
 GameObject:
   m_ObjectHideFlags: 0
