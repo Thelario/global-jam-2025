@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
 {
     [Header("Debug")]
+    [SerializeField] bool spawnPlayersOnStart = true;
     [SerializeField] bool firstPlayerAsGamepad;
     [SerializeField] CharacterData FirstPlayerData_Debug;
     [SerializeField] CharacterData SecondPlayerData_Debug;
@@ -24,7 +25,6 @@ public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
         playerPositions = new Transform[playerPositionsContainer.childCount];
         for (int i = 0; i < playerPositionsContainer.childCount; i++)
             playerPositions[i] = playerPositionsContainer.GetChild(i);
-
 
         // Si no hay jugadores registrados, se crean dos para debugear
         if (GameManager.GetInstance().currentCharactersData[0] == null)
@@ -54,6 +54,12 @@ public class GameplayMultiplayerManager : Singleton<GameplayMultiplayerManager>
                 GameManager.GetInstance().currentDevices[1] = player2_input;
         }
 
+        if (spawnPlayersOnStart)
+            SpawnPlayers();
+    }
+
+    public void SpawnPlayers()
+    {
         CharacterData[] characters = GameManager.GetInstance().currentCharactersData;
         InputDevice[] devices = GameManager.GetInstance().currentDevices;
 
