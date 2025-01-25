@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         MinigameManager manager = MinigameManager.Instance;
-        manager.OnMinigameStart += ()=> ChangeState(PlayerState.CanMove);
-        manager.OnMinigameEnd += ()=> ChangeState(PlayerState.Waiting);
+        manager.OnMinigameStart += () => ChangeState(PlayerState.CanMove);
+        manager.OnMinigameEnd += () => ChangeState(PlayerState.Waiting);
     }
     private void OnDisable()
     {
@@ -119,7 +119,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (playerState == PlayerState.Waiting) return;
+        if (SceneNav.GetCurrentScene() != "EarnPoints")
+        {
+            if (playerState == PlayerState.Waiting) return;
+        }
+
         JumpCheck();
 
         playerFollow.transform.position = transform.position;
@@ -208,7 +212,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerState == PlayerState.Waiting) return;
+        if (SceneNav.GetCurrentScene() != "EarnPoints")
+            if (playerState == PlayerState.Waiting) return;
+
         Move();
 
         CheckGround();

@@ -24,7 +24,7 @@ public class PlayerPointTower : MonoBehaviour
         //    AddChip(false);
     }
 
-    void AddChip(bool highHeight)
+    public void AddChip(bool highHeight)
     {
         Vector2 randomOffset = Random.insideUnitCircle.normalized * chipsZXOffset;
 
@@ -45,5 +45,10 @@ public class PlayerPointTower : MonoBehaviour
             yield return new WaitForSeconds(.4f);
             AddChip(true);
         }
+    }
+
+    public Vector3 GetPlayerSpawnPosition()
+    {
+        return new Vector3(transform.position.x, spawnHighHeight, transform.position.z);
     }
 }

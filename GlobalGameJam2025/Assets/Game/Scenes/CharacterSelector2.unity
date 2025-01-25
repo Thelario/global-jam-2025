@@ -1075,6 +1075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
+  controllersInitialized: 0
 --- !u!4 &1154923485
 Transform:
   m_ObjectHideFlags: 0
@@ -1517,7 +1518,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1312096344}
   - component: {fileID: 1312096343}
-  - component: {fileID: 1312096342}
   - component: {fileID: 1312096345}
   m_Layer: 0
   m_Name: Main Camera
@@ -1526,14 +1526,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1312096342
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312096341}
-  m_Enabled: 1
 --- !u!20 &1312096343
 Camera:
   m_ObjectHideFlags: 0
@@ -1820,7 +1812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -161.72002}
+  m_AnchoredPosition: {x: 0, y: -161.72003}
   m_SizeDelta: {x: 1399.77, y: -323.45}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1534290109
@@ -2235,7 +2227,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1833792186}
   - component: {fileID: 1833792185}
-  - component: {fileID: 1833792184}
   - component: {fileID: 1833792183}
   m_Layer: 0
   m_Name: Rendercam
@@ -2288,14 +2279,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1833792184
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833792182}
-  m_Enabled: 1
 --- !u!20 &1833792185
 Camera:
   m_ObjectHideFlags: 0

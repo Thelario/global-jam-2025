@@ -15,21 +15,22 @@ public class MinigameManager : Singleton<MinigameManager>
 
     // Properties
     public MinigameBase CurrentMinigame { get; private set; }
-    public int GameRounds { get; private set; } = 4;
-    public int RoundsLeft ()
+    public int GameRounds { get; private set; } = 5;
+    public int RoundsLeft()
     {
         if (m_GameList != null) return m_GameList.Count();
         else return 0;
     }
     public int GameMaxTimer { get; private set; } = 60;
-    public float GameTimer {
+    public float GameTimer
+    {
         get { return currentTimer; }
-        private set { currentTimer = Mathf.Max(0,value); } 
+        private set { currentTimer = Mathf.Max(0, value); }
     }
 
     // Private Fields
     private static List<MinigameBase> m_GameList = new List<MinigameBase>();
-    private List<MultiplayerInstance> playersDead = new List<MultiplayerInstance>();
+    private List<PlayerData> playersDead = new List<PlayerData>();
     private List<MultiplayerInstance> allPlayers = new List<MultiplayerInstance>();
     private float currentTimer = 0f;
     private bool timerOn = false;
@@ -160,11 +161,11 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public List<MultiplayerInstance> GetAllPlayers() => allPlayers;
 
-    public List<MultiplayerInstance> GetLastGameScore() => playersDead;
+    public List<PlayerData> GetLastGameScore() => playersDead;
 
     public void PlayerDeath(MultiplayerInstance player)
     {
-        playersDead.Add(player);
+        playersDead.Add(player.PlayerData);
         if (playersDead.Count >= GameManager.Instance.NumberOfPlayers() - 1) EndMinigame();
     }
 
@@ -172,12 +173,12 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         foreach (var player in allPlayers)
         {
-            if (!playersDead.Contains(player))
-                playersDead.Add(player);
+            if (!playersDead.Contains(player.PlayerData))
+                playersDead.Add(player.PlayerData);
         }
     }
 
-    public void SpawnPlayers()
+    public void SpawnPlayers() 
     {
         allPlayers.Clear();
         var spawnPoints = SpawnPoint.GetSpawnPoints();
@@ -193,6 +194,18 @@ public class MinigameManager : Singleton<MinigameManager>
                 multiplayerInstance.AssignData(playerDataList[i]);
                 allPlayers.Add(multiplayerInstance);
             }
+        }
+    }
+
+    public void SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
+    {
+        var playerDataList = GameManager.Instance.GetAllPlayer();
+
+        var playerObject = Instantiate(AssetLocator.PlayerPrefab(), playerPosition, Quaternion.identity);
+        if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
+        {
+            multiplayerInstance.AssignData(playerDataList[playerIndex]);
+            allPlayers.Add(multiplayerInstance);
         }
     }
 
