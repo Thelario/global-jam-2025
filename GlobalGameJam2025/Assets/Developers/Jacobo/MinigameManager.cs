@@ -3,6 +3,8 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// MINIGAME MANAGER: Al comienzo, busca 
@@ -80,8 +82,9 @@ public class MinigameManager : Singleton<MinigameManager>
         if (TESTING_GAME) m_GameList = new List<MinigameBase>() { TESTING_GAME };
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.5f);
         InitMinigame();
     }
     public void InitMinigame()
@@ -94,7 +97,10 @@ public class MinigameManager : Singleton<MinigameManager>
 
         OnMinigameInit?.Invoke();
         m_currentMinigame.MinigameInit();
+        
         if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
+        SpawnPlayers();
+        
         StartMinigame();
     }
 
@@ -121,5 +127,29 @@ public class MinigameManager : Singleton<MinigameManager>
             Debug.Log("Minigame Ended: " + m_currentMinigame.name);
             m_currentMinigame = null;
         }
-    }  
+    }
+    private GameObject playerPrefab;
+    private List<MultiplayerInstance> allPlayers;
+    public List<MultiplayerInstance> GetAllPlayers() => allPlayers;
+    
+    public void SpawnPlayers()
+    {
+        playerPrefab = AssetLocator.PlayerPrefab();
+        allPlayers = new List<MultiplayerInstance>();
+
+        //if(GameManager.Instance.GetAllPlayer().Count == 0) GameManager.Instance.AddPlayer(Keyboard.current);
+        //List<Vector3> newPosList = new List<Vector3>();
+        //List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
+        //foreach (var pos in spawnPoints)
+        //{
+        //    newPosList.Add(pos.SpawnPosition);
+        //}
+
+        List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
+        for (int i = 0; i < allPlayerData.Count; i++)
+        {
+            GameObject gb = Instantiate(playerPrefab, Vector3.up * 2 *i, Quaternion.identity);
+            if (gb.TryGetComponent(out MultiplayerInstance multi)) allPlayers.Add(multi);
+        }
+    }
 }

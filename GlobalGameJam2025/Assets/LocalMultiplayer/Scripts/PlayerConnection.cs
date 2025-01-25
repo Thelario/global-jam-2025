@@ -17,7 +17,7 @@ public class PlayerConnection : MonoBehaviour
         InputSystem.onDeviceChange -= OnDeviceChange;
     }
 
-    private void Awake()
+    private void Start()
     {
         if (AlwaysAddKeyboard && Keyboard.current != null)
         {
@@ -38,7 +38,7 @@ public class PlayerConnection : MonoBehaviour
         }
     }
 
-    private void AddPlayer(InputDevice device)
+    public void AddPlayer(InputDevice device)
     {
         connectedDevices.Add(device);
         GameManager.Instance.AddPlayer(device);

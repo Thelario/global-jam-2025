@@ -16,6 +16,7 @@ public class SpawnPoint : MonoBehaviour
     
     private void Awake()
     {
+        transform.parent = null;
         if(spawnPoint == null) spawnPoint = new List<SpawnPoint>();
         m_spawnPosition = transform.position;
         spawnPoint.Add(this);
