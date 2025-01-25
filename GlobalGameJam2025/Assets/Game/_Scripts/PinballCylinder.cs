@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -6,29 +6,13 @@ using Random = UnityEngine.Random;
 
 public class PinballCylinder : MonoBehaviour
 {
+    Tween t, shaderT;
     [SerializeField] private float pinballForce;
     [SerializeField] private float popupTime;
     [SerializeField] private float scaleMultiplier;
-    [SerializeField] private Ease ease;
+    [SerializeField] private Ease ease = Ease.OutQuad;
     [SerializeField] private Transform target;
     [SerializeField] private List<Sound> sounds;
-    
-    private Vector3 _originalScale;
-
-    private void Start()
-    {
-        _originalScale = target.localScale;
-    }
-
-    private void OnEnable()
-    {
-        _originalScale = target.localScale;
-    }
-
-    private void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -43,17 +27,11 @@ public class PinballCylinder : MonoBehaviour
 
     private void PopUp()
     {
-        _originalScale = target.localScale;
-        Vector3 newScale = new Vector3(_originalScale.x * scaleMultiplier, _originalScale.y,
-            _originalScale.z * scaleMultiplier);
-        
-        target.DOKill();
-        target.DOScale(newScale, popupTime).SetEase(ease).OnComplete(Reset);
-    }
+        if (t != null) t.Kill();
+        if (shaderT != null) shaderT.Kill();
+        t = target.DOScale(Vector3.one * scaleMultiplier, popupTime).SetEase(ease).SetLoops(2, LoopType.Yoyo);
 
-    private void Reset()
-    {
-        target.DOKill();
-        target.DOScale(_originalScale, popupTime / 2f).onComplete();
+        if (!target.TryGetComponent<Renderer>(out var renderer)) return;
+        shaderT = renderer.material.DOFloat(1f, "_Sat", popupTime).SetEase(Ease.InOutSine).SetLoops(2, LoopType.Yoyo);
     }
 }
