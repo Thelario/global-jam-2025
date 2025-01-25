@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         playerState = newState;
     }
 
-    private PlayerState playerState = PlayerState.Waiting;
+    private PlayerState playerState = PlayerState.CanMove;
     [HideInInspector] public int playerIndex;
 
     [Header("References")]

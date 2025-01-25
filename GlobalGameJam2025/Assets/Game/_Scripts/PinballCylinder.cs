@@ -32,6 +32,6 @@ public class PinballCylinder : MonoBehaviour
         t = target.DOScale(Vector3.one * scaleMultiplier, popupTime).SetEase(ease).SetLoops(2, LoopType.Yoyo);
 
         if (!target.TryGetComponent<Renderer>(out var renderer)) return;
-        shaderT = renderer.material.DOFloat(1f, "_Sat", popupTime).SetEase(Ease.InOutSine).SetLoops(2, LoopType.Yoyo);
+        shaderT = renderer.material.DOFloat(0.85f, "_Sat", 0.2f).SetEase(Ease.OutQuad).SetLoops(2, LoopType.Yoyo);
     }
 }
