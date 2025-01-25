@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BubbleShield_Mat_Red
+  m_Name: BubbleShield_Mat_Yellow 1
   m_Shader: {fileID: -6465566751694194690, guid: 4dcea19058b25f34fae1228a98b27e5e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -134,8 +134,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_027e4586f058443ca29389a6ccbed930: {r: 8.574187, g: 3.266192, b: 0, a: 0}
-    - Color_cf12b49411d94583a269f83e6981abd1: {r: 3.7747986, g: 1.345795, b: 0, a: 0}
+    - Color_027e4586f058443ca29389a6ccbed930: {r: 8.574187, g: 0.5964275, b: 0, a: 0}
+    - Color_cf12b49411d94583a269f83e6981abd1: {r: 7.991451, g: 0.51484734, b: 0, a: 0}
     - Vector2_6d629b6a76b14f7b9f3bf64e1f22ccd1: {r: 0.4, g: 4.3, b: 0, a: 0}
     - Vector3_a1dc6aec9c4446e7b2ac32a6487c43eb: {r: 0, g: 0, b: 0, a: 0}
     - Vector3_fae618e0aad24534ba5a62afa34a08b6: {r: 0, g: 0, b: 0, a: 0}
