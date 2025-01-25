@@ -15,7 +15,11 @@ public class MinigameManager : Singleton<MinigameManager>
     // Properties
     public MinigameBase CurrentMinigame { get; private set; }
     public int GameRounds { get; private set; } = 4;
-    public int GameTimer { get; private set; } = 60;
+    public int GameMaxTimer { get; private set; } = 60;
+    public float GameTimer {
+        get { return currentTimer; }
+        private set { currentTimer = Mathf.Max(0,value); } 
+    }
 
     // Private Fields
     private static List<MinigameBase> m_GameList = new List<MinigameBase>();
@@ -23,8 +27,6 @@ public class MinigameManager : Singleton<MinigameManager>
     private List<MultiplayerInstance> allPlayers = new List<MultiplayerInstance>();
     private float currentTimer = 0f;
     private bool timerOn = false;
-
-    [SerializeField] private MinigameBase TESTING_GAME;
 
     #region Unity Lifecycle
 
@@ -34,12 +36,10 @@ public class MinigameManager : Singleton<MinigameManager>
 
     private void Start()
     {
-        if (TESTING_GAME != null)
-        {
-            InitMinigameInfo(1, 20);
-            CurrentMinigame = TESTING_GAME;
-            InitMinigame();
-        }
+        //Testin only
+        if (!SceneNav.IsGameplay()) return;
+        if(m_GameList.Count == 0 || CurrentMinigame != null) InitMinigameInfo(1,30);
+        InitMinigame();
     }
 
     private void Update()
@@ -64,7 +64,7 @@ public class MinigameManager : Singleton<MinigameManager>
     public void InitMinigameInfo(int rounds, int timer, int gameIndex = 0)
     {
         GameRounds = rounds;
-        GameTimer = timer;
+        GameMaxTimer = timer;
         if (gameIndex == 0) AssignMinigamesRandom();
         else AssignMinigame(gameIndex);
     }
