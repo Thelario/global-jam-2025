@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CellManager : MonoBehaviour
 {
     public GameObject[] cells;
     public bool randomizing = false;
     public int level = 10;
+    public Text count;
     
     public Material[] materials;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -28,12 +30,16 @@ public class CellManager : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(3f);
-            level--;
-            if (level == 1)
-            {
-                level = 1;
-            }
+            count.text = "3";
+            yield return new WaitForSeconds(1f);
+            count.text = "2";
+            yield return new WaitForSeconds(1f);
+            count.text = "1";
+            yield return new WaitForSeconds(1f);
+            count.text = "";
+            yield return new WaitForSeconds(1f);
+
+            
             for (int x = 0; x < 10; x++)
             {
 
@@ -78,6 +84,11 @@ public class CellManager : MonoBehaviour
                 cells[i].SetActive(true);
                 cells[i].GetComponent<Renderer>().material = materials[2];
 
+            }
+            level--;
+            if (level == 1)
+            {
+                level = 1;
             }
         }
         
