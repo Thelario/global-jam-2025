@@ -151,7 +151,7 @@ public class MinigameManager : Singleton<MinigameManager>
         playerPrefab = AssetLocator.PlayerPrefab();
         allPlayers = new List<MultiplayerInstance>();
 
-        //if(GameManager.Instance.GetAllPlayer().Count == 0) GameManager.Instance.AddPlayer(Keyboard.current);
+        if(GameManager.Instance.GetAllPlayer().Count == 0) GameManager.Instance.AddPlayer(Keyboard.current);
         //List<Vector3> newPosList = new List<Vector3>();
         //List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
         //foreach (var pos in spawnPoints)

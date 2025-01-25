@@ -82,12 +82,12 @@ public class GameManager : Singleton<GameManager>
 
     #region CambiarTransition
     // TRANSITION STUFF
-    [Header("Transition Parameters")]
-    [SerializeField] RectTransform left;
-    [SerializeField] RectTransform right;
-    [SerializeField] TMP_Text level_Text;
-    [SerializeField] TMP_Text levelNum_Text;
-    [SerializeField] Image icon;
+    //[Header("Transition Parameters")]
+    RectTransform left;
+    RectTransform right;
+    TMP_Text level_Text;
+    TMP_Text levelNum_Text;
+    Image icon;
     float transitionDuration = 1;
 
     float openValue = 700;
