@@ -9,27 +9,13 @@ public class CameraUpRaceMinigame : MonoBehaviour
     public Transform secondposition, endposition;
     private bool firstmove, secondmove;
     bool enableinput = false;
-    public GameObject[] players;
     public Text count;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
         StartCoroutine(Begin());
-        for(int i=0; i<players.Length; i++)
-        {
-            if (players[i].GetComponent<PlayerInput>() && players[i].GetComponent<PlayerMovement>())
-            players[i].GetComponent<PlayerInput>().enabled = false;
-            players[i].GetComponent<PlayerMovement>().enabled = false;
-            
-        }
-        
     }
 
-    
-
-    // Update is called once per frame
     void Update()
     {
         if (firstmove)
@@ -43,6 +29,8 @@ public class CameraUpRaceMinigame : MonoBehaviour
     }
     IEnumerator Begin()
     {
+        yield return new WaitForSeconds(3f);
+        
         firstmove = true;
         secondmove = false;
         count.text = "3";
