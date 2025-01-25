@@ -35,9 +35,10 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
                 yield return new WaitForSeconds(1);
             }
         }
+        //TODO: MIRAR
 
-        GameplayMultiplayerManager.Instance.SpawnPlayers();
+        //GameplayMultiplayerManager.Instance.SpawnPlayers();
 
-        GameManager.instance.ChangeScene("Gameplay");
+        GameManager.Instance.ChangeScene("Gameplay");
     }
 }

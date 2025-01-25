@@ -35,32 +35,33 @@ public class SelectionMultiplayerManager : MonoBehaviour
 
     public void PlayerJoined(PlayerInput newplayer)
     {
-        // Asignaciones al script del jugador
-        PlayerSelection newPlayerCard = newplayer.GetComponent<PlayerSelection>();
-        newPlayerCard.selectionMultiplayerManager = this;
-        newPlayerCard.playerIndex = playerInputManager.playerCount - 1;
-
-        newPlayerCard.transform.SetParent(playerContainer);
-
-        // SpawnAnimation
-        if (allPlayers.Count < playerPositions.Length)
-            newplayer.transform.position = playerPositions[allPlayers.Count].position;
-        else
-        {
-            Debug.LogError("Not Enough player positions");
-            Debug.LogError("Player Index : " + newPlayerCard.playerIndex);
-            Debug.LogError("playerPositions.Length : " + playerPositions.Length);
-        }
-
-        newplayer.transform.localScale = Vector3.zero;
-        newplayer.transform.DOScale(1, 2).SetEase(Ease.OutElastic);
-
-        allPlayers.Add(newplayer);
-
-
-        Character characterSelectedForThisPlayer = GetFirstAvailableCharacter();
-        newPlayerCard.characterSelected = GameManager.GetInstance().GetCharacterData(characterSelectedForThisPlayer);
-        charactersBeingUsed.Add(characterSelectedForThisPlayer);
+        GameManager.Instance.AddPlayer(newplayer.devices[0]);
+        //// Asignaciones al script del jugador
+        //PlayerSelection newPlayerCard = newplayer.GetComponent<PlayerSelection>();
+        //newPlayerCard.selectionMultiplayerManager = this;
+        //newPlayerCard.playerIndex = playerInputManager.playerCount - 1;
+        //
+        //newPlayerCard.transform.SetParent(playerContainer);
+        //
+        //// SpawnAnimation
+        //if (allPlayers.Count < playerPositions.Length)
+        //    newplayer.transform.position = playerPositions[allPlayers.Count].position;
+        //else
+        //{
+        //    Debug.LogError("Not Enough player positions");
+        //    Debug.LogError("Player Index : " + newPlayerCard.playerIndex);
+        //    Debug.LogError("playerPositions.Length : " + playerPositions.Length);
+        //}
+        //
+        //newplayer.transform.localScale = Vector3.zero;
+        //newplayer.transform.DOScale(1, 2).SetEase(Ease.OutElastic);
+        //
+        //allPlayers.Add(newplayer);
+        //
+        //
+        //Character characterSelectedForThisPlayer = GetFirstAvailableCharacter();
+        //newPlayerCard.characterSelected = GameManager.Instance.GetCharacterData(characterSelectedForThisPlayer);
+        //charactersBeingUsed.Add(characterSelectedForThisPlayer);
     }
 
     private Character GetFirstAvailableCharacter()
@@ -78,7 +79,8 @@ public class SelectionMultiplayerManager : MonoBehaviour
 
     public CharacterData SelectLeftCharacterData(Character currentCharacter)
     {
-        return GameManager.GetInstance().GetCharacterData(SelectLeftCharacter(currentCharacter));
+        return null;
+        //GameManager.Instance.ChangeSkin();
     }
 
     public Character SelectLeftCharacter(Character currentCharacter)
@@ -114,7 +116,8 @@ public class SelectionMultiplayerManager : MonoBehaviour
 
     public CharacterData SelectRightCharacterData(Character currentCharacter)
     {
-        return GameManager.GetInstance().GetCharacterData(SelectRightCharacter(currentCharacter));
+        return null;
+        //return GameManager.Instance.GetCharacterData(SelectRightCharacter(currentCharacter));
     }
 
     public Character SelectRightCharacter(Character currentCharacter)
@@ -196,7 +199,7 @@ public class SelectionMultiplayerManager : MonoBehaviour
         for (int i = 0; i < allPlayers.Count; i++)
             devices[i] = allPlayers[i].GetDevice<InputDevice>();
 
-        GameManager.GetInstance().AllPlayersSelected(charactersData, devices);
+        GameManager.Instance.AllPlayersSelected(charactersData, devices);
     }
 
     bool AllPlayersReady()

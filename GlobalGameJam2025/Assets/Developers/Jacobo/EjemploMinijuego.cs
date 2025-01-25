@@ -16,7 +16,7 @@ public class EjemploMinijuego : MinigameBase
     }
     public override void MinigameUpdate() 
     {
-        if(prefabIns) prefabIns.transform.Rotate(Vector3.up * 3);
+        //if(prefabIns) prefabIns.transform.Rotate(Vector3.up * 3);
     }
     public override void MinigameEnd()
     {

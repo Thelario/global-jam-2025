@@ -21,31 +21,12 @@ public class ConfigGame : MonoBehaviour
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI gameText;
     [SerializeField] private TextMeshProUGUI roundText, timerText;
-    [Header("Players")]
-    [SerializeField] private TextMeshProUGUI numberPlayers;
-    [SerializeField] private List<CanvasGroup> playerList;
-    
     
     private void Start()
     {
         if (!MinigameManager.Instance) return;
         gameNames = new List<string>(MinigameManager.GamesLoaded().Values);
         gameNames.Insert(0, "Random");
-
-        //Players Connected
-        for (int i = 0; i < playerList.Count; i++)
-        {
-            playerList[i].transform.DOScale(Vector3.one * 1.025f, 0.3f).SetDelay(i * UnityEngine.Random.Range(0.2f, 0.7f))
-                .SetLoops(-1, LoopType.Yoyo);
-        }
-        if (!GameManager.instance) return;
-        int connectedPlys = GameManager.instance.currentCharactersData.Length;
-        numberPlayers.text = $"Players {connectedPlys}/4";
-        for (int i = 4- connectedPlys; i >0;i--)
-        {
-            playerList[i].alpha = 0.2f;
-        }
-        
     }
 
     public void SelectGame(bool right)
@@ -73,6 +54,7 @@ public class ConfigGame : MonoBehaviour
     }
     public void ChangeScene()
     {
+        DOTween.KillAll();
         MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
         SceneManager.LoadScene("Gameplay");
     }

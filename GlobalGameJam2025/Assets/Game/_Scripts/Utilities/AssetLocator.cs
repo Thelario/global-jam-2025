@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AssetLocator", menuName = "Managers/AssetLocator", order = 1)]
@@ -12,7 +14,7 @@ public static class AssetLocator
         if (assetData == null) Debug.LogError("AssetData not found in Resources!");
     }
 
-    public static GameObject PlayerPrefab => assetData.PlayerPrefab;
+    public static GameObject PlayerPrefab() => assetData.PlayerPrefab;
     public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;
     public static GameObject MainCanvasPrefab => assetData.MainCanvasPrefab;
 }

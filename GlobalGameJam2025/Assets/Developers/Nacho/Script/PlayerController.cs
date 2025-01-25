@@ -308,7 +308,7 @@ public class PlayerController : MonoBehaviour
         // Aplicar velocidades de impacto
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
 
-        GameplayMultiplayerManager.Instance.GetAllPlayers();
+        //GameplayMultiplayerManager.Instance.GetAllPlayers();
 
         if (otherPlayer != null)
         {

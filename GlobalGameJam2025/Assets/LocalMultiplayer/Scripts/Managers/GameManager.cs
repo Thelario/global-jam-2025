@@ -6,24 +6,81 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+using System;
 
-public class GameManager : MonoBehaviour
+/// <summary>
+/// PlayerData se encarga de llevar la info de cada jugador
+/// conectado. El input que usa y el numero de puntos que tiene.
+/// Se deberia crear cuando se conecte un jugador, y se mantiene hasta
+/// que se termine la partida y gane alguien
+/// </summary>
+[System.Serializable]
+public enum SkinType
 {
-    const int maxPlayers = 4;
+    Default = 0,
+    Red = 1,
+    Blue = 2,
+    Green = 3
+}
+public class PlayerData
+{
+    public PlayerData(int newIndex, InputDevice newDevice, SkinType newSkinType = SkinType.Default)
+    {
+        this.m_index = newIndex;
+        this.m_device = newDevice;
+        this.m_SkinType = newSkinType;
+        this.m_totalPoints = 0;
+    }
+    private int m_index;
+    public int Index => m_index;
 
-    // CHARACTER SELECTION
+    private SkinType m_SkinType;
+    private SkinType SkinType => m_SkinType;
+    //Getters
+    private InputDevice m_device;
+    public InputDevice Device => m_device;
+    
+    private int m_totalPoints;
+    public int TotalPoints => m_totalPoints;
+}
 
-    [SerializeField] CharacterData[] allCharactersData;
+public class GameManager : Singleton<GameManager>
+{
+    const int MAX_PLAYER = 4;
 
-    public CharacterData[] currentCharactersData = new CharacterData[maxPlayers];
-    public InputDevice[] currentDevices = new InputDevice[maxPlayers];
+    private List<PlayerData> playerData;
+    public List<PlayerData> GetAllPlayer() => playerData;
+    public int NumberOfPlayers() => playerData.Count;
+    public event UnityAction OnPlayerAdded;
+    public event UnityAction OnPlayerRemoved;
+    
+    public void ChangeSkin(PlayerData pl, bool nextSkin = true)
+    {
+        if (!playerData.Contains(pl)) return;
+        Debug.Log($"Next skin assigned for Player{pl.Index}");
+    }
+    public void AddPlayer(InputDevice id)
+    {
+        PlayerData newPlayerData = new PlayerData(playerData.Count, id);
+        playerData.Add(newPlayerData);
+        OnPlayerAdded?.Invoke();
+    }
+    public void RemovePlayer(InputDevice id)
+    {
+        PlayerData newPlayerData = new PlayerData(playerData.Count, id);
+        playerData.Remove(newPlayerData);
+        OnPlayerRemoved?.Invoke();
+        ReassignPlayerIndices();
+    }
 
-    // Esta variable se utiliza en la escena de earnPoints para saber el orden de puntuacion
-    // El primero es el mas perdedor, y el ultimo el mas ganador
-    public CharacterData[] winPositions = new CharacterData[maxPlayers];
+    private void ReassignPlayerIndices()
+    {
+        
+    }
 
-    [SerializeField] public GameObject playerPref;
 
+    #region CambiarTransition
     // TRANSITION STUFF
     [Header("Transition Parameters")]
     [SerializeField] RectTransform left;
@@ -38,37 +95,37 @@ public class GameManager : MonoBehaviour
 
     // Devuelve true si se esta en medio de una transicion
     [HideInInspector] public bool duringTransition = false;
+    #endregion
 
-    public static GameManager instance;
-    public static GameManager GetInstance() { return instance; }
-    private void Awake()
+    protected override void Awake()
     {
-        // Singleton
-        if (instance == null) instance = this;
-        else { Destroy(gameObject); return; }
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 
+        //INIT
+        playerData = new List<PlayerData>();
+       
         // Todos los elementos de la transicion empiezan inactivos
-        level_Text.gameObject.SetActive(false);
-        levelNum_Text.gameObject.SetActive(false);
-        icon.gameObject.SetActive(false);
+        //level_Text.gameObject.SetActive(false);
+        //levelNum_Text.gameObject.SetActive(false);
+        //icon.gameObject.SetActive(false);
     }
 
     // Se llama cuando se han elegido todos los jugadores y se cambia de escena
     public void AllPlayersSelected(CharacterData[] charactersData, InputDevice[] devices)
     {
-        currentCharactersData = charactersData;
-        currentDevices = devices;
+        Debug.Log("ALL PLAYERS SELECTED");
+        //currentCharactersData = charactersData;
+        //currentDevices = devices;
 
-        for (int i = 0; i < currentCharactersData.Length; i++)
-        {
-            if (currentCharactersData[i] != null)
-                Debug.Log("currentCharactersData_" + i + " = " + currentCharactersData[i].name 
-                    + " with input = " + devices[i]);
-        }
+        //for (int i = 0; i < currentCharactersData.Length; i++)
+        //{
+        //    if (currentCharactersData[i] != null)
+        //        Debug.Log("currentCharactersData_" + i + " = " + currentCharactersData[i].name 
+        //            + " with input = " + devices[i]);
+        //}
 
         //ChangeScene("Gameplay");
-        ChangeScene("HexagonalPushes");
+        //ChangeScene("HexagonalPushes");
     }
 
 
@@ -152,20 +209,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public CharacterData GetCharacterData(Character character)
-    {
-        foreach (var data in allCharactersData)
-        {
-            if (data.character == character)
-            {
-                return data;
-            }
-        }
-
-        Debug.LogWarning($"CharacterData para {character} no encontrado.");
-        return null;
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -175,15 +218,15 @@ public class GameManager : MonoBehaviour
     // Se van a�adiendo a los jugadores que van perdiendo
     public void AddLoser(PlayerCharacterController playerController)
     {
-        int loserPlayerIndex = playerController.GetComponent<MultiplayerInstance>().playerIndex;
+        //int loserPlayerIndex = playerController.GetComponent<MultiplayerInstance>().playerIndex;
 
-        for (int i = winPositions.Length - 1; i >= 0; i--)
-        {
-            if (winPositions[i] == null)
-            {
-                winPositions[i] = currentCharactersData[loserPlayerIndex];
-                break;
-            }
-        }
+        //for (int i = winPositions.Length - 1; i >= 0; i--)
+        //{
+        //    if (winPositions[i] == null)
+        //    {
+        //        winPositions[i] = currentCharactersData[loserPlayerIndex];
+        //        break;
+        //    }
+        //}
     }
 }

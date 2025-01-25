@@ -28,7 +28,7 @@ public class PillaPilla : MonoBehaviour
     {
         yield return new WaitForSeconds(delayStart);
 
-        players = GameplayMultiplayerManager.Instance.GetAllPlayers();
+        players = null;// GameplayMultiplayerManager.Instance.GetAllPl;
         if (players != null && players.Count > 0)
         {
             int randomIndex = Random.Range(0, players.Count);

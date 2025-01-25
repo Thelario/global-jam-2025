@@ -78,12 +78,15 @@ public class MinigameManager : Singleton<MinigameManager>
         base.Awake();
         //TODO: Remove on build
         if (TESTING_GAME) m_GameList = new List<MinigameBase>() { TESTING_GAME };
-        InitMinigame();
     }
 
+    private void Start()
+    {
+        InitMinigame();
+    }
     public void InitMinigame()
     {
-        if (m_GameList == null) return;
+        if (m_GameList == null || m_GameList.Count == 0|| m_GameList == null) return;
         if (m_currentMinigame) EndMinigame();
         //Terminar el current, asignar y quitarlo de la lista. Inicializarlo y empezar
         m_currentMinigame = m_GameList[0];
