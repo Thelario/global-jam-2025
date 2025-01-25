@@ -42,7 +42,7 @@ public class PlayerPointTower : MonoBehaviour
     {
         for (int i = 0; i < chips; i++)
         {
-            yield return new WaitForSeconds(.4f);
+            yield return new WaitForSeconds(.3f);
             AddChip(true);
         }
     }
