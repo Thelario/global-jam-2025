@@ -10,7 +10,6 @@ public class SpawnPoint : MonoBehaviour
     /// </summary>
     /// 
 
-    
     private void Awake()
     {
         transform.parent = null;
