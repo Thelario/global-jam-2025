@@ -62,6 +62,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlaySound(Sound sound)
     {
+        print("PlaySound");
         if (CanPlaySound(sound) == false) {
             return;
         }
