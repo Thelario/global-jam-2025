@@ -748,129 +748,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3405094335651940572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5072445630143756237}
-  - component: {fileID: 5930652682476517324}
-  - component: {fileID: 4047778484142808258}
-  - component: {fileID: 7634836168940350830}
-  - component: {fileID: 4597817027845689414}
-  m_Layer: 0
-  m_Name: Pinball
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5072445630143756237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405094335651940572}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000031347, y: 0.5, z: 0.00000062693}
-  m_LocalScale: {x: 6.2591, y: 6.2591, z: 6.2591}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 497879383697218577}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5930652682476517324
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405094335651940572}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4047778484142808258
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405094335651940572}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c803816755b3e954cb74ff81f3b5f772, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7634836168940350830
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405094335651940572}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4597817027845689414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3405094335651940572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60fa17ee0afb34a408173bcde132b35a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pinballForce: 20
 --- !u!1 &3866689655352644671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2115,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2554564304040006947, guid: 1d54e47704088e7448b4910fd86920e1, type: 3}
   m_PrefabInstance: {fileID: 4455965152633433244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5891575008230347215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 497879383697218577}
+    m_Modifications:
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000031347
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00000062693
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_Name
+      value: Pinball
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+--- !u!4 &5072445630143756237 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+  m_PrefabInstance: {fileID: 5891575008230347215}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6295380521385528680
 PrefabInstance:
