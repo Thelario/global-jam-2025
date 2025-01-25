@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float movementForce = 5;
+    float _movementForceInit;
     //[SerializeField] float maxVelocity = 5;
 
 
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetMovementForce()
     {
-        movementForce = 5f;
+        movementForce = _movementForceInit;
         print("entre");
     }
 
@@ -83,6 +84,7 @@ public class PlayerController : MonoBehaviour
         playerFollow.parent = null;
 
         dashDelayTimer = dashDelayTime;
+        _movementForceInit = movementForce;
         SetMovementForceMultiplier(1f);
 
 
