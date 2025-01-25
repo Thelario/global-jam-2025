@@ -52,15 +52,15 @@ public class GameManager : Singleton<GameManager>
     private List<PlayerData> playerData;
     public List<PlayerData> GetAllPlayer() => playerData;
     public int NumberOfPlayers() => playerData.Count;
-    public event UnityAction OnPlayerAdded;
-    public event UnityAction OnPlayerRemoved;
+    public event UnityAction<PlayerData> OnPlayerAdded;
+    public event UnityAction<PlayerData> OnPlayerRemoved;
     
     
     public void AddPlayer(InputDevice id)
     {
         PlayerData newPlayerData = new PlayerData(playerData.Count, id);
         playerData.Add(newPlayerData);
-        OnPlayerAdded?.Invoke();
+        OnPlayerAdded?.Invoke(newPlayerData);
     }
     public void RemovePlayer(InputDevice id)
     {
@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>
         if (playerToRemove != null)
         {
             playerData.Remove(playerToRemove);
-            OnPlayerRemoved?.Invoke();
+            OnPlayerRemoved?.Invoke(playerToRemove);
             ReassignPlayerIndices();
         }
     }

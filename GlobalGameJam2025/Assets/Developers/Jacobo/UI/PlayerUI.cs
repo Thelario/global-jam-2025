@@ -28,7 +28,7 @@ public class PlayerUI : MonoBehaviour
         }
         UpdateUI();
     }
-    private void UpdateUI()
+    private void UpdateUI(PlayerData newPlayer = null)
     {
         foreach(var cg in playerList) cg.alpha = 1f;
         

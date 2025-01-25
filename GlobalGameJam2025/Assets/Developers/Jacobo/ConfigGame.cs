@@ -6,6 +6,7 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ConfigGame : MonoBehaviour
 {
@@ -19,11 +20,13 @@ public class ConfigGame : MonoBehaviour
     private readonly int[] timerList = new int[] { 15,20,30,40,999};
 
     [Header("UI Texts")]
+    [SerializeField] private Button backButton;
     [SerializeField] private TextMeshProUGUI gameText;
     [SerializeField] private TextMeshProUGUI roundText, timerText;
     
     private void Start()
     {
+        if(backButton) backButton.onClick.AddListener(()=> SceneNav.GoTo(SceneType.PlayerSelect));
         if (!MinigameManager.Instance) return;
         gameNames = new List<string>(MinigameManager.GamesLoaded().Values);
         gameNames.Insert(0, "Random");
