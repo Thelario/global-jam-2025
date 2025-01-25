@@ -6,6 +6,7 @@ public class AutoSkip : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForSeconds(1);
-        SceneNav.GoTo(SceneType.Gameplay);
+        if(MinigameManager.Instance.RoundsLeft() !=0)
+            SceneNav.GoTo(SceneType.Gameplay);
     }
 }

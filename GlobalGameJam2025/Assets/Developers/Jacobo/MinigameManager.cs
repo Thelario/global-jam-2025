@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class MinigameManager : Singleton<MinigameManager>
 {
@@ -15,6 +16,11 @@ public class MinigameManager : Singleton<MinigameManager>
     // Properties
     public MinigameBase CurrentMinigame { get; private set; }
     public int GameRounds { get; private set; } = 4;
+    public int RoundsLeft ()
+    {
+        if (m_GameList != null) return m_GameList.Count();
+        else return 0;
+    }
     public int GameMaxTimer { get; private set; } = 60;
     public float GameTimer {
         get { return currentTimer; }
@@ -37,9 +43,11 @@ public class MinigameManager : Singleton<MinigameManager>
     private void Start()
     {
         //Testin only
-        if (!SceneNav.IsGameplay()) return;
-        if(m_GameList.Count == 0 || CurrentMinigame != null) InitMinigameInfo(1,30);
-        InitMinigame();
+        if (SceneNav.IsGameplay())
+        {
+            InitMinigameInfo(1, 30);
+            InitMinigame();
+        }
     }
 
     private void Update()
@@ -107,12 +115,12 @@ public class MinigameManager : Singleton<MinigameManager>
         CurrentMinigame = null;
 
         AddRemainingPlayersToScore();
-        SceneNav.GoTo(SceneType.Score);
+        //SceneNav.GoTo(SceneType.Score);
     }
 
     private void StartTimer()
     {
-        currentTimer = 5;// GameTimer;
+        currentTimer = 5;// GameMaxTimer;
         timerOn = true;
     }
 

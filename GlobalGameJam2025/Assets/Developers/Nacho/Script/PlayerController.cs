@@ -6,8 +6,29 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-   
+    public enum PlayerState
+    {
+        Waiting,
+        CanMove
+    }
+    private void OnEnable()
+    {
+        MinigameManager manager = MinigameManager.Instance;
+        manager.OnMinigameStart += ()=> ChangeState(PlayerState.CanMove);
+        manager.OnMinigameEnd += ()=> ChangeState(PlayerState.Waiting);
+    }
+    private void OnDisable()
+    {
+        MinigameManager manager = MinigameManager.Instance;
+        manager.OnMinigameStart -= () => ChangeState(PlayerState.CanMove);
+        manager.OnMinigameEnd -= () => ChangeState(PlayerState.Waiting);
+    }
+    public void ChangeState(PlayerState newState)
+    {
+        playerState = newState;
+    }
 
+    private PlayerState playerState = PlayerState.Waiting;
     [HideInInspector] public int playerIndex;
 
     [Header("References")]
@@ -98,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (playerState == PlayerState.Waiting) return;
         JumpCheck();
 
         playerFollow.transform.position = transform.position;
