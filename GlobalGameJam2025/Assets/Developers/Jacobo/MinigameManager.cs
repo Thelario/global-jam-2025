@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Unity.Collections;
 
 /// <summary>
 /// MINIGAME MANAGER: Al comienzo, busca 
@@ -106,6 +107,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void StartMinigame()
     {
+        playersDead = new List<MultiplayerInstance>();//Clear Dead Players
         if (m_currentMinigame)
         {
             OnMinigameStart?.Invoke();
@@ -117,7 +119,14 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         if (m_currentMinigame) m_currentMinigame.MinigameUpdate();
     }
+    private List<MultiplayerInstance> playersDead;
 
+    //Primero es el que primero ha muerto
+    public List<MultiplayerInstance> GetLastGameScore() => playersDead;
+    public void PlayerDeath(MultiplayerInstance data)
+    {
+        playersDead.Add(data);
+    }
     public void EndMinigame()
     {
         if (m_currentMinigame)
@@ -126,6 +135,11 @@ public class MinigameManager : Singleton<MinigameManager>
             m_currentMinigame.MinigameEnd();
             Debug.Log("Minigame Ended: " + m_currentMinigame.name);
             m_currentMinigame = null;
+            foreach(MultiplayerInstance pl in allPlayers)
+            {
+                if (playersDead.Contains(pl)) continue;
+                playersDead.Add(pl);
+            }
         }
     }
     private GameObject playerPrefab;
@@ -149,7 +163,11 @@ public class MinigameManager : Singleton<MinigameManager>
         for (int i = 0; i < allPlayerData.Count; i++)
         {
             GameObject gb = Instantiate(playerPrefab, Vector3.up * 2 *i, Quaternion.identity);
-            if (gb.TryGetComponent(out MultiplayerInstance multi)) allPlayers.Add(multi);
+            if (gb.TryGetComponent(out MultiplayerInstance multi))
+            {
+                multi.AssignData(allPlayerData[i]);
+                allPlayers.Add(multi);
+            }
         }
     }
 }

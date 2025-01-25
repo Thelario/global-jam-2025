@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+   
+
     [HideInInspector] public int playerIndex;
 
     [Header("References")]

@@ -648,7 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  TESTING_GAME: {fileID: 11400000, guid: 905bfd83de0483343b704fb3347285b2, type: 2}
+  TESTING_GAME: {fileID: 11400000, guid: 9092ad694bc88284190403768164e410, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
