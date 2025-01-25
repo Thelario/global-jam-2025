@@ -191,6 +191,7 @@ public class MinigameManager : Singleton<MinigameManager>
             var playerObject = Instantiate(AssetLocator.PlayerPrefab(), spawnPoints[i], Quaternion.identity);
             if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
             {
+                multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
                 multiplayerInstance.AssignData(playerDataList[i]);
                 allPlayers.Add(multiplayerInstance);
             }
@@ -204,6 +205,7 @@ public class MinigameManager : Singleton<MinigameManager>
         var playerObject = Instantiate(AssetLocator.PlayerPrefab(), playerPosition, Quaternion.identity);
         if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
         {
+            multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
             multiplayerInstance.AssignData(playerDataList[playerIndex]);
             allPlayers.Add(multiplayerInstance);
         }

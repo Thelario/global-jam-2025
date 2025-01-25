@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool stunned;
 
+    private bool _doRollVolume = true;
+    
     public event Action<Collision> OnCollisionEntered;
 
     // Components
@@ -96,6 +98,10 @@ public class PlayerController : MonoBehaviour
         print("entre");
     }
 
+    public void EnableRollVolume(bool enable)
+    {
+        _doRollVolume = enable;
+    }
 
     void Awake()
     {
@@ -105,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
         playerFollow.name = gameObject.name + "_PlayerFollow";
         playerFollow.parent = null;
+        _doRollVolume = true;
 
         dashDelayTimer = dashDelayTime;
         _movementForceInit = movementForce;
@@ -147,6 +154,12 @@ public class PlayerController : MonoBehaviour
         //anim.SetFloat("VerVel", rb.velocity.y);
 
         //anim.SetBool("OnGround", onGround);
+
+        if (_doRollVolume == false)
+            return;
+        
+        float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 500);
+        SoundManager.Instance.PlaySound(Sound.BubbleRoll, volumeModifier);
     }
 
     void UpdateDashDelay()

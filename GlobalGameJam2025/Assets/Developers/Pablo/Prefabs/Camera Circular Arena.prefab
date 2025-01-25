@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5992665561819730930}
   - component: {fileID: 7460281524919371936}
-  - component: {fileID: 8324446250229444371}
   - component: {fileID: 2215996347279864207}
   m_Layer: 0
   m_Name: Camera Circular Arena
@@ -85,14 +84,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8324446250229444371
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6115830932821535848}
-  m_Enabled: 1
 --- !u!114 &2215996347279864207
 MonoBehaviour:
   m_ObjectHideFlags: 0

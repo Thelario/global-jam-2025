@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SO_Sound_BubbleRoll
   m_EditorClassIdentifier: 
   sound: 4
-  clip: {fileID: 8300000, guid: a529fa6d6572d4149907457064dd378f, type: 3}
-  volumeModifier: 0.1
+  clip: {fileID: 8300000, guid: f8cec5baf3a054c4ab5db4fe57a8a337, type: 3}
+  volumeModifier: 1
+  otherClips: []

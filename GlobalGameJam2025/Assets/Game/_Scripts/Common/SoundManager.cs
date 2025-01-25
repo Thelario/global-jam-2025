@@ -60,7 +60,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void PlaySound(Sound sound)
+    public void PlaySound(Sound sound, float volumeModifier = 1f)
     {
         print("PlaySound");
         if (CanPlaySound(sound) == false) {
@@ -84,10 +84,15 @@ public class SoundManager : Singleton<SoundManager>
             return;
         }
         
+        AudioClip clipToPlay =
+              clip.OtherClips != null && clip.OtherClips.Count > 0
+            ? clip.OtherClips[Random.Range(0, clip.OtherClips.Count)]
+            : clip.Clip;
+        
         // If not a music, modify pitch and play the sound
 
         defaultAudioSource.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
-        defaultAudioSource.PlayOneShot(clip.Clip, defaultVolume * clip.VolumeModifier);
+        defaultAudioSource.PlayOneShot(clipToPlay, defaultVolume * clip.VolumeModifier * volumeModifier);
     }
 
     public void PlaySound(Sound sound, AudioSource source)

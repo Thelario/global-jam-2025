@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Sound
@@ -12,8 +13,10 @@ public class SoundSO : ScriptableObject
     [SerializeField] private Sound sound;
     [SerializeField] private AudioClip clip;
     [SerializeField] private float volumeModifier;
+    [SerializeField] private List<AudioClip> otherClips;
 
     public Sound Sound => sound;
     public AudioClip Clip => clip;
     public float VolumeModifier => volumeModifier;
+    public List<AudioClip> OtherClips => otherClips;
 }
