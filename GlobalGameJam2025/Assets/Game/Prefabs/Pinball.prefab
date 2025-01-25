@@ -137,6 +137,7 @@ MonoBehaviour:
   scaleMultiplier: 1.2
   ease: 1
   target: {fileID: 909699701932239275}
+  sounds: 0100000002000000
 --- !u!136 &709075504389485761
 CapsuleCollider:
   m_ObjectHideFlags: 0

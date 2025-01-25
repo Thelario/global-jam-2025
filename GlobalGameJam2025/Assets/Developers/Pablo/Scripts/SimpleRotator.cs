@@ -6,7 +6,7 @@ public class SimpleRotator : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float maxFiuuuum;
     
-    private float _fiuuuum = 0f;
+    private float _fiuuuum;
 
     private void Start()
     {

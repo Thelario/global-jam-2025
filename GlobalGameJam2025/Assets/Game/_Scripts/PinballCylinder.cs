@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PinballCylinder : MonoBehaviour
 {
@@ -8,6 +11,7 @@ public class PinballCylinder : MonoBehaviour
     [SerializeField] private float scaleMultiplier;
     [SerializeField] private Ease ease;
     [SerializeField] private Transform target;
+    [SerializeField] private List<Sound> sounds;
     
     private Vector3 _originalScale;
 
@@ -21,12 +25,18 @@ public class PinballCylinder : MonoBehaviour
         _originalScale = target.localScale;
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent<PlayerController>(out var playerController) != true)
             return;
 
         Vector3 hitDirection = other.transform.position - other.contacts[0].point;
+        SoundManager.Instance.PlaySound(sounds[Random.Range(0, sounds.Count)]);
 
         playerController.SetLinearVelocity(hitDirection * pinballForce);
         PopUp();

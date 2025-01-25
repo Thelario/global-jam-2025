@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Sound { None = 0 };
-
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private string soundsLoadPath;
@@ -11,7 +9,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private float defaultPitchModifier;
     [SerializeField] private AudioSource defaultAudioSource;
 
-    private Dictionary<Sound, AudioClip> _sounds;
+    private Dictionary<Sound, SoundSO> _sounds;
 
     protected override void Awake()
     {
@@ -22,18 +20,18 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Configure()
     {
-        _sounds = new Dictionary<Sound, AudioClip>();
+        _sounds = new Dictionary<Sound, SoundSO>();
 
         SoundSO[] sounds = Resources.LoadAll<SoundSO>(soundsLoadPath);
 
         foreach (SoundSO sound in sounds) {
-            _sounds.Add(sound.Sound, sound.Clip);
+            _sounds.Add(sound.Sound, sound);
         }
     }
 
     public void PlaySound(Sound sound)
     {
-        _sounds.TryGetValue(sound, out AudioClip clip);
+        _sounds.TryGetValue(sound, out SoundSO clip);
 
         if (clip == null) {
             Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
@@ -41,25 +39,12 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         defaultAudioSource.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
-        defaultAudioSource.PlayOneShot(clip, defaultVolume);
-    }
-
-    public void PlaySound(Sound sound, float volume)
-    {
-        _sounds.TryGetValue(sound, out AudioClip clip);
-
-        if (clip == null) {
-            Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
-            return;
-        }
-
-        defaultAudioSource.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
-        defaultAudioSource.PlayOneShot(clip, defaultVolume * volume);
+        defaultAudioSource.PlayOneShot(clip.Clip, defaultVolume * clip.VolumeModifier);
     }
 
     public void PlaySound(Sound sound, AudioSource source)
     {
-        _sounds.TryGetValue(sound, out AudioClip clip);
+        _sounds.TryGetValue(sound, out SoundSO clip);
 
         if (clip == null) {
             Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
@@ -67,19 +52,6 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         source.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
-        source.PlayOneShot(clip, defaultVolume);
-    }
-
-    public void PlaySound(Sound sound, AudioSource source, float volume)
-    {
-        _sounds.TryGetValue(sound, out AudioClip clip);
-
-        if (clip == null) {
-            Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
-            return;
-        }
-
-        source.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
-        source.PlayOneShot(clip, defaultVolume * volume);
+        source.PlayOneShot(clip.Clip, defaultVolume * clip.VolumeModifier);
     }
 }
