@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SO_Sound_BubbleHit
   m_EditorClassIdentifier: 
   sound: 1
-  clip: {fileID: 8300000, guid: a529fa6d6572d4149907457064dd378f, type: 3}
+  clip: {fileID: 8300000, guid: 768fe3f78622a87409f9dda17a8caed9, type: 3}
   volumeModifier: 1

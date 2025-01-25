@@ -61,8 +61,8 @@ public class ConfigGame : MonoBehaviour
     }
     public void ChangeScene()
     {
-        //MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
-        MinigameManager.Instance.InitMinigameInfo(1000, timerList[indexTimer], indexGame);
+        SoundManager.Instance.PlaySound(Sound.GameMusic);
+        MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
         SceneNav.GoTo(SceneType.Gameplay);
     }
 }
