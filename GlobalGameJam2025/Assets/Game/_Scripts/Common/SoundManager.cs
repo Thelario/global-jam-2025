@@ -11,6 +11,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private float defaultPitchModifier;
     [SerializeField] private float playerMoveTimerMax = .25f;
     [SerializeField] private AudioSource defaultAudioSource;
+    [SerializeField] private AudioSource musicAudioSource;
 
     private Dictionary<Sound, SoundSO> _sounds;
     private Dictionary<Sound, float> _soundTimerDictionary;
@@ -66,11 +67,23 @@ public class SoundManager : Singleton<SoundManager>
         }
         
         _sounds.TryGetValue(sound, out SoundSO clip);
-
+        
         if (clip == null) {
-            Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
+            Debug.LogError("The sound " + sound + " couldn't be found.");
             return;
         }
+
+        // Check if the sound to play is a music clip
+        
+        if (sound is Sound.GameMusic or Sound.MenuMusic)
+        {
+            musicAudioSource.Stop();
+            musicAudioSource.clip = clip.Clip;
+            musicAudioSource.PlayDelayed(1f);
+            return;
+        }
+        
+        // If not a music, modify pitch and play the sound
 
         defaultAudioSource.pitch = Random.Range(defaultPitch - defaultPitchModifier, defaultPitch + defaultPitchModifier);
         defaultAudioSource.PlayOneShot(clip.Clip, defaultVolume * clip.VolumeModifier);
@@ -86,6 +99,14 @@ public class SoundManager : Singleton<SoundManager>
 
         if (clip == null) {
             Debug.LogError("The sound " + sound.ToString() + " couldn't be found.");
+            return;
+        }
+        
+        if (sound is Sound.GameMusic or Sound.MenuMusic)
+        {
+            source.Stop();
+            source.clip = clip.Clip;
+            source.PlayDelayed(1f);
             return;
         }
 

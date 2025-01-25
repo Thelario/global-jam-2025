@@ -183,6 +183,7 @@ MonoBehaviour:
   defaultPitchModifier: 0.2
   playerMoveTimerMax: 0.5
   defaultAudioSource: {fileID: 5004477537656609000}
+  musicAudioSource: {fileID: 4602982660516539365}
 --- !u!81 &6947872458385748934
 AudioListener:
   m_ObjectHideFlags: 0

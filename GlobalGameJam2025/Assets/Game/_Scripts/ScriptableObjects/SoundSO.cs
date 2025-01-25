@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum Sound
 {
-    None = 0, BubbleHit = 1, BubbleDeep = 2, BubbleGiggly = 3, BubbleRoll = 4,
+    None = 0, MenuMusic = 6, GameMusic = 7, BubbleHit = 1, BubbleDeep = 2, BubbleGiggly = 3, BubbleRoll = 4,
     BubbleExplosion = 5
 };
 
