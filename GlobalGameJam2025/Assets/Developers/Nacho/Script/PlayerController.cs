@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementForce = 5;
     //[SerializeField] float maxVelocity = 5;
 
+
     // Dash
     [Header("Dash")]
     [SerializeField] float dashForce = 500;
@@ -60,6 +61,17 @@ public class PlayerController : MonoBehaviour
     // Movement
     Vector2 movementInput;
 
+    public void SetMovementForceMultiplier(float multiplier)
+    {
+        movementForce *= multiplier;
+    }
+
+    public void ResetMovementForce()
+    {
+        movementForce = 5f;
+        print("entre");
+    }
+
 
     void Awake()
     {
@@ -71,6 +83,7 @@ public class PlayerController : MonoBehaviour
         playerFollow.parent = null;
 
         dashDelayTimer = dashDelayTime;
+        SetMovementForceMultiplier(1f);
 
 
         // Set up character variables
