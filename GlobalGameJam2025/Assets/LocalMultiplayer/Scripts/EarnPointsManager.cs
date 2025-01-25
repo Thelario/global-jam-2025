@@ -48,7 +48,7 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
         //StartCoroutine(slkdjlskdjf());
     }
 
-    IEnumerator slkdjlskdjf ()
+    IEnumerator slkdjlskdjf()
     {
         yield return new WaitForSeconds(2);
 
@@ -110,7 +110,7 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
         //yield return new WaitForSeconds(1);
         //if (MinigameManager.Instance.RoundsLeft() != 0)
 
-        PlayerData winningPlayer;
+        PlayerData winningPlayer = null;
         int topPoints = 0;
 
         for (int i = 0; i < playerResults.Count; i++)
@@ -122,6 +122,9 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
                 playerResults[i] = winningPlayer;
             }
         }
+
+        if (winningPlayer != null)
+            Crown.instance.playerFollow = MinigameManager.Instance.GetAllPlayers()[winningPlayer.Index].transform;
 
         if (topPoints >= maxScore)
             SceneNav.GoTo(SceneType.MainMenuScene);
