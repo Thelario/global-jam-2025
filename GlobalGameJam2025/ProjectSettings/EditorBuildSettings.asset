@@ -18,11 +18,8 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Gameplay.unity
     guid: 53efedb6a40ded9419276406a0758cec
   - enabled: 1
-    path: Assets/Developers/Pablo/Scenes/RotatingWalls.unity
-    guid: 51a942c89a176734284ed849d3d31eec
-  - enabled: 1
-    path: Assets/Developers/Pablo/Scenes/EmptyArena.unity
-    guid: 31196ba07d0a08345af505fbe218f5c1
+    path: Assets/Game/Scenes/EarnPoints.unity
+    guid: ae29f3ee962dde24598c0c45f14d41d1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

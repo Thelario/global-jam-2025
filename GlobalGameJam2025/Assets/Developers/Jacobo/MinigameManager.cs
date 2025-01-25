@@ -17,7 +17,7 @@ public class MinigameManager : Singleton<MinigameManager>
     public event UnityAction OnMinigameStart;
     public event UnityAction OnMinigameEnd;
 
-    private static List<MinigameBase> m_GameList;//Todos los juegos que se van a jugar
+    private static List<MinigameBase> m_GameList = new List<MinigameBase>();//Todos los juegos que se van a jugar
     private MinigameBase m_currentMinigame;
     public MinigameBase CurrentMinigame => m_currentMinigame;
     
@@ -75,23 +75,31 @@ public class MinigameManager : Singleton<MinigameManager>
         }
     }
     #endregion
-
-    protected override void Awake()
+    private void OnEnable()
     {
-        base.Awake();
-        //TODO: Remove on build
-        if (TESTING_GAME) m_GameList = new List<MinigameBase>() { TESTING_GAME };
+        SceneManager.sceneLoaded += InitMinigameOnLoad;
     }
 
-    private IEnumerator Start()
+    private void OnDisable() => SceneManager.sceneLoaded -= InitMinigameOnLoad;
+    private void InitMinigameOnLoad(Scene scene, LoadSceneMode mode)
     {
-        yield return new WaitForSeconds(0.5f);
         InitMinigame();
+    }
+
+    private void Start()
+    {
+        if (TESTING_GAME != null)
+        {
+            InitMinigameInfo(1, 20);
+            m_currentMinigame = TESTING_GAME;
+            InitMinigame();
+        }
     }
     public void InitMinigame()
     {
-        if (m_GameList == null || m_GameList.Count == 0|| m_GameList == null) return;
+        if (m_GameList.Count == 0) return;
         if (m_currentMinigame) EndMinigame();
+
         //Terminar el current, asignar y quitarlo de la lista. Inicializarlo y empezar
         m_currentMinigame = m_GameList[0];
         m_GameList.RemoveAt(0);
@@ -113,11 +121,31 @@ public class MinigameManager : Singleton<MinigameManager>
             OnMinigameStart?.Invoke();
             m_currentMinigame.MinigameStart();
         }
+        StartTimer();
+    }
+    private bool timerOn = false;
+    private float currentTimer = 0f;
+    private void StartTimer()
+    {
+        currentTimer = m_GameTimer;
+        timerOn = true;
     }
 
     private void Update()
     {
         if (m_currentMinigame) m_currentMinigame.MinigameUpdate();
+        
+        //Timer
+        if (timerOn)
+        {
+            Debug.Log($"TIMER: {currentTimer}");
+            currentTimer -= Time.deltaTime;
+            if(currentTimer < 0f)
+            {
+                timerOn = false;
+                EndMinigame();
+            }
+        }
     }
     private List<MultiplayerInstance> playersDead;
 
@@ -126,21 +154,23 @@ public class MinigameManager : Singleton<MinigameManager>
     public void PlayerDeath(MultiplayerInstance data)
     {
         playersDead.Add(data);
+        if (playersDead.Count >= 3) EndMinigame();
     }
     public void EndMinigame()
     {
-        if (m_currentMinigame)
+        if (!m_currentMinigame) return;
+
+        OnMinigameEnd?.Invoke();
+        m_currentMinigame.MinigameEnd();
+
+        m_currentMinigame = null;
+
+        foreach(MultiplayerInstance pl in allPlayers)
         {
-            OnMinigameEnd?.Invoke();
-            m_currentMinigame.MinigameEnd();
-            Debug.Log("Minigame Ended: " + m_currentMinigame.name);
-            m_currentMinigame = null;
-            foreach(MultiplayerInstance pl in allPlayers)
-            {
-                if (playersDead.Contains(pl)) continue;
-                playersDead.Add(pl);
-            }
+            if (playersDead.Contains(pl)) continue;
+            playersDead.Add(pl);
         }
+        SceneNav.GoTo(SceneType.Score);
     }
     private GameObject playerPrefab;
     private List<MultiplayerInstance> allPlayers;

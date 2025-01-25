@@ -17,7 +17,7 @@ public class ConfigGame : MonoBehaviour
 
     private List<string> gameNames;
     private readonly int[] roundList = new int[] { 1,2,3,4,5,6};
-    private readonly int[] timerList = new int[] { 15,20,30,40,999};
+    private readonly int[] timerList = new int[] { 5,20,30,40,999};
 
     [Header("UI Texts")]
     [SerializeField] private Button backButton;
@@ -57,7 +57,7 @@ public class ConfigGame : MonoBehaviour
     }
     public void ChangeScene()
     {
-        //MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
+        MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
         SceneNav.GoTo(SceneType.Gameplay);
     }
 }
