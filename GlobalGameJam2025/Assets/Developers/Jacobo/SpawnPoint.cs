@@ -10,16 +10,13 @@ public class SpawnPoint : MonoBehaviour
     /// </summary>
     /// 
 
-    Vector3 m_spawnPosition;
-    public Vector3 SpawnPosition => m_spawnPosition;
-    private static List<SpawnPoint> spawnPoint;
     
     private void Awake()
     {
         transform.parent = null;
-        if(spawnPoint == null) spawnPoint = new List<SpawnPoint>();
-        m_spawnPosition = transform.position;
-        spawnPoint.Add(this);
+        if(spawnPoint == null) spawnPoint = new List<Vector3>();
+        spawnPoint.Add(transform.position);
     }
-    public static List<SpawnPoint> GetSpawnPoints() => spawnPoint;//Devuelve todos los spawnpoints(no ordenado)
+    private static List<Vector3> spawnPoint;
+    public static List<Vector3> GetSpawnPoints() => spawnPoint;//Devuelve todos los spawnpoints(no ordenado)
 }

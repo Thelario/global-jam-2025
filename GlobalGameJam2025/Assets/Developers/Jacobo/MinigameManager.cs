@@ -151,18 +151,17 @@ public class MinigameManager : Singleton<MinigameManager>
         playerPrefab = AssetLocator.PlayerPrefab();
         allPlayers = new List<MultiplayerInstance>();
 
-        if(GameManager.Instance.GetAllPlayer().Count == 0) GameManager.Instance.AddPlayer(Keyboard.current);
-        //List<Vector3> newPosList = new List<Vector3>();
-        //List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
-        //foreach (var pos in spawnPoints)
-        //{
-        //    newPosList.Add(pos.SpawnPosition);
-        //}
-
+        //Add keyboard si no hay ninguno conectado (para testeo)
+        if(GameManager.Instance.GetAllPlayer().Count == 0) 
+            GameManager.Instance.AddPlayer(Keyboard.current);
+        
+        //Spawn Positions
+        List<Vector3> newPosList = SpawnPoint.GetSpawnPoints();
         List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
+
         for (int i = 0; i < allPlayerData.Count; i++)
         {
-            GameObject gb = Instantiate(playerPrefab, Vector3.up * 2 *i, Quaternion.identity);
+            GameObject gb = Instantiate(playerPrefab, newPosList[i], Quaternion.identity);
             if (gb.TryGetComponent(out MultiplayerInstance multi))
             {
                 multi.AssignData(allPlayerData[i]);

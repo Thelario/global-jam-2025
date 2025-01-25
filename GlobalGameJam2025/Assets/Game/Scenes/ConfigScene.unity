@@ -2441,11 +2441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  left: {fileID: 0}
-  right: {fileID: 0}
-  level_Text: {fileID: 0}
-  levelNum_Text: {fileID: 0}
-  icon: {fileID: 0}
   duringTransition: 0
 --- !u!4 &1154923485
 Transform:
@@ -3447,7 +3442,7 @@ GameObject:
   - component: {fileID: 1450863882}
   - component: {fileID: 1450863881}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PlayerConnection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

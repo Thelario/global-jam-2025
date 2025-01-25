@@ -1,20 +1,28 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class PlayerConnection : MonoBehaviour
 {
     private List<InputDevice> connectedDevices = new List<InputDevice>();
     [SerializeField] private bool AlwaysAddKeyboard = true;
+    private InputAction controllerAction; // The action to detect the button press
+
     private void OnEnable()
     {
         InputSystem.onDeviceChange += OnDeviceChange;
+
+        // Create an action map and add a listener to the action
+        controllerAction = new InputAction("ControllerPress", binding: "<Gamepad>/buttonSouth");
+        controllerAction.performed += _ => TryAddControllerPlayer();
+        controllerAction.Enable();
     }
 
     private void OnDisable()
     {
         InputSystem.onDeviceChange -= OnDeviceChange;
+
+        controllerAction.Disable();
     }
 
     private void Start()
@@ -24,6 +32,7 @@ public class PlayerConnection : MonoBehaviour
             AddPlayer(Keyboard.current);
         }
     }
+
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
         switch (change)
@@ -35,6 +44,17 @@ public class PlayerConnection : MonoBehaviour
             case InputDeviceChange.Removed:
                 RemovePlayer(device);
                 break;
+        }
+    }
+
+    // This method will try to add a controller when the button is pressed
+    private void TryAddControllerPlayer()
+    {
+        // Check if the gamepad is available and if it hasn't been added already
+        var gamepad = Gamepad.current;
+        if (gamepad != null && !connectedDevices.Contains(gamepad))
+        {
+            AddPlayer(gamepad);
         }
     }
 
