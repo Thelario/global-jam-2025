@@ -121,7 +121,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
     private void StartTimer()
     {
-        currentTimer = 5;// GameMaxTimer;
+        currentTimer = GameMaxTimer;
         timerOn = true;
     }
 

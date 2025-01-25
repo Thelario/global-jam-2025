@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: m_PlayerAlt
-  m_Shader: {fileID: 4800000, guid: f4b790f136df3b341bee38d21b94abf9, type: 3}
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -17,7 +17,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -25,7 +26,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ed780b4115c1de042880de9747c1755c, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -136,8 +137,8 @@ Material:
     - Color_AFFD055F: {r: 1.8880861, g: 0.77482784, b: 1.2302518, a: 1}
     - Color_E0824245: {r: 0.9622642, g: 0, b: 0.4910867, a: 0.78039217}
     - _AmbientColor: {r: 1, g: 0.8915094, b: 0.9419192, a: 1}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.8766663, g: 0.49461544, b: 0.8962264, a: 1}
+    - _Color: {r: 0.8766663, g: 0.49461538, b: 0.8962264, a: 1}
     - _Color_1: {r: 0, g: 0.0706125, b: 0.57547164, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 0.995283, b: 0.9992351, a: 1}
