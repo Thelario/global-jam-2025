@@ -8,14 +8,25 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
 
     [SerializeReference] PlayerPointTower[] playerPointTower;
 
-    //List<PlayerData> players;
+    [SerializeField] Transform finishLine;
+
+    int maxScore = 10;
+
+    List<PlayerData> allPlayersConnected;
+
+    List<PlayerData> playerResults;
+
+    List<MultiplayerInstance> allPlayerInstances;
 
     protected override void Awake()
     {
         base.Awake();
 
-        // Acceder a los players
-        //player = ...
+        finishLine.position = new Vector3(finishLine.position.x, maxScore * PlayerPointTower.distanceBetweenChips, finishLine.position.z);
+
+        allPlayersConnected = GameManager.Instance.GetAllPlayer();
+
+        //playerResults = MinigameManager.Instance.GetResults;
 
         StartCoroutine(EarnPointsSequence());
     }
@@ -24,21 +35,23 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
     {
         yield return new WaitForSeconds(1);
 
-        // Recorrer los jugadores
-        for (int i = 1; i >= 0; i--)
-        {
-            PlayerPointTower tower = playerPointTower[i];
+        //allPlayerInstances = GameManager.Instance.GetPlayerInstances();
 
+        for (int i = 0; i < playerResults.Count; i++)
+        {
+            PlayerData currentPlayer = playerResults[i];
+
+            PlayerPointTower tower = playerPointTower[currentPlayer.Index];
             if (tower != null)
             {
-                yield return tower.AddChipsDelay(1);
+                yield return tower.AddChipsDelay(i);
                 yield return new WaitForSeconds(1);
             }
         }
+
         //TODO: MIRAR
 
         //GameplayMultiplayerManager.Instance.SpawnPlayers();
-
-        GameManager.Instance.ChangeScene("Gameplay");
+        //GameManager.Instance.ChangeScene("Gameplay");
     }
 }
