@@ -22,7 +22,6 @@ public class SimpleRotator : MonoBehaviour
     {
         _fiuuuum += Time.deltaTime;
         _fiuuuum = Mathf.Clamp(_fiuuuum, 0f, maxFiuuuum);
-        print(_fiuuuum);
         transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * _fiuuuum);
     }
 }

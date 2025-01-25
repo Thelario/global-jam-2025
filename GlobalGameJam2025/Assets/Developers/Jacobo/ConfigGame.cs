@@ -28,7 +28,11 @@ public class ConfigGame : MonoBehaviour
     {
         if(backButton) backButton.onClick.AddListener(()=> SceneNav.GoTo(SceneType.PlayerSelect));
         if (!MinigameManager.Instance) return;
-        gameNames = new List<string>(MinigameManager.GamesLoaded().Values);
+        gameNames = new List<string>();
+        foreach(var a in AssetLocator.ALLGAMES)
+        {
+            gameNames.Add(a.Name());
+        }
         gameNames.Insert(0, "Random");
     }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AssetData", menuName = "Managers/AssetData", order = 0)]
 public class AssetData : ScriptableObject
 {
-    [Header("GAMEOBJECTS")]
+    public List<MinigameBase> ALLGAMES;
+    [Header("GAMEOBJECTS")] 
     public GameObject PlayerPrefab;
     
     [Space(20)]
