@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: m_Oreo
-  m_Shader: {fileID: -6465566751694194690, guid: d720082e5b71004498653db605c207b2, type: 3}
+  m_Name: m_Paintable
+  m_Shader: {fileID: 4800000, guid: f4b790f136df3b341bee38d21b94abf9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,20 +24,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_01612b2f09a24a9c9879c83799445b96:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_3c9e15eb8c374e0495f36ea3d57473ab:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_41271c3c5f484ca2a435c65087a81705:
-        m_Texture: {fileID: 2800000, guid: ab4e3d7192eac5a429fe28eb5e90f15d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ab4e3d7192eac5a429fe28eb5e90f15d, type: 3}
+        m_Texture: {fileID: 2800000, guid: ed780b4115c1de042880de9747c1755c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -61,11 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ab4e3d7192eac5a429fe28eb5e90f15d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTexture:
-        m_Texture: {fileID: 2800000, guid: d575d39d2cf543440aeed0956d42b540, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -84,6 +68,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -98,14 +86,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_0de750b9c41b4a5daef844a1599f5ac7: 0
-    - Vector1_2871f666316541908d110962eef07f02: 1
-    - Vector1_2c6f3ce4bba145b09c0a22fced0d7f85: 10
-    - Vector1_7bf270fe91494824b4209d2dc1faae23: 10
-    - Vector1_8e760635099b4147956bb9600d13cac2: 0.1
-    - Vector1_b160a6374fb04a77b114bb611b8c55e4: 0
-    - Vector1_b5cc7f6f25194a778cb438f45fbbce66: 20
-    - Vector1_f6677799b193415b8be7686b658a6e85: 10
+    - Vector1_29A8EAB: 0.7
+    - Vector1_3C2CF0EB: 0.0047
+    - Vector1_53B9698E: 24.4
+    - Vector1_6D9DC178: 87.3
+    - Vector1_93DCFAA9: 9.91
+    - Vector1_95BBCBE0: 50
+    - Vector1_C5543ECF: 4.8
+    - Vector1_E23798DE: 1
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
@@ -122,6 +110,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Float: 0.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -131,6 +120,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimAmount: 0.686
+    - _RimThreshold: 0.768
     - _SampleGI: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -141,16 +132,18 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_1bf9c5e6f5c34360a490da1c94e6a7c1: {r: 1, g: 1, b: 1, a: 0}
-    - Color_863351f5ceea4c998ef51baab6dd758b: {r: 1, g: 1, b: 1, a: 1}
-    - Vector2_55edcb19ba1d459dbb3c027e66abbc1e: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_e97cb9b7b5564bc9857e7669e2d0b82f: {r: 1, g: 1, b: 0, a: 0}
-    - _BaseColor: {r: 1, g: 0.8980392, b: 0.87058824, a: 1}
-    - _Color: {r: 1, g: 0.8980392, b: 0.87058824, a: 1}
+    - Color_A271762B: {r: 1.4980392, g: 0.33211246, b: 0.8730066, a: 1}
+    - Color_AFFD055F: {r: 1.8880861, g: 0.77482784, b: 1.2302518, a: 1}
+    - Color_E0824245: {r: 0.9622642, g: 0, b: 0.4910867, a: 0.78039217}
+    - _AmbientColor: {r: 1, g: 0.8915094, b: 0.9419192, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color_1: {r: 0, g: 0.0706125, b: 0.57547164, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MaskTiling: {r: 10, g: 10, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 0.995283, b: 0.9992351, a: 1}
+    - _ShadowColor: {r: 0.8766663, g: 0.49461553, b: 0.8962264, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Vector2: {r: 1, g: 1, b: 0, a: 0}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8619357772046691819

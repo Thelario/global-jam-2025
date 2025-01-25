@@ -437,6 +437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Many Mini Pinball Minigame
       objectReference: {fileID: 0}
+    - target: {fileID: 8695392380013012607, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -444,6 +448,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3476954186738378962, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1370710355}
+    - targetCorrespondingSourceObject: {fileID: 3476954186738378962, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1370710359}
   m_SourcePrefab: {fileID: 100100000, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
 --- !u!1001 &903095572
 PrefabInstance:
@@ -504,8 +511,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7339635329292493138, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1500713333}
   m_SourcePrefab: {fileID: 100100000, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
+--- !u!1 &903789083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903789085}
+  - component: {fileID: 903789084}
+  m_Layer: 0
+  m_Name: PaintManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &903789084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903789083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8bb93ef19d381449992799929bb746, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  texturePaint: {fileID: 4800000, guid: 9472ed3696ab33d4ab23fb2a11915e0c, type: 3}
+  extendIslands: {fileID: 4800000, guid: 30512f6167fa0784ab310b688406279d, type: 3}
+--- !u!4 &903789085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903789083}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1155816994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,6 +627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cookie_Light
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e340ef42fa0556f4a814b43b83b4f6bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -602,6 +663,40 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: acc2ab6080cf86842b7de41167648a65, type: 3}
+--- !u!114 &1370710359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370710350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f416bbc629bab44f833648d5a23c5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extendsIslandOffset: 1
+--- !u!1 &1500713324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7339635329292493138, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
+  m_PrefabInstance: {fileID: 903095572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1500713333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500713324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3bb0f7cbcda2044b186cf5b7a52e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintColor: {r: 0.854902, g: 0.427451, b: 0.8235295, a: 1}
+  radius: 1
+  strength: 1
+  hardness: 1
 --- !u!1 &2075799120
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,3 +844,4 @@ SceneRoots:
   - {fileID: 903095572}
   - {fileID: 76556788}
   - {fileID: 1155816994}
+  - {fileID: 903789085}

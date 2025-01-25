@@ -7,6 +7,10 @@ public class MultiplayerInstance : MonoBehaviour
     public void AssignData(PlayerData data)
     {
         m_playerData = data;
+        if(TryGetComponent(out CollisionPainter painter))
+        {
+            painter.paintColor = AssetLocator.PaintColors[m_playerData.Index];
+        }
     }
     [HideInInspector] public int playerIndex;
 
