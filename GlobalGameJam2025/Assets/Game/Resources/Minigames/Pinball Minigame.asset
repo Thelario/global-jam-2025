@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
+  m_Name: Pinball Minigame
+  m_EditorClassIdentifier: 
+  minigameName: Pinball
+  usesTimer: 1
+  maxTimer: 60
+  minigamePrefab: {fileID: 6505319513098276995, guid: cca8694c07da807478b78038a2b0ed37, type: 3}
