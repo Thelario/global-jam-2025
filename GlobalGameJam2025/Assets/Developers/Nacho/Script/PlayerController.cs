@@ -316,7 +316,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        bubbleScript.Collision(collision);
+        if (bubbleScript != null)
+            bubbleScript.Collision(collision);
 
         OnCollisionEntered?.Invoke(collision);
     }
