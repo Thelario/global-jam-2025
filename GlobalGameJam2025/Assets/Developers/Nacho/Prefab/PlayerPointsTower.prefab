@@ -132,5 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chipPrefab: {fileID: 0}
-  distanceBetweenChips: 1
-  chipsZXOffset: 0.5
+  chipsZXOffset: 0.3

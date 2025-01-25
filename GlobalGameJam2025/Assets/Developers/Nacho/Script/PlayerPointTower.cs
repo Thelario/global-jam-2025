@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class PlayerPointTower : MonoBehaviour
 {
+    static public float distanceBetweenChips = 1;
+
     [SerializeField] Transform chipPrefab;
 
-    [SerializeField] float distanceBetweenChips = 1;
     float currentHeight;
 
     [SerializeField] float chipsZXOffset = .5f;
@@ -19,8 +20,8 @@ public class PlayerPointTower : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
-            AddChip(false);
+        //for (int i = 0; i < 5; i++)
+        //    AddChip(false);
     }
 
     void AddChip(bool highHeight)
@@ -41,7 +42,7 @@ public class PlayerPointTower : MonoBehaviour
     {
         for (int i = 0; i < chips; i++)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.4f);
             AddChip(true);
         }
     }
