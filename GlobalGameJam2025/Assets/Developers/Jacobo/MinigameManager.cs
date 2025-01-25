@@ -3,6 +3,9 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.InputSystem;
+using Unity.Collections;
 
 /// <summary>
 /// MINIGAME MANAGER: Al comienzo, busca 
@@ -80,8 +83,9 @@ public class MinigameManager : Singleton<MinigameManager>
         if (TESTING_GAME) m_GameList = new List<MinigameBase>() { TESTING_GAME };
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.5f);
         InitMinigame();
     }
     public void InitMinigame()
@@ -94,12 +98,16 @@ public class MinigameManager : Singleton<MinigameManager>
 
         OnMinigameInit?.Invoke();
         m_currentMinigame.MinigameInit();
+        
         if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
+        SpawnPlayers();
+        
         StartMinigame();
     }
 
     public void StartMinigame()
     {
+        playersDead = new List<MultiplayerInstance>();//Clear Dead Players
         if (m_currentMinigame)
         {
             OnMinigameStart?.Invoke();
@@ -111,7 +119,14 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         if (m_currentMinigame) m_currentMinigame.MinigameUpdate();
     }
+    private List<MultiplayerInstance> playersDead;
 
+    //Primero es el que primero ha muerto
+    public List<MultiplayerInstance> GetLastGameScore() => playersDead;
+    public void PlayerDeath(MultiplayerInstance data)
+    {
+        playersDead.Add(data);
+    }
     public void EndMinigame()
     {
         if (m_currentMinigame)
@@ -120,6 +135,39 @@ public class MinigameManager : Singleton<MinigameManager>
             m_currentMinigame.MinigameEnd();
             Debug.Log("Minigame Ended: " + m_currentMinigame.name);
             m_currentMinigame = null;
+            foreach(MultiplayerInstance pl in allPlayers)
+            {
+                if (playersDead.Contains(pl)) continue;
+                playersDead.Add(pl);
+            }
         }
-    }  
+    }
+    private GameObject playerPrefab;
+    private List<MultiplayerInstance> allPlayers;
+    public List<MultiplayerInstance> GetAllPlayers() => allPlayers;
+    
+    public void SpawnPlayers()
+    {
+        playerPrefab = AssetLocator.PlayerPrefab();
+        allPlayers = new List<MultiplayerInstance>();
+
+        if(GameManager.Instance.GetAllPlayer().Count == 0) GameManager.Instance.AddPlayer(Keyboard.current);
+        //List<Vector3> newPosList = new List<Vector3>();
+        //List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
+        //foreach (var pos in spawnPoints)
+        //{
+        //    newPosList.Add(pos.SpawnPosition);
+        //}
+
+        List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
+        for (int i = 0; i < allPlayerData.Count; i++)
+        {
+            GameObject gb = Instantiate(playerPrefab, Vector3.up * 2 *i, Quaternion.identity);
+            if (gb.TryGetComponent(out MultiplayerInstance multi))
+            {
+                multi.AssignData(allPlayerData[i]);
+                allPlayers.Add(multi);
+            }
+        }
+    }
 }

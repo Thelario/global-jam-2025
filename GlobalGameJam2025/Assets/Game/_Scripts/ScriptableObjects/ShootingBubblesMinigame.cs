@@ -21,7 +21,7 @@ public class ShootingBubblesMinigame : MinigameBase
     
     public override void MinigameUpdate() 
     {
-        prefabIns.transform.Rotate(Vector3.up * 3);
+        //prefabIns.transform.Rotate(Vector3.up * 3);
     }
     
     public override void MinigameEnd()

@@ -6,41 +6,41 @@ using UnityEngine.InputSystem;
 
 public class GameplayMultiplayerManager : MonoBehaviour
 {
-    [Header("Debug")]
-    [SerializeField] bool spawnPlayersOnStart = true;
+    //[Header("Debug")]
+    //[SerializeField] bool spawnPlayersOnStart = true;
 
-    List<MultiplayerInstance> allPlayers;
-    public List<MultiplayerInstance> GetAllPlayers => allPlayers;
+    //List<MultiplayerInstance> allPlayers;
+    //public List<MultiplayerInstance> GetAllPlayers => allPlayers;
     
-    private GameObject playerPrefab;
-    private void OnEnable()
-    {
-        MinigameManager.Instance.OnMinigameStart += SpawnPlayers;
-    }
-    private void OnDisable()
-    {
-        MinigameManager.Instance.OnMinigameStart -= SpawnPlayers;
-    }
-    public void SpawnPlayers()
-    {
-        playerPrefab = AssetLocator.PlayerPrefab();
-        allPlayers = new List<MultiplayerInstance>();
+    //private GameObject playerPrefab;
+    //private void OnEnable()
+    //{
+    //    MinigameManager.Instance.OnMinigameStart += SpawnPlayers;
+    //}
+    //private void OnDisable()
+    //{
+    //    MinigameManager.Instance.OnMinigameStart -= SpawnPlayers;
+    //}
+    //public void SpawnPlayers()
+    //{
+    //    playerPrefab = AssetLocator.PlayerPrefab();
+    //    allPlayers = new List<MultiplayerInstance>();
         
-        List<Vector3> newPosList = new List<Vector3>();
-        List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
-        foreach (var pos in spawnPoints)
-        {
-            newPosList.Add(pos.SpawnPosition);
-        }
+    //    List<Vector3> newPosList = new List<Vector3>();
+    //    List<SpawnPoint> spawnPoints = SpawnPoint.GetSpawnPoints();
+    //    foreach (var pos in spawnPoints)
+    //    {
+    //        newPosList.Add(pos.SpawnPosition);
+    //    }
 
-        List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
-        for (int i = 0; i < allPlayerData.Count-1; i++)
-        {
-            Debug.Log("AAAAAAAA");
-            GameObject gb = Instantiate(playerPrefab, spawnPoints[i].SpawnPosition, Quaternion.identity);
-            if (gb.TryGetComponent(out MultiplayerInstance multi)) allPlayers.Add(multi);
-        }
-    }
+    //    List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
+    //    for (int i = 0; i < allPlayerData.Count-1; i++)
+    //    {
+    //        Debug.Log("AAAAAAAA");
+    //        GameObject gb = Instantiate(playerPrefab, spawnPoints[i].SpawnPosition, Quaternion.identity);
+    //        if (gb.TryGetComponent(out MultiplayerInstance multi)) allPlayers.Add(multi);
+    //    }
+    //}
 
     //public void SpawnPlayers()
     //{
