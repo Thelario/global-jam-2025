@@ -310,6 +310,10 @@ public class PlayerController : MonoBehaviour
         // Aplicar velocidades de impacto
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
 
+        if (collision.collider.CompareTag("Floor") == false) {
+            SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
+        }
+
         //GameplayMultiplayerManager.Instance.GetAllPlayers();
 
         if (otherPlayer != null)

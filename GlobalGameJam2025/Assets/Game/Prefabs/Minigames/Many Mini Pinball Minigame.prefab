@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 6675201340450897910}
   m_Layer: 0
   m_Name: Arena
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2135,6 +2135,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: 'sounds.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_Name
       value: Pinball_2
@@ -2282,6 +2290,14 @@ PrefabInstance:
     - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: 'sounds.Array.data[0]'
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_Name
@@ -2730,6 +2746,14 @@ PrefabInstance:
     - target: {fileID: 1704584068052608514, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: 'sounds.Array.data[0]'
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_Name

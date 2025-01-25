@@ -36,7 +36,6 @@ public class PinballCylinder : MonoBehaviour
             return;
 
         Vector3 hitDirection = other.transform.position - other.contacts[0].point;
-        SoundManager.Instance.PlaySound(sounds[Random.Range(0, sounds.Count)]);
 
         playerController.SetLinearVelocity(hitDirection * pinballForce);
         PopUp();

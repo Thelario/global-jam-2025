@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Sound { None = 0, BubbleHit = 1, BubbleDeep = 2 };
+public enum Sound { None = 0, BubbleHit = 1, BubbleDeep = 2, BubbleGiggly = 3 };
 
 [CreateAssetMenu(fileName = "SO_Sound_", menuName = "ScriptableObjects/SoundSO", order = 1)]
 public class SoundSO : ScriptableObject
