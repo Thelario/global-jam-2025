@@ -68,10 +68,13 @@ public class GameManager : Singleton<GameManager>
     }
     public void RemovePlayer(InputDevice id)
     {
-        PlayerData newPlayerData = new PlayerData(playerData.Count, id);
-        playerData.Remove(newPlayerData);
-        OnPlayerRemoved?.Invoke();
-        ReassignPlayerIndices();
+        PlayerData playerToRemove = playerData.Find(p => p.Device == id);
+        if (playerToRemove != null)
+        {
+            playerData.Remove(playerToRemove);
+            OnPlayerRemoved?.Invoke();
+            ReassignPlayerIndices();
+        }
     }
 
     private void ReassignPlayerIndices()

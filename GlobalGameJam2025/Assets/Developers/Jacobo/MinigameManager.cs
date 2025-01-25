@@ -158,7 +158,15 @@ public class MinigameManager : Singleton<MinigameManager>
         //Spawn Positions
         List<Vector3> newPosList = SpawnPoint.GetSpawnPoints();
         List<PlayerData> allPlayerData = GameManager.Instance.GetAllPlayer();
-
+        
+        //Asegurarse que hay suficientes spawnpoints, o crear mas
+        if (newPosList.Count < allPlayerData.Count)
+        {
+            int missingSpawnPoints = allPlayerData.Count - newPosList.Count;
+            Vector3 lastSpawnPoint = newPosList[newPosList.Count - 1];
+            for (int i = 0; i < missingSpawnPoints; i++) newPosList.Add(lastSpawnPoint);
+        }
+        
         for (int i = 0; i < allPlayerData.Count; i++)
         {
             GameObject gb = Instantiate(playerPrefab, newPosList[i], Quaternion.identity);
