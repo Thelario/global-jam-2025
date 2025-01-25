@@ -51,6 +51,7 @@ public class PlayerData
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool controllersInitialized = false;
     const int MAX_PLAYER = 4;
 
     private List<PlayerData> playerData;

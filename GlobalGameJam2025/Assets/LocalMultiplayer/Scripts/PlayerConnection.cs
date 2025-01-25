@@ -10,6 +10,17 @@ public class PlayerConnection : MonoBehaviour
 
     private void OnEnable()
     {
+        // If controllers are already initialized, destroy the component
+        if (GameManager.Instance.controllersInitialized)
+        {
+            Destroy(this);  // Only destroy the component
+            return;
+        }
+
+        // Mark controllers as initialized if it's the first scene
+        GameManager.Instance.controllersInitialized = true;
+        DontDestroyOnLoad(gameObject);  // This makes the object persist between scenes
+
         InputSystem.onDeviceChange += OnDeviceChange;
 
         // Create an action map and add a listener to the action
@@ -21,13 +32,11 @@ public class PlayerConnection : MonoBehaviour
     private void OnDisable()
     {
         InputSystem.onDeviceChange -= OnDeviceChange;
-
         controllerAction.Disable();
     }
 
     private void Start()
     {
-        if(GameManager.Instance.GetAllPlayer().Count > 0) Destroy(this.gameObject);
         if (AlwaysAddKeyboard && Keyboard.current != null)
         {
             AddPlayer(Keyboard.current);
