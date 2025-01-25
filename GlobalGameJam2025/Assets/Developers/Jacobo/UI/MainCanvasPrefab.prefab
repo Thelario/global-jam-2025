@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 4674985337479836000}
   - component: {fileID: 3639960813125466409}
   - component: {fileID: 4151016292220815153}
-  - component: {fileID: 643336280855318449}
   m_Layer: 5
   m_Name: Game
   m_TagString: Untagged
@@ -212,18 +211,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &643336280855318449
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712208479595424329}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2016805859621489404
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,8 +684,10 @@ MonoBehaviour:
   timerText: {fileID: 5843969868222508015}
   blocker: {fileID: 5789028607359613517}
   mainImage: {fileID: 4151016292220815153}
-  readySprite: {fileID: 21300000, guid: 5a3db7847eef12649aee21faee0df776, type: 3}
   finishSprite: {fileID: 21300000, guid: 84f03c83a0084c14abce5cb0b8e9bc3d, type: 3}
+  readySprite: {fileID: 21300000, guid: 5a3db7847eef12649aee21faee0df776, type: 3}
+  setSprite: {fileID: 21300000, guid: d6fb7f6f044d23242a83cf1aef2ac230, type: 3}
+  goSprite: {fileID: 21300000, guid: 1b87a09201f1304408dfe4b35b7e2873, type: 3}
 --- !u!1 &3173603738114949297
 GameObject:
   m_ObjectHideFlags: 0

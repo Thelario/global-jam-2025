@@ -208,6 +208,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerState == PlayerState.Waiting) return;
         Move();
 
         CheckGround();
