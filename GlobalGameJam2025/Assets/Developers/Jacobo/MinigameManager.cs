@@ -83,6 +83,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void InitMinigame()
     {
+        if (m_GameList == null) return;
         if (m_currentMinigame) EndMinigame();
         //Terminar el current, asignar y quitarlo de la lista. Inicializarlo y empezar
         m_currentMinigame = m_GameList[0];
@@ -96,7 +97,6 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void StartMinigame()
     {
-        Debug.Log("START");
         if (m_currentMinigame)
         {
             OnMinigameStart?.Invoke();
