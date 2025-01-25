@@ -31,7 +31,7 @@ public class ConfigGame : MonoBehaviour
         gameNames.Insert(0, "Random");
 
         //Grayout Players Connected
-        //if (!GameManager.instance) return;
+        if (!GameManager.instance) return;
         int connectedPlys = GameManager.instance.currentCharactersData.Length;
         for (int i = 4- connectedPlys; i >0;i--)
         {

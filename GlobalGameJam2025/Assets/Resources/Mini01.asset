@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Mini01
   m_EditorClassIdentifier: 
   minigameName: CocaColaEspuma
-  minigamePrefab: {fileID: 0}
+  usesTimer: 0
   maxTimer: 999
+  minigamePrefab: {fileID: 0}

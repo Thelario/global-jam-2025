@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93d1156c2ed1cb4daf559877313c7dc, type: 3}
   m_Name: Minigame_Example
   m_EditorClassIdentifier: 
-  minigamePrefab: {fileID: 31130931825777059, guid: 35eda3c676f53cb44b3274f751f8d284, type: 3}
+  minigameName: Minigame Default
+  usesTimer: 0
   maxTimer: 999
+  minigamePrefab: {fileID: 31130931825777059, guid: 35eda3c676f53cb44b3274f751f8d284, type: 3}
