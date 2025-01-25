@@ -2,19 +2,14 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    private void Start()
-    {
-        Debug.Log("Te");
-    }
+    private bool triggered = false;
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("LAVA");
-        if (!collision.gameObject.CompareTag("Player")) return;
+        if (!collision.gameObject.CompareTag("Player") || triggered) return;
+        triggered = true;
         MinigameManager man = MinigameManager.Instance;
-        Debug.Log("LAVA");
         if(collision.gameObject.TryGetComponent(out MultiplayerInstance ins))
         {
-            Debug.Log("LAVA");
             man.PlayerDeath(ins);
         }
     }

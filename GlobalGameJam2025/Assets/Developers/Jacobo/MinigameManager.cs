@@ -97,6 +97,7 @@ public class MinigameManager : Singleton<MinigameManager>
     }
     public void InitMinigame()
     {
+        if (!SceneNav.IsGameplay()) return;
         if (m_GameList.Count == 0) return;
         if (m_currentMinigame) EndMinigame();
 
@@ -138,7 +139,6 @@ public class MinigameManager : Singleton<MinigameManager>
         //Timer
         if (timerOn)
         {
-            Debug.Log($"TIMER: {currentTimer}");
             currentTimer -= Time.deltaTime;
             if(currentTimer < 0f)
             {
@@ -147,14 +147,14 @@ public class MinigameManager : Singleton<MinigameManager>
             }
         }
     }
-    private List<MultiplayerInstance> playersDead;
+    private List<MultiplayerInstance> playersDead = new List<MultiplayerInstance>();
 
     //Primero es el que primero ha muerto
     public List<MultiplayerInstance> GetLastGameScore() => playersDead;
     public void PlayerDeath(MultiplayerInstance data)
     {
         playersDead.Add(data);
-        if (playersDead.Count >= 3) EndMinigame();
+        if (playersDead.Count >= GameManager.Instance.NumberOfPlayers()-1) EndMinigame();
     }
     public void EndMinigame()
     {

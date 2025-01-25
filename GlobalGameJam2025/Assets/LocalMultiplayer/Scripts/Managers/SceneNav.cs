@@ -17,6 +17,10 @@ public static class SceneNav
     private static Fader faderInstance;
     private static bool busy = false;
 
+    public static bool IsGameplay()
+    {
+        return SceneManager.GetActiveScene().buildIndex == (int)SceneType.Gameplay;
+    }
     public static void GoTo(SceneType scene)
     {
         if (busy) return;

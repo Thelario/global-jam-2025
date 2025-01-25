@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
         //rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref m_Velocity, smoothTime);
         rb.AddForce(currentMovementForce);
 
-        Debug.Log("rb.linearVelocity = " + rb.linearVelocity);
+        //Debug.Log("rb.linearVelocity = " + rb.linearVelocity);
 
         // Frenar la bola
         if (!dashing)

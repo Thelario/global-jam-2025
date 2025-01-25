@@ -7,12 +7,10 @@ public class EjemploMinijuego : MinigameBase
     
     public override void MinigameInit() 
     {
-        Debug.Log("Init");
         if(minigamePrefab) prefabIns = Instantiate(minigamePrefab);
     }
     public override void MinigameStart()
     {
-        Debug.Log("Started");
     }
     public override void MinigameUpdate() 
     {
@@ -20,7 +18,6 @@ public class EjemploMinijuego : MinigameBase
     }
     public override void MinigameEnd()
     {
-        Debug.Log("Mingame Ended");
         if (prefabIns) Destroy(prefabIns.gameObject);
     }
 }
