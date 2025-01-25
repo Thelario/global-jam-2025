@@ -198,8 +198,7 @@ public class SelectionMultiplayerManager : MonoBehaviour
         InputDevice[] devices = new InputDevice[4];
         for (int i = 0; i < allPlayers.Count; i++)
             devices[i] = allPlayers[i].GetDevice<InputDevice>();
-
-        GameManager.Instance.AllPlayersSelected(charactersData, devices);
+        SceneNav.GoTo(SceneType.GameSettings);
     }
 
     bool AllPlayersReady()
