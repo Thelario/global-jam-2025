@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BubbleShield_Mat
+  m_Name: BubbleShield_Mat_Blue
   m_Shader: {fileID: -6465566751694194690, guid: 4dcea19058b25f34fae1228a98b27e5e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
