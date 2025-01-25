@@ -1307,6 +1307,14 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!222 &629480951
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629480946}
+  m_CullTransparentMesh: 1
 --- !u!1 &672345210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
@@ -1556,6 +1564,22 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_text
       value: Player Three
@@ -1567,6 +1591,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 888472598}
+    - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 888472601}
   m_SourcePrefab: {fileID: 100100000, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
 --- !u!224 &888472596 stripped
 RectTransform:
@@ -1590,6 +1617,14 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!222 &888472601
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888472597}
+  m_CullTransparentMesh: 1
 --- !u!1 &913213901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,7 +2079,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 42.654053, y: 24.019043}
-  m_SizeDelta: {x: 355.629, y: 101.962}
+  m_SizeDelta: {x: 366.772, y: 157.678}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1041406466
 MonoBehaviour:
@@ -3504,6 +3539,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_text
       value: Player Two
@@ -3515,6 +3554,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1766598962}
+    - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1766598965}
   m_SourcePrefab: {fileID: 100100000, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
 --- !u!224 &1766598961 stripped
 RectTransform:
@@ -3533,6 +3575,14 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!222 &1766598965
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672345210}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1866411037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3649,13 +3699,21 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_text
-      value: El perro MisTetas
+      value: Player Four
       objectReference: {fileID: 0}
     - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_fontSize
-      value: 30.6
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8912406361432522007, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_enableAutoSizing
@@ -3668,6 +3726,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1866411040}
+    - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1866411043}
   m_SourcePrefab: {fileID: 100100000, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
 --- !u!224 &1866411038 stripped
 RectTransform:
@@ -3691,6 +3752,14 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!222 &1866411043
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866411039}
+  m_CullTransparentMesh: 1
 --- !u!1 &1873199882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,6 +4022,7 @@ MonoBehaviour:
   gameText: {fileID: 275085782}
   roundText: {fileID: 531434708}
   timerText: {fileID: 1873199884}
+  numberPlayers: {fileID: 42967138}
   playerList:
   - {fileID: 629480948}
   - {fileID: 1766598962}
@@ -4277,6 +4347,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6897645265027177776, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7764600029637824670, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4293,6 +4367,26 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543386870232139496, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4300,6 +4394,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       insertIndex: -1
       addedObject: {fileID: 629480948}
+    - targetCorrespondingSourceObject: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 629480951}
   m_SourcePrefab: {fileID: 100100000, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
