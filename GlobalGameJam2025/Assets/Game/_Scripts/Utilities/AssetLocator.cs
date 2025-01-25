@@ -14,7 +14,8 @@ public static class AssetLocator
         if (assetData == null) Debug.LogError("AssetData not found in Resources!");
     }
 
-    public static GameObject PlayerPrefab() => assetData.PlayerPrefab;
+    public static Fader Fader => assetData.Fader;
     public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;
     public static GameObject MainCanvasPrefab => assetData.MainCanvasPrefab;
+    public static GameObject PlayerPrefab() => assetData.PlayerPrefab;
 }

@@ -27,9 +27,18 @@ public class PlayerConnection : MonoBehaviour
 
     private void Start()
     {
+        if(GameManager.Instance.GetAllPlayer().Count > 0) Destroy(this.gameObject);
         if (AlwaysAddKeyboard && Keyboard.current != null)
         {
             AddPlayer(Keyboard.current);
+        }
+
+        foreach (var device in InputSystem.devices)
+        {
+            if (device is Gamepad gamepad && !connectedDevices.Contains(gamepad))
+            {
+                AddPlayer(gamepad);
+            }
         }
     }
 

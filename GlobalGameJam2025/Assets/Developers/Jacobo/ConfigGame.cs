@@ -16,7 +16,7 @@ public class ConfigGame : MonoBehaviour
 
     private List<string> gameNames;
     private readonly int[] roundList = new int[] { 1,2,3,4,5,6};
-    private readonly int[] timerList = new int[] { 30,40,60,999};
+    private readonly int[] timerList = new int[] { 15,20,30,40,999};
 
     [Header("UI Texts")]
     [SerializeField] private TextMeshProUGUI gameText;
@@ -50,12 +50,11 @@ public class ConfigGame : MonoBehaviour
         indexTimer += right ? 1 : -1;
         if (indexTimer >= timerList.Length) indexTimer = 0;
         else if (indexTimer < 0) indexTimer = timerList.Length - 1;
-        timerText.text = $"{timerList[indexTimer].ToString()} <size=70%> sexs.";
+        timerText.text = $"{timerList[indexTimer].ToString()} <size=70%> sec.";
     }
     public void ChangeScene()
     {
-        DOTween.KillAll();
-        MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
-        SceneManager.LoadScene("Gameplay");
+        //MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
+        SceneNav.GoTo(SceneType.Gameplay);
     }
 }

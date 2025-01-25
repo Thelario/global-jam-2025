@@ -11,6 +11,7 @@ public class AssetData : ScriptableObject
     [Space(20)]
     [Header("UI")]
     public GameObject MainCanvasPrefab;
+    public Fader Fader;
 
     [Space(20)]
     [Header("Editor")]
