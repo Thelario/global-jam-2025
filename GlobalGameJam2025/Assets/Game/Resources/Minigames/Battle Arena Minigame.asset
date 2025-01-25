@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Battle Arena Minigame
   m_EditorClassIdentifier: 
   minigameName: Battle Arena
-  usesTimer: 1
+  usesTimer: 0
   maxTimer: 60
   minigamePrefab: {fileID: 1722444747706364920, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
