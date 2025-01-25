@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41adf8083d5dd3e438ddc3611c6be22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   soundsLoadPath: Sounds
   defaultVolume: 1
   defaultPitch: 1
@@ -226,7 +226,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d8a703f79f19800488dc48c6040f2d2e, type: 3}
   m_Resource: {fileID: 8300000, guid: d8a703f79f19800488dc48c6040f2d2e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
