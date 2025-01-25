@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d4f1eb7fa8ec1409a1fbdd163a2a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   firstPlayerAsGamepad: 0
   FirstPlayerData_Debug: {fileID: 11400000, guid: 78551df741624b6448a9b6f647549891, type: 2}
   SecondPlayerData_Debug: {fileID: 11400000, guid: af2ee11bef3fad840b8eb0e71e6e2627, type: 2}
@@ -797,6 +798,30 @@ PrefabInstance:
     - target: {fileID: 2983512495899319026, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 32.552
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.138
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 32.552
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000059849
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073509604091722222, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000001197
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

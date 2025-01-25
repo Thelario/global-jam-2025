@@ -4,18 +4,15 @@ using UnityEngine;
 public class Walll : MonoBehaviour
 {
     [SerializeField] private float wallForce;
-    private Collider wallCollider;
-
-    private void Start()
-    {
-        wallCollider = GetComponent<Collider>();
-    }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent<PlayerController>(out var playerController) != true)
             return;
+
+        Vector3 hitDirection = other.transform.position - other.contacts[0].point;
+        //hitDirection
         
-        playerController.AddLinearVelocity(transform.right * wallForce);
+        playerController.SetLinearVelocity(hitDirection * wallForce);
     }
 }

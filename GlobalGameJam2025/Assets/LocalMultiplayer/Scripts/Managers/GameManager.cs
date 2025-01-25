@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
                     + " with input = " + devices[i]);
         }
 
-        ChangeScene("Gameplay");
+        //ChangeScene("Gameplay");
+        ChangeScene("HexagonalPushes");
     }
 
 
@@ -159,5 +160,11 @@ public class GameManager : MonoBehaviour
 
         Debug.LogWarning($"CharacterData para {character} no encontrado.");
         return null;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
