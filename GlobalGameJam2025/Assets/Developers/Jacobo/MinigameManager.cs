@@ -109,15 +109,13 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void EndMinigame()
     {
-        Debug.Log("BBBBBBRRUH__--------------");
         if (CurrentMinigame == null) return;
 
         OnMinigameEnd?.Invoke();
         CurrentMinigame.MinigameEnd();
         CurrentMinigame = null;
 
-        //AddRemainingPlayersToScore();
-        //SceneNav.GoTo(SceneType.Score);
+        AddRemainingPlayersToScore();
     }
 
     private void StartTimer()
@@ -168,8 +166,6 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         playersDead.Add(player.PlayerData);
         int numberPlayers = GameManager.Instance.NumberOfPlayers();
-        Debug.Log($"PLAYERS DEAD: {playersDead.Count}, TOTAL PLAYER:{numberPlayers}");
-
         if (playersDead.Count >= numberPlayers - 1) EndMinigame();
     }
 
@@ -201,7 +197,7 @@ public class MinigameManager : Singleton<MinigameManager>
             }
         }
 
-        ShowCrown();
+        //ShowCrown();
     }
 
     void ShowCrown()
