@@ -164,12 +164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fa17ee0afb34a408173bcde132b35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pinballForce: 0
-  popupTime: 0
-  scaleMultiplier: 0
-  ease: 6
-  target: {fileID: 0}
-  sounds: 
+  pinballForce: 20
+  popupTime: 0.07
+  scaleMultiplier: 1.2
+  ease: 1
+  target: {fileID: 8441155690607653411}
+  sounds: 0100000002000000
 --- !u!1001 &8264029578214954440
 PrefabInstance:
   m_ObjectHideFlags: 0
