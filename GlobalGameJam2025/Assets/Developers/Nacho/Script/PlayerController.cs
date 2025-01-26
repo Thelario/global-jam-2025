@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
         MinigameManager manager = MinigameManager.Instance;
         manager.OnMinigameStart += () => ChangeState(PlayerState.CanMove);
         manager.OnMinigameEnd += () => ChangeState(PlayerState.Waiting);
-        ChangeState(PlayerState.CanMove);
     }
     private void OnDisable()
     {
