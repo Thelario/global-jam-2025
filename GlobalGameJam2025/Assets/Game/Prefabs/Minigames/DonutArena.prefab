@@ -1758,9 +1758,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9f9aea1a96959241aaa6eb908bf84d2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5255200378343817997}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a9f9aea1a96959241aaa6eb908bf84d2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2828850729446779924}
   m_SourcePrefab: {fileID: 100100000, guid: a9f9aea1a96959241aaa6eb908bf84d2, type: 3}
 --- !u!1 &6318476036518614258 stripped
@@ -1768,19 +1765,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a9f9aea1a96959241aaa6eb908bf84d2, type: 3}
   m_PrefabInstance: {fileID: 6588438237898844579}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5255200378343817997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6318476036518614258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f416bbc629bab44f833648d5a23c5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  extendsIslandOffset: 1
 --- !u!64 &2828850729446779924
 MeshCollider:
   m_ObjectHideFlags: 0

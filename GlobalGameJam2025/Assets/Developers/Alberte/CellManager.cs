@@ -1,175 +1,43 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CellManager : MonoBehaviour
 {
-    public GameObject[] cells;
-    public bool randomizing = false;
-    public int level = 10;
-    public Text count;
-    
-    public Material[] materials;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private bool falling = false;
+    public List<Cell> cellList;
+    void OnEnable()
     {
-        cells = GameObject.FindGameObjectsWithTag("Cell");
-        StartCoroutine(Randomize());
-        
-        
-
+        MinigameManager.Instance.OnMinigameStart += StartGame;
     }
-
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        MinigameManager.Instance.OnMinigameStart -= StartGame;
     }
-    IEnumerator Randomize()
+    public void StartGame()
     {
-
-        while (true)
+        if (falling) return;
+        falling = true;
+        StartCoroutine(FallRoutine());
+    }
+    private IEnumerator FallRoutine()
+    {
+        while(cellList.Count > 0)
         {
-            count.text = "3";
-            yield return new WaitForSeconds(1f);
-            count.text = "2";
-            yield return new WaitForSeconds(1f);
-            count.text = "1";
-            yield return new WaitForSeconds(1f);
-            count.text = "";
-            yield return new WaitForSeconds(1f);
-
-            
-            for (int x = 0; x < 10; x++)
+            yield return new WaitForSeconds(Random.Range(1, 3.0f));
+            int numberOfTilesFalling = Random.Range(1, 5);
+            for(int i = 0; i < numberOfTilesFalling; i++)
             {
-
-                int random = Random.Range(0, cells.Length);
-                while (cells[random].GetComponent<Cell>().trap)
+                Cell selectedCell = cellList[Random.Range(0, cellList.Count)];
+                if (selectedCell)
                 {
-                    random = Random.Range(0, cells.Length);
+                    selectedCell.Fall();
+                    cellList.Remove(selectedCell);
                 }
-                cells[random].GetComponent<Cell>().trap = true;
             }
-            for (int i = 0; i < cells.Length; i++)
-            {
-                if (cells[i].GetComponent<Cell>().trap == true)
-                {
-                    cells[i].GetComponent<Renderer>().material = materials[0];
-
-                }
-                else
-                {
-
-                    cells[i].GetComponent<Renderer>().material = materials[1];
-
-                }
-
-            }
-
-            yield return new WaitForSeconds(4f);
-            for (int i = 0; i < cells.Length; i++)
-            {
-                if (!cells[i].GetComponent<Cell>().trap)
-                {
-                    cells[i].SetActive(false);
-
-                }
-
-
-            }
-            yield return new WaitForSeconds(3);
-            for (int i = 0; i < cells.Length; i++)
-            {
-
-                cells[i].SetActive(true);
-                cells[i].GetComponent<Renderer>().material = materials[2];
-
-            }
-            level--;
-            if (level == 1)
-            {
-                level = 1;
-            }
+            yield return new WaitForSeconds(Random.Range(5, 7.0f));
         }
-        
-
-
-
-
-
-
-
-        //while (randomizing)
-        //{
-
-        //    for (int i = 0; i < cells.Length; i++)
-        //    {
-        //        if (cells[i].GetComponent<Cell>().trap == true)
-        //        {
-        //            cells[i].GetComponent<Renderer>().material = materials[0];
-        //        }
-        //        else
-        //        {
-        //            cells[i].GetComponent<Renderer>().material = materials[1];
-        //        }
-
-        //    }
-        //    yield return new WaitForSeconds(0.3f);
-        //    randomizing = false;
-        //}
-        //Debug.Log("SALEEE");
-
-
-        //yield return new WaitForSeconds(0.3f);
-        //randomizing = false;
-        //for (int i = 0; i < cells.Length; i++)
-        //{
-        //    if (cells[i].GetComponent<Cell>().trap == true)
-        //    {
-        //        cells[i].GetComponent<Renderer>().material = materials[0];
-        //    }
-        //    else
-        //    {
-        //        cells[i].GetComponent<Renderer>().material = materials[1];
-        //    }
-
-        //}
-        //yield return new WaitForSeconds(0.3f);
-        //randomizing = false;
-
-
-        //for( int z=0; z<level; z++)
-        //{
-        //    int random = Random.Range(0, cells.Length);
-        //    while (cells[random].GetComponent<Cell>().trap)
-        //    {
-        //        random = Random.Range(0, cells.Length);
-        //    }
-        //    cells[random].GetComponent<Cell>().trap = true;
-        //    cells[random].GetComponent<Renderer>().material = materials[1];
-        //}
-        //for (int i = 0; i < cells.Length; i++)
-        //{
-        //    if (cells[i].GetComponent<Cell>().trap)
-        //    {
-        //        cells[i].GetComponent<Renderer>().material = materials[0];
-        //    }
-
-
-
-        //}
-        //yield return new WaitForSeconds(3f);
-        //for (int i = 0; i < cells.Length; i++)
-        //{
-        //    if (!cells[i].GetComponent<Cell>().trap)
-        //    {
-        //        cells[i].SetActive(false);
-        //    }
-
-
-
-        //}
-
-
     }
 }
