@@ -1775,7 +1775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e474cd7668c6094c8b49ff599c7453e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AlwaysAddKeyboard: 0
+  AlwaysAddKeyboard: 1
   rend: {fileID: 0}
 --- !u!4 &1450863882
 Transform:
