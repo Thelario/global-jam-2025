@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         if (_doRollVolume == false)
             return;
 
-        float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 500);
+        float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 250);
         SoundManager.Instance.PlaySound(Sound.BubbleRoll, volumeModifier);
     }
 

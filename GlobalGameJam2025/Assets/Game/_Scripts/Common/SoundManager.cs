@@ -23,6 +23,11 @@ public class SoundManager : Singleton<SoundManager>
         Configure();
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void Configure()
     {
         _sounds = new Dictionary<Sound, SoundSO>();

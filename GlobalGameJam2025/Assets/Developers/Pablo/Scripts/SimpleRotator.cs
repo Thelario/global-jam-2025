@@ -20,8 +20,8 @@ public class SimpleRotator : MonoBehaviour
 
     private void Update()
     {
-        //_fiuuuum += Time.deltaTime;
-        //_fiuuuum = Mathf.Clamp(_fiuuuum, 0f, maxFiuuuum);
+        _fiuuuum += Time.deltaTime;
+        _fiuuuum = Mathf.Clamp(_fiuuuum, 0f, maxFiuuuum);
         transform.Rotate(Vector3.up, Time.deltaTime * rotationSpeed * _fiuuuum);
     }
 }
