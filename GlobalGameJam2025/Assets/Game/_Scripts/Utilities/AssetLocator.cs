@@ -15,10 +15,10 @@ public static class AssetLocator
     }
     public static List<Color> PaintColors => new List<Color>()
     {
-        new Color32(218,109,210,255),
-        new Color32(240,59,110,255),
-        new Color32(180,210,61,255),
-        new Color32(70,120,240,255)
+        new Color32(255,191,97,255),
+        new Color32(255,81,113,255),
+        new Color32(185,213,47,255),
+        new Color32(85,166,255,255)
     };
     public static List<MinigameBase> ALLGAMES => assetData.ALLGAMES;
     public static Fader Fader => assetData.Fader;

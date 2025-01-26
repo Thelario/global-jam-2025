@@ -1843,6 +1843,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size
       value: 1
@@ -1851,6 +1879,10 @@ PrefabInstance:
       propertyPath: 'sounds.Array.data[0]'
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8812137419993282094, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8691780276856062721, guid: f1d077f2f95ebda4b85bd3f950382170, type: 3}
     - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_Name
       value: Pinball_2
@@ -2160,6 +2192,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size
       value: 1
@@ -2168,6 +2228,10 @@ PrefabInstance:
       propertyPath: 'sounds.Array.data[0]'
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8812137419993282094, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8691780276856062721, guid: f1d077f2f95ebda4b85bd3f950382170, type: 3}
     - target: {fileID: 9115926663527995667, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_Name
       value: Pinball_1
@@ -2616,6 +2680,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size
       value: 1
@@ -2624,6 +2716,10 @@ PrefabInstance:
       propertyPath: 'sounds.Array.data[0]'
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8812137419993282094, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 8691780276856062721, guid: f1d077f2f95ebda4b85bd3f950382170, type: 3}
     - target: {fileID: 9077212343442116287, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: maxFiuuuum
       value: 100
