@@ -135,11 +135,12 @@ public class MinigameManager : Singleton<MinigameManager>
         var availableMinigames = new List<MinigameBase>(AssetLocator.ALLGAMES);
         m_GameList = new List<MinigameBase>();
 
-        for (int i = 0; i < GameRounds; i++)
+        //for (int i = 0; i < GameRounds; i++)
+        for (int i = 0; i < 100; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
             m_GameList.Add(availableMinigames[randomIndex]);
-            availableMinigames.RemoveAt(randomIndex);
+            //availableMinigames.RemoveAt(randomIndex);
         }
     }
 
@@ -150,7 +151,7 @@ public class MinigameManager : Singleton<MinigameManager>
         var availableMinigames = new List<MinigameBase>(AssetLocator.ALLGAMES);
         m_GameList = new List<MinigameBase>();
 
-        for (int i = 0; i < GameRounds; i++)
+        for (int i = 0; i < 1000; i++)
             m_GameList.Add(availableMinigames[index]);
     }
 

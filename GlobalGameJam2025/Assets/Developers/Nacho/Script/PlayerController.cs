@@ -25,7 +25,21 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeState(PlayerState newState)
     {
-        rb.isKinematic = newState == PlayerState.Waiting;
+        // No lo quites o gran jacobo tu que estas en los cielos
+        // Jacobo Nuestro, que estás en Discord,
+        // santificado sea tu codigo;
+        // venga a nosotros tu pull;
+        // hágase tu voluntad, en la tierra como en el cielo.
+
+        if (this == null)
+            return;
+
+         // PlayerData playerData = GetComponent<MultiplayerInstance>().PlayerData;
+
+        if (SceneNav.GetCurrentScene() != "EarnPoints")
+        {
+            rb.isKinematic = newState == PlayerState.Waiting;
+        }
         playerState = newState;
     }
 
@@ -77,7 +91,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool stunned;
 
     private bool _doRollVolume = true;
-    
+
     public event Action<Collision> OnCollisionEntered;
 
     // Components
@@ -159,7 +173,7 @@ public class PlayerController : MonoBehaviour
 
         if (_doRollVolume == false)
             return;
-        
+
         float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 500);
         SoundManager.Instance.PlaySound(Sound.BubbleRoll, volumeModifier);
     }

@@ -13,7 +13,7 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
 
     [SerializeField] Transform finishLine;
 
-    int maxScore = 10;
+    [SerializeField] int maxScore = 10;
 
     List<PlayerData> allPlayersConnected;
 
