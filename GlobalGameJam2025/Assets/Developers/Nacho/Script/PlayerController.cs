@@ -393,6 +393,8 @@ public class PlayerController : MonoBehaviour
 
                 otherPlayer.SetLinearVelocity(-dir * resultVelocity);
 
+                SoundManager.Instance.PlaySound(Sound.BubbleDeep);
+
                 //if (dashing)
                 //    otherPlayer.SetLinearVelocity(-dir * resultVelocity);
                 //else
