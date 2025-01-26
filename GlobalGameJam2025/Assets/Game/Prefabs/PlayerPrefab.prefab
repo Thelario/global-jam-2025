@@ -5124,10 +5124,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 0
   playerFollow: {fileID: 4947497262239775984}
-  minimunVelocityOnCollision: 5
+  minimunVelocityOnCollision: 10
   movementForce: 2000
   dashForce: 800
-  dashTime: 0.1
+  dashTime: 0.5
   dashRecharge: {fileID: 6779772951916987918}
   dashDelayTime: 2
   jumpForce: 500
@@ -5314,7 +5314,7 @@ Rigidbody:
   m_GameObject: {fileID: 7339635329292493138}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
