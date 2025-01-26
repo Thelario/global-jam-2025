@@ -9,7 +9,7 @@ public class CameraUpRaceMinigame : MonoBehaviour
     public Transform secondposition, endposition;
     private bool firstmove, secondmove;
     bool enableinput = false;
-    public Text count;
+    
 
     void Start()
     {
@@ -33,13 +33,9 @@ public class CameraUpRaceMinigame : MonoBehaviour
         
         firstmove = true;
         secondmove = false;
-        count.text = "3";
+        
         yield return new WaitForSeconds(1f);
-        count.text = "2";
-        yield return new WaitForSeconds(1f);
-        count.text = "1";
-        yield return new WaitForSeconds(1f);
-        count.text = "";
+        
         
         
         //for (int i = 0; i < players.Length; i++)
