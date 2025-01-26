@@ -131,5 +131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004e5a4657fd3cf4a9d1d4e43e4ac565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chipPrefab: {fileID: 0}
+  chipPrefab: {fileID: 688063865221538954, guid: af32e67032101ea4da7c6e912b69f37a, type: 3}
   chipsZXOffset: 0.3
