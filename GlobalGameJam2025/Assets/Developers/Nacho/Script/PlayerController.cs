@@ -391,10 +391,12 @@ public class PlayerController : MonoBehaviour
             {
                 SetLinearVelocity(dir * resultVelocity / 2);
 
-                if (dashing)
-                    otherPlayer.SetLinearVelocity(-dir * resultVelocity);
-                else
-                    otherPlayer.SetLinearVelocity(-dir * resultVelocity * 1.2f);
+                otherPlayer.SetLinearVelocity(-dir * resultVelocity);
+
+                //if (dashing)
+                //    otherPlayer.SetLinearVelocity(-dir * resultVelocity);
+                //else
+                //    otherPlayer.SetLinearVelocity(-dir * resultVelocity * 1.2f);
             }
         }
 
