@@ -1,8 +1,6 @@
-    using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PinballCylinder : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class PinballCylinder : MonoBehaviour
     [SerializeField] private float scaleMultiplier;
     [SerializeField] private Ease ease = Ease.OutQuad;
     [SerializeField] private Transform target;
-    [SerializeField] private List<Sound> sounds;
+    [SerializeField] private List<Sound> sounds;    
 
     private void OnCollisionEnter(Collision other)
     {
