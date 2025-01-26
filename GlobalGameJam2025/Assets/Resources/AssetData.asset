@@ -14,11 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ALLGAMES:
   - {fileID: 11400000, guid: 9092ad694bc88284190403768164e410, type: 2}
-  - {fileID: 11400000, guid: 179bd43f746f05641b707405f26a1e36, type: 2}
-  - {fileID: 11400000, guid: 676aa71b36f0e254ca5aeac7469681a6, type: 2}
-  - {fileID: 11400000, guid: 91640aa6d6f633949b79e3172b89892f, type: 2}
-  - {fileID: 11400000, guid: 737bb224776d9f74f9913e4ad57ce4ca, type: 2}
-  - {fileID: 11400000, guid: 216f980016e3ee340ba01541be90ee3d, type: 2}
   PlayerPrefab: {fileID: 7339635329292493138, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
   MainCanvasPrefab: {fileID: 2664128070008245586, guid: d1e8823ce78631b4bb493fdd857259cd, type: 3}
   Fader: {fileID: 4007716831337006598, guid: 1000dff636690484598b7919c8e6deda, type: 3}

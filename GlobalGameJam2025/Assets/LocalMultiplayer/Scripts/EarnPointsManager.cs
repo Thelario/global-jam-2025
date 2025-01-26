@@ -97,10 +97,11 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
                 MinigameManager.Instance.SpawnPlayerByIndex(currentPlayer.Index, tower.GetPlayerSpawnPosition());
             }
 
-            yield return new WaitForSeconds(2);
+            if (i != playerResults.Count - 1)
+                yield return new WaitForSeconds(1.5f);
         }
 
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
 
         //TODO: MIRAR
 
@@ -123,13 +124,40 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
             }
         }
 
-        if (winningPlayer != null)
-            Crown.instance.playerFollow = MinigameManager.Instance.GetAllPlayers()[winningPlayer.Index].transform;
+        ShowCrown();
+
+        yield return new WaitForSeconds(2);
 
         if (topPoints >= maxScore)
             SceneNav.GoTo(SceneType.MainMenuScene);
         else
             SceneNav.GoTo(SceneType.Gameplay);
+    }
+
+    void ShowCrown()
+    {
+        PlayerData winningPlayer = null;
+        int topPoints = 0;
+
+        for (int i = 0; i < playerResults.Count; i++)
+        {
+            if (playerResults[i].TotalPoints > topPoints)
+            {
+                winningPlayer = playerResults[i];
+                topPoints = winningPlayer.TotalPoints;
+            }
+        }
+
+        MultiplayerInstance winningPlayerInstance = null;
+        MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
+        for (int i = 0; i < multiplayerInstances.Length; i++)
+        {
+            if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
+            {
+                winningPlayerInstance = multiplayerInstances[i];
+                Crown.instance.playerFollow = winningPlayerInstance.transform;
+            }
+        }
     }
 
     void positionIntToText(TextStruct textStruct, int index)
