@@ -27,19 +27,16 @@ public class OreoFalling : MonoBehaviour
 
     private IEnumerator FallRoutine()
     {
+        yield return new WaitForSeconds(1f);
         while (running)
         {
-            yield return new WaitForSeconds(Random.Range(2.75f, 4f));
-
             List<Oreo> availableOreos = oreoList.FindAll(oreo => oreo.isAvailable);
-
             if (availableOreos.Count > 0)
             {
                 Oreo randomOreo = availableOreos[Random.Range(0, availableOreos.Count)];
-
                 randomOreo.FallOreo(); 
-                
             }
+            yield return new WaitForSeconds(Random.Range(2.5f, 3.25f));
         }
     }
 }

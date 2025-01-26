@@ -16,10 +16,9 @@ public class Oreo : MonoBehaviour
         isAvailable = false;
         Material mat = transform.GetComponent<Renderer>().material;
         fallSeq = DOTween.Sequence();
-        fallSeq.Append(mat.DOFloat(0.95f, "_Sat", 0.15f))
-            .Insert(0.3f, mat.DOFloat(0f, "_Sat", 0.1f))
+        fallSeq.Append(mat.DOFloat(0.9f, "_Sat", 0.2f).SetLoops(2, LoopType.Yoyo))
             .Join(transform.DOScale(transform.localScale * 0.95f, 0.2f).SetLoops(2, LoopType.Yoyo))
-            .Append(transform.DOMoveY(-5.5f, 4.0f))
+            .Append(transform.DOMoveY(-5.5f, 2.0f).SetEase(Ease.InOutBack))
             .Append(transform.DOMoveY(initPos.y, 1f))
             .OnComplete(() => { isAvailable = true; });
     }
