@@ -25,10 +25,11 @@ public class PlayerController : MonoBehaviour
     }
     public void ChangeState(PlayerState newState)
     {
+        rb.isKinematic = newState == PlayerState.Waiting;
         playerState = newState;
     }
 
-    private PlayerState playerState = PlayerState.CanMove;
+    private PlayerState playerState = PlayerState.Waiting;
     [HideInInspector] public int playerIndex;
 
     [Header("References")]
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
         anim = GetComponentInChildren<Animator>();
         bubbleScript = GetComponentInChildren<BubbleScript>();
 
