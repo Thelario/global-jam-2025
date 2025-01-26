@@ -206,14 +206,12 @@ public class MinigameManager : Singleton<MinigameManager>
                 allPlayers.Add(multiplayerInstance);
             }
         }
-
-        Invoke("ShowCrown", .5f);
     }
 
     void ShowCrown()
     {
         PlayerData winningPlayer = null;
-        int topPoints = 0;
+        int topPoints = -1;
 
         for (int i = 0; i < allPlayers.Count; i++)
         {
@@ -236,7 +234,7 @@ public class MinigameManager : Singleton<MinigameManager>
         }
     }
 
-    public void SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
+    public Transform SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
     {
         var playerDataList = GameManager.Instance.GetAllPlayer();
 
@@ -247,6 +245,8 @@ public class MinigameManager : Singleton<MinigameManager>
             multiplayerInstance.AssignData(playerDataList[playerIndex]);
             allPlayers.Add(multiplayerInstance);
         }
+
+        return playerObject.transform;
     }
 
     private void EnsureEnoughSpawnPoints(List<Vector3> spawnPoints, int requiredCount)

@@ -64,4 +64,12 @@ public class ConfigGame : MonoBehaviour
         MinigameManager.Instance.InitMinigameInfo(roundList[indexRounds], timerList[indexTimer], indexGame);
         SceneNav.GoTo(SceneType.Gameplay);
     }
+
+    private void OnDisable()
+    {
+        List<PlayerData> players = GameManager.Instance.GetAllPlayer();
+
+        for (int i = 0; i < players.Count; i++)
+            players[i].SetTotalPoints(0);
+    }
 }

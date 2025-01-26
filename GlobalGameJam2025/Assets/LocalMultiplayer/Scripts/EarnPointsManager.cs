@@ -93,7 +93,8 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
 
                 yield return new WaitForSeconds(.1f);
 
-                MinigameManager.Instance.SpawnPlayerByIndex(currentPlayer.Index, tower.GetPlayerSpawnPosition());
+                Transform player = MinigameManager.Instance.SpawnPlayerByIndex(currentPlayer.Index, tower.GetPlayerSpawnPosition());
+                Destroy(player.GetComponent<PlayerController>());
             }
 
             if (i != playerResults.Count - 1)
