@@ -41,10 +41,10 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
 
         allPlayersConnected = GameManager.Instance.GetAllPlayer();
 
-        //StartCoroutine(EarnPointsSequence());
+        StartCoroutine(EarnPointsSequence());
 
-        PlayerPointTower tower = playerPointTower[0];
-        StartCoroutine(tower.AddChipsDelay(maxScore));
+        //PlayerPointTower tower = playerPointTower[0];
+        //StartCoroutine(tower.AddChipsDelay(maxScore));
     }
 
     IEnumerator slkdjlskdjf()
