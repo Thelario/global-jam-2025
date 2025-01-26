@@ -34,7 +34,10 @@ public class PlayerPointTower : MonoBehaviour
         else
             finalPos = new Vector3(randomOffset.x, currentHeight, randomOffset.y) + transform.position;
 
-        Instantiate(chipPrefab, finalPos, Quaternion.identity, transform);
+        float randomAngle = Random.Range(0f, 360f);
+        Quaternion randomRotation = Quaternion.Euler(0, randomAngle, 0);
+        Transform newChip = Instantiate(chipPrefab, finalPos, randomRotation, transform).transform;
+
         currentHeight += distanceBetweenChips;
     }
 

@@ -198,7 +198,7 @@ public class MinigameManager : Singleton<MinigameManager>
             }
         }
 
-        //ShowCrown();
+        Invoke("ShowCrown", .5f);
     }
 
     void ShowCrown()

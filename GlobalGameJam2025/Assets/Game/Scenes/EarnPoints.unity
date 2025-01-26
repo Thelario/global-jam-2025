@@ -390,6 +390,7 @@ MonoBehaviour:
   - {fileID: 1166661723}
   - {fileID: 144456559}
   finishLine: {fileID: 1601628867}
+  maxScore: 10
   positionsText:
   - bigText: {fileID: 779015233}
     smallText: {fileID: 641465347}
@@ -1856,7 +1857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7763357041581123419, guid: af32e67032101ea4da7c6e912b69f37a, type: 3}
       propertyPath: m_Constraints
-      value: 10
+      value: 122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

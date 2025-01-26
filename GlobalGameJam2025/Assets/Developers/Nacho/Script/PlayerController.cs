@@ -134,6 +134,9 @@ public class PlayerController : MonoBehaviour
         SetMovementForceMultiplier(1f);
 
 
+        rb.isKinematic = false;
+
+
         // Set up character variables
 
         //speed = thisCharacterActions.characterData.speed;
