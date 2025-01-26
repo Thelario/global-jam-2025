@@ -80,7 +80,8 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void InitMinigame()
     {
-        if (!SceneNav.IsGameplay() || m_GameList.Count == 0 || CurrentMinigame != null) return;
+        if (!SceneNav.IsGameplay() || m_GameList.Count == 0 || CurrentMinigame != null)
+            return;
 
         CurrentMinigame = m_GameList[0];
         m_GameList.RemoveAt(0);
@@ -88,7 +89,9 @@ public class MinigameManager : Singleton<MinigameManager>
         OnMinigameInit?.Invoke();
         CurrentMinigame.MinigameInit();
 
-        if (AssetLocator.MainCanvasPrefab) Instantiate(AssetLocator.MainCanvasPrefab);
+        if (AssetLocator.MainCanvasPrefab)
+            Instantiate(AssetLocator.MainCanvasPrefab);
+
         SpawnPlayers();
 
         //StartMinigame();
@@ -182,6 +185,12 @@ public class MinigameManager : Singleton<MinigameManager>
     public void SpawnPlayers() 
     {
         allPlayers.Clear();
+
+        // if (SpawnPoint.spawnPoint != null && SpawnPoint.spawnPoint.Count > 4)
+        // {
+        //     SpawnPoint.ClearSpawnPoints();
+        // }
+        
         var spawnPoints = SpawnPoint.GetSpawnPoints();
         var playerDataList = GameManager.Instance.GetAllPlayer();
 
@@ -243,7 +252,10 @@ public class MinigameManager : Singleton<MinigameManager>
     private void EnsureEnoughSpawnPoints(List<Vector3> spawnPoints, int requiredCount)
     {
         while (spawnPoints.Count < requiredCount)
+        {
+            print("WHILE");
             spawnPoints.Add(spawnPoints[spawnPoints.Count - 1]);
+        }
     }
 
     #endregion
