@@ -9,6 +9,7 @@ TagManager:
   - LimitDown
   - Cell
   - Death
+  - Triggerable
   layers:
   - Default
   - TransparentFX

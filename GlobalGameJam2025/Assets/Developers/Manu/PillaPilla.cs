@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class PillaPilla : MonoBehaviour
 {
     [SerializeField] TMP_Text timer;
@@ -15,6 +16,7 @@ public class PillaPilla : MonoBehaviour
     Vector3 escalaInicial;
     float currentTime;
     List<MultiplayerInstance> players;
+    
     MultiplayerInstance elQuePilla;
     bool endGame = false;
     bool puedePillar = true;
@@ -28,22 +30,17 @@ public class PillaPilla : MonoBehaviour
     {
         yield return new WaitForSeconds(delayStart);
 
-        players = null;// GameplayMultiplayerManager.Instance.GetAllPl;
-        if (players != null && players.Count > 0)
-        {
-            int randomIndex = Random.Range(0, players.Count);
-            elQuePilla = players[randomIndex];
-            escalaInicial=elQuePilla.transform.localScale;
-            StatsDelQuePilla();
-        }
+        MinigameManager.Instance.SpawnPlayers();
+        ElegirElQuePilla();
 
-        elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
-
-        currentTime = maxTime;
-        UpdateQuienPilla(elQuePilla.playerIndex);
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+
+        }
+
         UpdateTimer();
         FinJuego();
     }
@@ -110,5 +107,21 @@ public class PillaPilla : MonoBehaviour
     {
         elQuePilla.transform.localScale = escalaInicial;
         elQuePilla.GetComponent<PlayerController>().ResetMovementForce();
+    }
+    void ElegirElQuePilla()
+    {
+        players = MinigameManager.Instance.GetAllPlayers();
+        if (players != null && players.Count > 0)
+        {
+            int randomIndex = Random.Range(0, players.Count);
+            elQuePilla = players[randomIndex];
+            escalaInicial = elQuePilla.transform.localScale;
+            StatsDelQuePilla();
+        }
+
+        elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
+
+        currentTime = maxTime;
+        UpdateQuienPilla(elQuePilla.playerIndex);
     }
 }
