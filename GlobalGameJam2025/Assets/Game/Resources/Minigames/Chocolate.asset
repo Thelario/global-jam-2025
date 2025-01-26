@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
-  m_Name: Cellsminigame
+  m_Name: Chocolate
   m_EditorClassIdentifier: 
-  minigameName: CellsMinigame
+  minigameName: Chocolate
   usesTimer: 0
   maxTimer: 60
   minigamePrefab: {fileID: 8953291886907528084, guid: 436a75c351f89334d8aa36bf203f5653, type: 3}

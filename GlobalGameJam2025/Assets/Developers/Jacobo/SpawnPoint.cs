@@ -16,6 +16,10 @@ public class SpawnPoint : MonoBehaviour
         if(spawnPoint == null) spawnPoint = new List<Vector3>();
         spawnPoint.Add(transform.position);
     }
+    private void OnDestroy()
+    {
+        spawnPoint.Remove(transform.position);
+    }
     private static List<Vector3> spawnPoint;
     public static List<Vector3> GetSpawnPoints() => spawnPoint;//Devuelve todos los spawnpoints(no ordenado)
 }
