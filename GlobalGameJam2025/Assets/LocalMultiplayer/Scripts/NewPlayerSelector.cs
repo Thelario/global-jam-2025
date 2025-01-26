@@ -8,6 +8,7 @@ public class NewPlayerSelector : MonoBehaviour
 {
     [Header("Players")]
     [SerializeField] private List<GameObject> playerVisuals;
+    [SerializeField] private List<Renderer> playerRenderers;
     [SerializeField] private Button gobackButton, continueButton; 
 
     private void OnEnable()
@@ -33,11 +34,22 @@ public class NewPlayerSelector : MonoBehaviour
     }
     private void UpdateUI(PlayerData newPlayer = null)
     {
-        foreach (var player in playerVisuals) { player.SetActive(false); }
+        // Desactivar todos los visuales de los jugadores inicialmente
+        foreach (var player in playerVisuals)
+        {
+            player.SetActive(false);
+        }
+
         int index = GameManager.Instance.NumberOfPlayers();
         for (int i = 0; i < index && i < playerVisuals.Count; i++)
         {
             playerVisuals[i].SetActive(true);
+            if(playerVisuals[i].TryGetComponent(out MultiplayerInstance tetas))
+            {
+                tetas.AssignData(GameManager.Instance.GetAllPlayer()[i]);
+                
+            } 
         }
     }
+
 }
