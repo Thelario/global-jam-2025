@@ -15,4 +15,4 @@ MonoBehaviour:
   minigameName: Rotating Walls
   usesTimer: 1
   maxTimer: 60
-  minigamePrefab: {fileID: 5996139508120457504, guid: c03ae5a2262a7ac418a242fa1c186f74, type: 3}
+  minigamePrefab: {fileID: 4594624404338652149, guid: 71b8d3ba9a3365f4684ce5b8ad82622f, type: 3}
