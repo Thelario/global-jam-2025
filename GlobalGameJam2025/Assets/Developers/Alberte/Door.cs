@@ -16,4 +16,16 @@ public class Door : MonoBehaviour
         transform.Translate(Vector3.back * speed * Time.deltaTime);
 
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController) != true)
+    //        return;
+
+    //    Vector3 hitDirection = collision.transform.position - collision.contacts[0].point;
+
+    //    SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
+    //    playerController.SetLinearVelocity(hitDirection * 10);
+        
+    //}
 }

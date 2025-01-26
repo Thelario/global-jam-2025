@@ -10,6 +10,7 @@ public class Doormanager : MonoBehaviour
     public GameObject doorlevel3;
     public GameObject doorlevel4;
     public GameObject doorlevel5;
+    public GameObject doorlevel6, doorlevel7, doorlevel8, doorlevel9, doorlevel10, doorlevel11, doorlevel12, doorlevel13;
     public Text count;
     public Transform spawnPoint, spawnPoint3, spawnPoint4,endPoint;
     public float speed = 30;
@@ -65,21 +66,52 @@ public class Doormanager : MonoBehaviour
         GameObject doorInstance5 = Instantiate(doorlevel5, spawnPoint3.transform.position, Quaternion.identity);
         doorInstance5.GetComponent<Door>().speed = speed;
         yield return new WaitForSeconds(2f);
-        while (GameManager.Instance.NumberOfPlayers() == 1)
-        {
-            increment *= 1;
-            speed += increment;
-            GameObject doorInstance6 = Instantiate(doorlevel4, spawnPoint4.transform.position, Quaternion.identity);
-            doorInstance4.GetComponent<Door>().speed = speed;
-            yield return new WaitForSeconds(timeWait-timedecrease);
 
-            increment *= 1;
-            speed += increment;
-            timedecrease -= 0.1f;
-            GameObject doorInstance7 = Instantiate(doorlevel5, spawnPoint3.transform.position, Quaternion.identity);
-            doorInstance5.GetComponent<Door>().speed = speed;
-            yield return new WaitForSeconds(timeWait - timedecrease);
-        }
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance6 = Instantiate(doorlevel6, spawnPoint4.transform.position, Quaternion.identity);
+        doorInstance6.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance7 = Instantiate(doorlevel7, spawnPoint3.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance8 = Instantiate(doorlevel8, spawnPoint4.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance9 = Instantiate(doorlevel9, spawnPoint3.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance10= Instantiate(doorlevel10, spawnPoint4.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance11 = Instantiate(doorlevel11, spawnPoint3.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance12= Instantiate(doorlevel12, spawnPoint4.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        increment *= 1;
+        speed += increment;
+        GameObject doorInstance13 = Instantiate(doorlevel13, spawnPoint3.transform.position, Quaternion.identity);
+        doorInstance7.GetComponent<Door>().speed = speed;
+        yield return new WaitForSeconds(1f);
+        
+
+
 
 
     }
