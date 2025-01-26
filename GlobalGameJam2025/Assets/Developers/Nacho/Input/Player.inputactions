@@ -199,8 +199,8 @@
                 },
                 {
                     "name": "",
-                    "id": "bf70354c-d702-44dc-a192-1724a9641131",
-                    "path": "<DualShockGamepad>/buttonWest",
+                    "id": "db736615-11ab-4487-be22-30b49bd11261",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
