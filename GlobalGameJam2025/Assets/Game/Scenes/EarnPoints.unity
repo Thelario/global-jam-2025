@@ -1213,6 +1213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crown
       objectReference: {fileID: 0}
+    - target: {fileID: 753426403989598938, guid: 61126e2da1b8a26479a1b9fbacb23862, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6553899998747898052, guid: 61126e2da1b8a26479a1b9fbacb23862, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

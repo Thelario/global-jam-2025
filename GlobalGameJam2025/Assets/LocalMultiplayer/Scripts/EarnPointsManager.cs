@@ -124,7 +124,7 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
             }
         }
 
-        ShowCrown();
+        //ShowCrown();
 
         yield return new WaitForSeconds(2);
 
@@ -134,31 +134,31 @@ public class EarnPointsManager : Singleton<EarnPointsManager>
             SceneNav.GoTo(SceneType.Gameplay);
     }
 
-    void ShowCrown()
-    {
-        PlayerData winningPlayer = null;
-        int topPoints = 0;
+    //void ShowCrown()
+    //{
+    //    PlayerData winningPlayer = null;
+    //    int topPoints = 0;
 
-        for (int i = 0; i < playerResults.Count; i++)
-        {
-            if (playerResults[i].TotalPoints > topPoints)
-            {
-                winningPlayer = playerResults[i];
-                topPoints = winningPlayer.TotalPoints;
-            }
-        }
+    //    for (int i = 0; i < playerResults.Count; i++)
+    //    {
+    //        if (playerResults[i].TotalPoints > topPoints)
+    //        {
+    //            winningPlayer = playerResults[i];
+    //            topPoints = winningPlayer.TotalPoints;
+    //        }
+    //    }
 
-        MultiplayerInstance winningPlayerInstance = null;
-        MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
-        for (int i = 0; i < multiplayerInstances.Length; i++)
-        {
-            if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
-            {
-                winningPlayerInstance = multiplayerInstances[i];
-                Crown.instance.playerFollow = winningPlayerInstance.transform;
-            }
-        }
-    }
+    //    MultiplayerInstance winningPlayerInstance = null;
+    //    MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
+    //    for (int i = 0; i < multiplayerInstances.Length; i++)
+    //    {
+    //        if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
+    //        {
+    //            winningPlayerInstance = multiplayerInstances[i];
+    //            Crown.instance.playerFollow = winningPlayerInstance.transform;
+    //        }
+    //    }
+    //}
 
     void positionIntToText(TextStruct textStruct, int index)
     {

@@ -208,31 +208,31 @@ public class MinigameManager : Singleton<MinigameManager>
         }
     }
 
-    void ShowCrown()
-    {
-        PlayerData winningPlayer = null;
-        int topPoints = -1;
+    //void ShowCrown()
+    //{
+    //    PlayerData winningPlayer = null;
+    //    int topPoints = -1;
 
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            if (allPlayers[i].PlayerData.TotalPoints > topPoints)
-            {
-                winningPlayer = allPlayers[i].PlayerData;
-                topPoints = winningPlayer.TotalPoints;
-            }
-        }
+    //    for (int i = 0; i < allPlayers.Count; i++)
+    //    {
+    //        if (allPlayers[i].PlayerData.TotalPoints > topPoints)
+    //        {
+    //            winningPlayer = allPlayers[i].PlayerData;
+    //            topPoints = winningPlayer.TotalPoints;
+    //        }
+    //    }
 
-        MultiplayerInstance winningPlayerInstance = null;
-        MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
-        for (int i = 0; i < multiplayerInstances.Length; i++)
-        {
-            if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
-            {
-                winningPlayerInstance = multiplayerInstances[i];
-                Crown.instance.playerFollow = winningPlayerInstance.transform;
-            }
-        }
-    }
+    //    MultiplayerInstance winningPlayerInstance = null;
+    //    MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
+    //    for (int i = 0; i < multiplayerInstances.Length; i++)
+    //    {
+    //        if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
+    //        {
+    //            winningPlayerInstance = multiplayerInstances[i];
+    //            Crown.instance.playerFollow = winningPlayerInstance.transform;
+    //        }
+    //    }
+    //}
 
     public Transform SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
     {
