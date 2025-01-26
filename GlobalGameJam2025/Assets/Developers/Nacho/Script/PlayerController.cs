@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
         if (this == null)
             return;
 
-         // PlayerData playerData = GetComponent<MultiplayerInstance>().PlayerData;
+        // PlayerData playerData = GetComponent<MultiplayerInstance>().PlayerData;
 
         if (SceneNav.GetCurrentScene() != "EarnPoints")
         {
@@ -389,8 +389,12 @@ public class PlayerController : MonoBehaviour
             // El jugador que va mas rapido se encarga de resolver la colision
             if (playerVelocity > otherPlayerVelocity)
             {
-                SetLinearVelocity(dir * resultVelocity);
-                otherPlayer.SetLinearVelocity(-dir * resultVelocity);
+                SetLinearVelocity(dir * resultVelocity / 2);
+
+                if (dashing)
+                    otherPlayer.SetLinearVelocity(-dir * resultVelocity);
+                else
+                    otherPlayer.SetLinearVelocity(-dir * resultVelocity * 1.2f);
             }
         }
 
