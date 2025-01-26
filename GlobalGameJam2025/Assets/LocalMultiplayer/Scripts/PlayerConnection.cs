@@ -6,6 +6,7 @@ public class PlayerConnection : MonoBehaviour
 {
     private List<InputDevice> connectedDevices = new List<InputDevice>();
     [SerializeField] private bool AlwaysAddKeyboard = true;
+    [SerializeField] private Transform rend;
     private InputAction controllerAction; // The action to detect the button press
 
     private void OnEnable()
