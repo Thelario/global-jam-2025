@@ -14,7 +14,7 @@ public class Doormanager : MonoBehaviour
     public Transform spawnPoint, spawnPoint3, spawnPoint4,endPoint;
     public float speed = 30;
     public float increment = 3;
-    public float timeWait = 1;
+    public float timeWait = 2;
     public float timedecrease = 0.1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,13 +58,13 @@ public class Doormanager : MonoBehaviour
         speed += increment;
         GameObject doorInstance4 = Instantiate(doorlevel4, spawnPoint4.transform.position, Quaternion.identity);
         doorInstance4.GetComponent<Door>().speed = speed;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         increment *= 1;
         speed += increment;
         GameObject doorInstance5 = Instantiate(doorlevel5, spawnPoint3.transform.position, Quaternion.identity);
         doorInstance5.GetComponent<Door>().speed = speed;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         while (GameManager.Instance.NumberOfPlayers() == 1)
         {
             increment *= 1;
