@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DonutMat
+    second: {fileID: 2100000, guid: f3af1eca1ea92ea469cbe41da1951dac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: 5f1484f96e68b4c408b0fd74a69135da, type: 2}
   materials:
