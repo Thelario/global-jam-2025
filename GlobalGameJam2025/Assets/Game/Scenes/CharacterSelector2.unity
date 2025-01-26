@@ -1040,6 +1040,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisualPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3066196000403343857, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1998,6 +2002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisualPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3066196000403343857, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3340357776618111549, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2774,11 +2782,7 @@ MonoBehaviour:
   - {fileID: 549331134}
   - {fileID: 2103254767}
   - {fileID: 1513948693}
-  playerRenderers:
-  - {fileID: 934622212}
-  - {fileID: 1124598924}
-  - {fileID: 466326476}
-  - {fileID: 1821863446}
+  playerRenderers: []
   gobackButton: {fileID: 1041406468}
   continueButton: {fileID: 1272360536}
 --- !u!1 &1985927851
@@ -2910,6 +2914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisualPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3066196000403343857, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3011,6 +3019,10 @@ PrefabInstance:
     - target: {fileID: 3066196000403343857, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
       propertyPath: m_Name
       value: VisualPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3066196000403343857, guid: a599ee57cc01be84eb0a452c442e37e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -38,18 +38,18 @@ public class PlayerConnection : MonoBehaviour
 
     private void Start()
     {
-        if (AlwaysAddKeyboard && Keyboard.current != null)
-        {
-            AddPlayer(Keyboard.current);
-        }
+        // if (AlwaysAddKeyboard && Keyboard.current != null)
+        // {
+        //     AddPlayer(Keyboard.current);
+        // }
 
-        foreach (var device in InputSystem.devices)
-        {
-            if (device is Gamepad gamepad && !connectedDevices.Contains(gamepad))
-            {
-                AddPlayer(gamepad);
-            }
-        }
+        // foreach (var device in InputSystem.devices)
+        // {
+        //     if (device is Gamepad gamepad && !connectedDevices.Contains(gamepad))
+        //     {
+        //         AddPlayer(gamepad);
+        //     }
+        // }
     }
 
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
@@ -79,6 +79,7 @@ public class PlayerConnection : MonoBehaviour
 
     public void AddPlayer(InputDevice device)
     {
+        if (device is Keyboard) return;
         connectedDevices.Add(device);
         GameManager.Instance.AddPlayer(device);
         Debug.Log($"Player {device.displayName} added at index {connectedDevices.Count - 1}");

@@ -8,7 +8,6 @@ public class NewPlayerSelector : MonoBehaviour
 {
     [Header("Players")]
     [SerializeField] private List<GameObject> playerVisuals;
-    [SerializeField] private List<Renderer> playerRenderers;
     [SerializeField] private Button gobackButton, continueButton; 
 
     private void OnEnable()
