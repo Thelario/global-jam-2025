@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PlayerConnection : MonoBehaviour
 {
-    [SerializeField] private bool AlwaysAddKeyboard = true;
+    private bool AlwaysAddKeyboard = true;
     GameManager gameManager;
 
     private void OnEnable()
@@ -21,14 +21,18 @@ public class PlayerConnection : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        if (AlwaysAddKeyboard && Keyboard.current != null)
+        if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
+    }
+    private void Update()
+    {
+        //Conectar mando on START
+        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            AddPlayer(Gamepad.current);
+        }
+        if (Input.GetKey(KeyCode.Return)) //Conectar Teclado on ENTER
         {
             AddPlayer(Keyboard.current);
-        }
-
-        foreach (var device in InputSystem.devices)
-        {
-            if (device is Gamepad gamepad && !PlayerExists(gamepad)) AddPlayer(gamepad);
         }
     }
 

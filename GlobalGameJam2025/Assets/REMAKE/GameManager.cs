@@ -6,7 +6,13 @@ using UnityEngine.InputSystem;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-
+    PlayerConnection playerConnect;
+    protected override void Awake()
+    {
+        base.Awake();
+        playerConnect = gameObject.AddComponent<PlayerConnection>();
+    }
+    
     #region PLAYER MANAGEMENT
 
     private List<PlayerData> m_playerList = new List<PlayerData>();
