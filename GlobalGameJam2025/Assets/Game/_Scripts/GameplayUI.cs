@@ -30,15 +30,15 @@ public class GameplayUI : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        List<PlayerData> buenaDataCrack = GameManager.Instance.GetAllPlayer();
+        List<PlayerData> buenaDataCrack = GameManager.Instance.GetPlayerList();
         foreach(var tt in playerStats) tt.text = "0<size=60%>pts.";
-        if (playerStats != null && buenaDataCrack != null)
-        {
-            for(int i= 0; i < buenaDataCrack.Count; i++)
-            {
-                playerStats[i].text = $"{buenaDataCrack[i].TotalPoints}<size=60%>pts.";
-            }
-        }
+        //if (playerStats != null && buenaDataCrack != null)
+        //{
+        //    for(int i= 0; i < buenaDataCrack.Count; i++)
+        //    {
+        //        playerStats[i].text = $"{buenaDataCrack[i].TotalPoints}<size=60%>pts.";
+        //    }
+        //}
         if (!mainImage) yield return null;
         blocker.alpha = 1.0f;
         mainImage.sprite = readySprite;

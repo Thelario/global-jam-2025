@@ -67,9 +67,6 @@ public class ConfigGame : MonoBehaviour
 
     private void OnDisable()
     {
-        List<PlayerData> players = GameManager.Instance.GetAllPlayer();
-
-        for (int i = 0; i < players.Count; i++)
-            players[i].SetTotalPoints(0);
+        List<PlayerData> players = GameManager.Instance.GetPlayerList();
     }
 }

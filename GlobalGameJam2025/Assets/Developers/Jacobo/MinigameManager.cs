@@ -169,7 +169,7 @@ public class MinigameManager : Singleton<MinigameManager>
     public void PlayerDeath(MultiplayerInstance player)
     {
         playersDead.Add(player.PlayerData);
-        int numberPlayers = GameManager.Instance.NumberOfPlayers();
+        int numberPlayers = GameManager.Instance.PlayerCount;
         if (playersDead.Count >= numberPlayers - 1) EndMinigame();
     }
 
@@ -184,69 +184,44 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void SpawnPlayers() 
     {
-        allPlayers.Clear();
+        //allPlayers.Clear();
 
-        // if (SpawnPoint.spawnPoint != null && SpawnPoint.spawnPoint.Count > 4)
-        // {
-        //     SpawnPoint.ClearSpawnPoints();
-        // }
+        //// if (SpawnPoint.spawnPoint != null && SpawnPoint.spawnPoint.Count > 4)
+        //// {
+        ////     SpawnPoint.ClearSpawnPoints();
+        //// }
         
-        var spawnPoints = SpawnPoint.GetSpawnPoints();
-        var playerDataList = GameManager.Instance.GetAllPlayer();
+        //var spawnPoints = SpawnPoint.GetSpawnPoints();
+        //var playerDataList = GameManager.Instance.GetAllPlayer();
 
-        EnsureEnoughSpawnPoints(spawnPoints, playerDataList.Count);
+        //EnsureEnoughSpawnPoints(spawnPoints, playerDataList.Count);
 
-        for (int i = 0; i < playerDataList.Count; i++)
-        {
-            var playerObject = Instantiate(AssetLocator.PlayerPrefab(), spawnPoints[i], Quaternion.identity);
-            if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
-            {
-                multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
-                multiplayerInstance.AssignData(playerDataList[i]);
-                allPlayers.Add(multiplayerInstance);
-            }
-        }
+        //for (int i = 0; i < playerDataList.Count; i++)
+        //{
+        //    var playerObject = Instantiate(AssetLocator.PlayerPrefab(), spawnPoints[i], Quaternion.identity);
+        //    if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
+        //    {
+        //        multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
+        //        multiplayerInstance.AssignData(playerDataList[i]);
+        //        allPlayers.Add(multiplayerInstance);
+        //    }
+        //}
     }
 
-    void ShowCrown()
-    {
-        PlayerData winningPlayer = null;
-        int topPoints = -1;
-
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            if (allPlayers[i].PlayerData.TotalPoints > topPoints)
-            {
-                winningPlayer = allPlayers[i].PlayerData;
-                topPoints = winningPlayer.TotalPoints;
-            }
-        }
-
-        MultiplayerInstance winningPlayerInstance = null;
-        MultiplayerInstance[] multiplayerInstances = FindObjectsByType<MultiplayerInstance>(FindObjectsSortMode.None);
-        for (int i = 0; i < multiplayerInstances.Length; i++)
-        {
-            if (multiplayerInstances[i].playerIndex == winningPlayer.Index)
-            {
-                winningPlayerInstance = multiplayerInstances[i];
-                Crown.instance.playerFollow = winningPlayerInstance.transform;
-            }
-        }
-    }
-
+  
     public Transform SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
     {
-        var playerDataList = GameManager.Instance.GetAllPlayer();
+        //var playerDataList = GameManager.Instance.GetAllPlayer();
 
-        var playerObject = Instantiate(AssetLocator.PlayerPrefab(), playerPosition, Quaternion.identity);
-        if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
-        {
-            multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
-            multiplayerInstance.AssignData(playerDataList[playerIndex]);
-            allPlayers.Add(multiplayerInstance);
-        }
+        //var playerObject = Instantiate(AssetLocator.PlayerPrefab(), playerPosition, Quaternion.identity);
+        //if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
+        //{
+        //    multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
+        //    multiplayerInstance.AssignData(playerDataList[playerIndex]);
+        //    allPlayers.Add(multiplayerInstance);
+        //}
 
-        return playerObject.transform;
+        return null;
     }
 
     private void EnsureEnoughSpawnPoints(List<Vector3> spawnPoints, int requiredCount)

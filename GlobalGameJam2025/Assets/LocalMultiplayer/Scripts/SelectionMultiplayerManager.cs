@@ -35,7 +35,7 @@ public class SelectionMultiplayerManager : MonoBehaviour
 
     public void PlayerJoined(PlayerInput newplayer)
     {
-        GameManager.Instance.AddPlayer(newplayer.devices[0]);
+        //GameManager.Instance.AddPlayer(newplayer.devices[0]);
         //// Asignaciones al script del jugador
         //PlayerSelection newPlayerCard = newplayer.GetComponent<PlayerSelection>();
         //newPlayerCard.selectionMultiplayerManager = this;

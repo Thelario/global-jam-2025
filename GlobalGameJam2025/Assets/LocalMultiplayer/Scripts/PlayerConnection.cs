@@ -1,43 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerConnection : MonoBehaviour
 {
-    private List<InputDevice> connectedDevices = new List<InputDevice>();
     [SerializeField] private bool AlwaysAddKeyboard = true;
-    [SerializeField] private Transform rend;
-    private InputAction controllerAction; // The action to detect the button press
+    GameManager gameManager;
 
     private void OnEnable()
     {
-        if (GameManager.Instance.controllersInitialized)
-        {
-            Destroy(this);  
-            return;
-        }
-
-        GameManager.Instance.controllersInitialized = true;
-        DontDestroyOnLoad(gameObject);  
-
         InputSystem.onDeviceChange += OnDeviceChange;
-
-        controllerAction = new InputAction("ControllerPress", binding: "<Gamepad>/buttonSouth");
-        controllerAction.performed += _ => TryAddControllerPlayer();
-        controllerAction.Enable();
     }
 
     private void OnDisable()
     {
-        if (controllerAction != null)
-        {
-            controllerAction.Disable();
-        }
         InputSystem.onDeviceChange -= OnDeviceChange;
     }
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
         if (AlwaysAddKeyboard && Keyboard.current != null)
         {
             AddPlayer(Keyboard.current);
@@ -45,10 +28,7 @@ public class PlayerConnection : MonoBehaviour
 
         foreach (var device in InputSystem.devices)
         {
-            if (device is Gamepad gamepad && !connectedDevices.Contains(gamepad))
-            {
-                AddPlayer(gamepad);
-            }
+            if (device is Gamepad gamepad && !PlayerExists(gamepad)) AddPlayer(gamepad);
         }
     }
 
@@ -57,37 +37,45 @@ public class PlayerConnection : MonoBehaviour
         switch (change)
         {
             case InputDeviceChange.Added:
-                AddPlayer(device);
+                if (device is Gamepad || device is Keyboard)
+                {
+                    AddPlayer(device);
+                }
                 break;
 
             case InputDeviceChange.Removed:
-                RemovePlayer(device);
+                if (device is Gamepad || device is Keyboard)
+                {
+                    RemovePlayer(device);
+                }
                 break;
         }
     }
 
-    // This method will try to add a controller when the button is pressed
-    private void TryAddControllerPlayer()
+    // Checkea si un jugador ya esta conectado por ID de mando
+    public bool PlayerExists(InputDevice device)
     {
-        // Check if the gamepad is available and if it hasn't been added already
-        var gamepad = Gamepad.current;
-        if (gamepad != null && !connectedDevices.Contains(gamepad))
-        {
-            AddPlayer(gamepad);
-        }
+        return gameManager.GetPlayerList().Exists(p => p.GetID() == device.deviceId);
     }
-
-    public void AddPlayer(InputDevice device)
+    private void AddPlayer(InputDevice device)
     {
-        connectedDevices.Add(device);
-        GameManager.Instance.AddPlayer(device);
-        Debug.Log($"Player {device.displayName} added at index {connectedDevices.Count - 1}");
+        if (device == null) return;
+
+        if (PlayerExists(device)) return;
+
+        PlayerSkin availableSkin = PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList());
+        PlayerData newPlayerData = new PlayerData(device, availableSkin);
+
+        gameManager.AddPlayer(newPlayerData);
     }
 
     private void RemovePlayer(InputDevice device)
     {
-        connectedDevices.Remove(device);
-        GameManager.Instance.RemovePlayer(device);
-        Debug.Log($"Player {device.displayName} removed.");
+        if (device == null) return;
+
+        PlayerData playerToRemove = gameManager.GetPlayerList()
+            .FirstOrDefault(p => p.GetID() == device.deviceId);
+
+        if (playerToRemove != null) gameManager.RemovePlayer(playerToRemove);
     }
 }

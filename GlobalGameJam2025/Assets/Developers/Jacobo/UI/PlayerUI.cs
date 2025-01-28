@@ -34,7 +34,7 @@ public class PlayerUI : MonoBehaviour
         
         //Players Connected
         if (!GameManager.Instance) return;
-        int connectedPlys = GameManager.Instance.GetAllPlayer().Count;
+        int connectedPlys = GameManager.Instance.PlayerCount;
         numberPlayers.text = $"Players {connectedPlys}/4";
         for (int i = connectedPlys; i < 4; i++)
         {

@@ -20,7 +20,7 @@ public class NewPlayerSelector : MonoBehaviour
     }
     private void TryChangeScene()
     {
-        if (GameManager.Instance.NumberOfPlayers() < 1) return;
+        if (GameManager.Instance.PlayerCount < 1) return;
         SceneNav.GoTo(SceneType.GameSettings);
     }
     private void OnDisable()
@@ -40,16 +40,16 @@ public class NewPlayerSelector : MonoBehaviour
             player.SetActive(false);
         }
 
-        int index = GameManager.Instance.NumberOfPlayers();
-        for (int i = 0; i < index && i < playerVisuals.Count; i++)
-        {
-            playerVisuals[i].SetActive(true);
-            if(playerVisuals[i].TryGetComponent(out MultiplayerInstance tetas))
-            {
-                tetas.AssignData(GameManager.Instance.GetAllPlayer()[i]);
+        int index = GameManager.Instance.PlayerCount;
+        //for (int i = 0; i < index && i < playerVisuals.Count; i++)
+        //{
+        //    playerVisuals[i].SetActive(true);
+        //    if(playerVisuals[i].TryGetComponent(out MultiplayerInstance tetas))
+        //    {
+        //        tetas.AssignData(GameManager.Instance.GetAllPlayer()[i]);
                 
-            } 
-        }
+        //    } 
+        //}
     }
 
 }
