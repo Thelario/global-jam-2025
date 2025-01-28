@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
+using UnityEngine.InputSystem.Switch;
+using UnityEngine.InputSystem.XInput;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "AssetLocator", menuName = "Managers/AssetLocator", order = 1)]
@@ -34,9 +37,9 @@ public static class AssetLocator
         Debug.Log("Display:" + device.displayName);
         int index = device is Keyboard ? 0 :
                     device is Gamepad gamepad ?
-                    gamepad.displayName.Contains("Xbox") ? 1 :
-                    gamepad.displayName.Contains("PlayStation") ? 2 :
-                    gamepad.displayName.Contains("Switch") ? 3 : 0
+                    gamepad is XInputController ? 1 :
+                    gamepad is DualShockGamepad ? 2 :
+                    gamepad is SwitchProControllerHID ? 3 : 0
                     : 0;
         return assetData.ControllerIconSprites[index];
     }
