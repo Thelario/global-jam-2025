@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [CreateAssetMenu(fileName = "NewSkin", menuName = "Player/Skin")]
 public class PlayerSkin : ScriptableObject
 {
-    public string skinName;
-    public Color mainColor, secondaryColor;
+    public int Index = 0;
+    public Color mainColor = new Color(1, 1, 1, 1);
+    public Color secondaryColor = new Color(1,1,1,1);
     public Texture skinTexture;
 
     /// <summary>
@@ -16,9 +16,9 @@ public class PlayerSkin : ScriptableObject
     /// </summary>
     public static PlayerSkin GetFirstAvailableSkin(List<PlayerData> players)
     {
-        PlayerSkin[] allSkins = Resources.LoadAll<PlayerSkin>("Skins");
+        PlayerSkin[] allSkins = AssetLocator.AllSkins();
         List<PlayerSkin> assignedSkins = players.Select(p => p.GetSkin()).ToList();
-
-        return allSkins.FirstOrDefault(skin => !assignedSkins.Contains(skin));
+        allSkins = allSkins.OrderBy(skin => skin.Index).ToArray();
+        return allSkins.FirstOrDefault(skin => !assignedSkins.Any(assigned => assigned.Index == skin.Index));
     }
 }

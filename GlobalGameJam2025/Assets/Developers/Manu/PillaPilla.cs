@@ -85,7 +85,7 @@ public class PillaPilla : MonoBehaviour
             ResetStats();
             elQuePilla = collision.gameObject.GetComponent<MultiplayerInstance>();
             elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
-            UpdateQuienPilla(elQuePilla.playerIndex);
+//            UpdateQuienPilla(elQuePilla.playerIndex);
             StatsDelQuePilla();
 
             StartCoroutine(DelayPillar(.1f));
@@ -122,6 +122,6 @@ public class PillaPilla : MonoBehaviour
         elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
 
         currentTime = maxTime;
-        UpdateQuienPilla(elQuePilla.playerIndex);
+        //UpdateQuienPilla(elQuePilla.playerIndex);
     }
 }

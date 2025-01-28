@@ -26,6 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     string PlayerIndexString()
     {
-        return "Player_" + localMultiplayerInstance.playerIndex;
+        return "Player_" + 0;// localMultiplayerInstance.playerIndex;
     }
 }

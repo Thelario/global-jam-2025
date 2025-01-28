@@ -18,6 +18,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e03b25e419f98042b3cd552681f23c7, type: 2}
   - {fileID: 11400000, guid: 2e03b25e419f98042b3cd552681f23c7, type: 2}
   PlayerPrefab: {fileID: 7339635329292493138, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
+  DefaultSkin: {fileID: 11400000, guid: 99fd3f54b8b43dd409c7fe9b47d5a3ff, type: 2}
   MainCanvasPrefab: {fileID: 2664128070008245586, guid: d1e8823ce78631b4bb493fdd857259cd, type: 3}
   Fader: {fileID: 4007716831337006598, guid: 1000dff636690484598b7919c8e6deda, type: 3}
+  ControllerIconSprites:
+  - {fileID: 2071361199, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 952896899, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 1256830770, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 1787955907, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 839046826, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 1451750354, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: -1361970150, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 2035442384, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: -45321712, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 324744977, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: -758962097, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 349697817, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 1243123531, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: -2125166411, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: 806336721, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
+  - {fileID: -1785716296, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
   MinigameEditorIcon: {fileID: 2800000, guid: 05573d86681d93945a07e11fce276750, type: 3}

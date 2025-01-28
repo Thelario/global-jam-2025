@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "AssetData", menuName = "Managers/AssetData", order = 0)]
 public class AssetData : ScriptableObject
 {
     public List<MinigameBase> ALLGAMES;
-    [Header("GAMEOBJECTS")] 
+    [Header("PLAYER")] 
     public GameObject PlayerPrefab;
+    public PlayerSkin DefaultSkin;
     
     [Space(20)]
     [Header("UI")]
     public GameObject MainCanvasPrefab;
     public Fader Fader;
+    public Sprite[] ControllerIconSprites;
 
     [Space(20)]
     [Header("Editor")]

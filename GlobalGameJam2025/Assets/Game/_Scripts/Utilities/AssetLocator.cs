@@ -1,6 +1,8 @@
-using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "AssetLocator", menuName = "Managers/AssetLocator", order = 1)]
 public static class AssetLocator
@@ -20,6 +22,26 @@ public static class AssetLocator
         new Color32(185,213,47,255),
         new Color32(85,166,255,255)
     };
+    //SKINS
+    public static PlayerSkin DefaultSkin => assetData.DefaultSkin;
+    public static PlayerSkin[] AllSkins()
+    {
+        return Resources.LoadAll<PlayerSkin>("Skins");
+    }
+    public static Sprite GetControllerIcon(InputDevice device)
+    {
+        Debug.Log("Short:" + device.shortDisplayName);
+        Debug.Log("Display:" + device.displayName);
+        int index = device is Keyboard ? 0 :
+                    device is Gamepad gamepad ?
+                    gamepad.displayName.Contains("Xbox") ? 1 :
+                    gamepad.displayName.Contains("PlayStation") ? 2 :
+                    gamepad.displayName.Contains("Switch") ? 3 : 0
+                    : 0;
+        return assetData.ControllerIconSprites[index];
+    }
+
+
     public static List<MinigameBase> ALLGAMES => assetData.ALLGAMES;
     public static Fader Fader => assetData.Fader;
     public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;

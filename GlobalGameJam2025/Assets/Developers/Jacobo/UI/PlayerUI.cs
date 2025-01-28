@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
     [Header("Players")]
     [SerializeField] private TextMeshProUGUI numberPlayers;
-    [SerializeField] private List<CanvasGroup> playerList;
+    [SerializeField] private List<PlayerProfileUI> playerList;
     private void OnEnable()
     {
         GameManager.Instance.OnPlayerAdded += UpdateUI;
@@ -30,15 +31,13 @@ public class PlayerUI : MonoBehaviour
     }
     private void UpdateUI(PlayerData newPlayer = null)
     {
-        foreach(var cg in playerList) cg.alpha = 1f;
+        foreach(var cg in playerList) cg.SetProfile(0.2f);
         
-        //Players Connected
-        if (!GameManager.Instance) return;
-        int connectedPlys = GameManager.Instance.PlayerCount;
-        numberPlayers.text = $"Players {connectedPlys}/4";
-        for (int i = connectedPlys; i < 4; i++)
+        List<PlayerData> allPlayers = GameManager.Instance.GetPlayerList();
+        for (int i = 0; i < allPlayers.Count; i++)
         {
-            playerList[i].alpha = 0.2f;
+            playerList[i].SetProfile(1.0f, allPlayers[i]);
         }
+        numberPlayers.text = $"Players {allPlayers.Count}/{GameSettings.MAX_PLAYERS}";
     }
 }

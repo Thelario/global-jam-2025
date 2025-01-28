@@ -8,20 +8,20 @@ public class PlayerConnection : MonoBehaviour
     private bool AlwaysAddKeyboard = true;
     GameManager gameManager;
 
-    private void OnEnable()
-    {
-        InputSystem.onDeviceChange += OnDeviceChange;
-    }
+    //private void OnEnable()
+    //{
+    //    InputSystem.onDeviceChange += OnDeviceChange;
+    //}
 
-    private void OnDisable()
-    {
-        InputSystem.onDeviceChange -= OnDeviceChange;
-    }
+    //private void OnDisable()
+    //{
+    //    InputSystem.onDeviceChange -= OnDeviceChange;
+    //}
 
     private void Start()
     {
         gameManager = GameManager.Instance;
-        if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
+        //if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
     }
     private void Update()
     {
@@ -69,7 +69,6 @@ public class PlayerConnection : MonoBehaviour
 
         PlayerSkin availableSkin = PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList());
         PlayerData newPlayerData = new PlayerData(device, availableSkin);
-
         gameManager.AddPlayer(newPlayerData);
     }
 
