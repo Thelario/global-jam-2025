@@ -25,16 +25,18 @@ public static class AssetLocator
         new Color32(185,213,47,255),
         new Color32(85,166,255,255)
     };
-    //SKINS
+
+    #region Player Skins
     public static PlayerSkin DefaultSkin => assetData.DefaultSkin;
     public static PlayerSkin[] AllSkins()
     {
-        return Resources.LoadAll<PlayerSkin>("Skins");
+        return m_allPlayers;
     }
+    private static PlayerSkin[] m_allPlayers => Resources.LoadAll<PlayerSkin>("Skins");
+    #endregion
+    //UI
     public static Sprite GetControllerIcon(InputDevice device)
     {
-        Debug.Log("Short:" + device.shortDisplayName);
-        Debug.Log("Display:" + device.displayName);
         int index = device is Keyboard ? 0 :
                     device is Gamepad gamepad ?
                     gamepad is XInputController ? 1 :
@@ -49,5 +51,5 @@ public static class AssetLocator
     public static Fader Fader => assetData.Fader;
     public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;
     public static GameObject MainCanvasPrefab => assetData.MainCanvasPrefab;
-    public static GameObject PlayerPrefab() => assetData.PlayerPrefab;
+    public static GameObject PlayerPrefab => assetData.PlayerPrefab;
 }

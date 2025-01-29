@@ -40,4 +40,12 @@ public class PlayerUI : MonoBehaviour
         }
         numberPlayers.text = $"Players {allPlayers.Count}/{GameSettings.MAX_PLAYERS}";
     }
+    public void RandomSkin(int index)
+    {
+        List<PlayerData> allPlayers = GameManager.Instance.GetPlayerList();
+        PlayerData newData = allPlayers[index];
+        newData.SetSkin(PlayerSkin.GetFirstAvailableSkin(allPlayers));
+        GameManager.Instance.SetPlayerData(index, newData);
+        UpdateUI(newData);
+    }
 }

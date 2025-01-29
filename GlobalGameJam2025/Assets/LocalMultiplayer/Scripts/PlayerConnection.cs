@@ -21,7 +21,7 @@ public class PlayerConnection : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        //if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
+        if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
     }
     private void Update()
     {

@@ -17,6 +17,13 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private List<PlayerData> m_playerList = new List<PlayerData>();
     public List<PlayerData> GetPlayerList() => m_playerList;
+    public void SetPlayerData(int playerIndex, PlayerData newPlayerData)
+    {
+        if (m_playerList[playerIndex] != null)
+        {
+            m_playerList[playerIndex] = newPlayerData;
+        }
+    }
     public int PlayerCount => m_playerList.Count;
 
     // Events
