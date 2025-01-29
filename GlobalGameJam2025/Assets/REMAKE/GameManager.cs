@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>
         base.Awake();
         playerConnect = gameObject.AddComponent<PlayerConnection>();
     }
-    
+
     #region PLAYER MANAGEMENT
 
     private List<PlayerData> m_playerList = new List<PlayerData>();
@@ -53,7 +53,10 @@ public class GameManager : PersistentSingleton<GameManager>
     }
     public void RemovePlayer(int index)
     {
-        if (m_playerList[index] != null) RemovePlayer(m_playerList[index]);
+        if (m_playerList[index] != null)
+        {
+            RemovePlayer(m_playerList[index]);
+        }
     }
 
     #endregion

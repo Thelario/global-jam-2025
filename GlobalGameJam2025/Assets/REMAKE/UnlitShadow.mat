@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_DecalFill
+  m_Name: UnlitShadow
   m_Shader: {fileID: -6465566751694194690, guid: 941f9b5683f3b2749b898a111958983c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -52,12 +52,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _FillAmmount: 1
-    - _InnerRing: 0.8
+    - _InnerRing: 0
+    - _OutterRing: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 0.9960785, g: 0.75294125, b: 0.33333334, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0.48235294}
     - _SecondaryColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

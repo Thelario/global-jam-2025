@@ -34,7 +34,7 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void OnApplicationQuit()
     {
         _instance = null;
-        Destroy(gameObject);
+        Destroy(this); // Destroy only the component, not the GameObject
     }
 }
 
@@ -44,7 +44,7 @@ public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this); // Destroy only the component, not the GameObject
             return;
         }
         base.Awake();

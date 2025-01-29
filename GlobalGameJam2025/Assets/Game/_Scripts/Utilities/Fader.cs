@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using DG.Tweening;
 
-public class Fader : Singleton<Fader>
+public class Fader : PersistentSingleton<Fader>
 {
     [SerializeField] private CanvasGroup fadeCanvasGroup;
     [SerializeField] private float fadeDuration = 1f;

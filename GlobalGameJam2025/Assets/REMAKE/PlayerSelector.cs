@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerSelector : MonoBehaviour
@@ -26,8 +27,21 @@ public class PlayerSelector : MonoBehaviour
         gameManager.OnPlayerAdded += PlayerAdded;
         gameManager.OnPlayerRemoved += PlayerRemoved;
 
-        if (gobackButton) gobackButton.onClick.AddListener(()=> SceneNav.GoTo(SceneType.MainMenuScene));
+        if (gobackButton) gobackButton.onClick.AddListener(()=>
+        {
+            Debug.Log("KELOKE");
+            SceneNav.GoTo(SceneType.MainMenuScene);
+
+        });
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPlayerAdded -= PlayerAdded;
+        GameManager.Instance.OnPlayerRemoved -= PlayerRemoved;
+
+        if (gobackButton) gobackButton.onClick.RemoveAllListeners();
+        if (continueButton) continueButton.onClick.RemoveAllListeners();
     }
     private void Start()
     {
@@ -60,14 +74,7 @@ public class PlayerSelector : MonoBehaviour
         if (GameManager.Instance.PlayerCount < 1) return;
         SceneNav.GoTo(SceneType.GameSettings);
     }
-    private void OnDisable()
-    {
-        GameManager.Instance.OnPlayerAdded -= PlayerAdded;
-        GameManager.Instance.OnPlayerRemoved -= PlayerRemoved; 
-        
-        if (gobackButton) gobackButton.onClick.RemoveListener(() => SceneNav.GoTo(SceneType.MainMenuScene));
-        if (continueButton) continueButton.onClick.RemoveListener(TryChangeScene);
-    }
+   
     private void PlayerAdded(PlayerData newPlayer)
     {
         Vector3 spawnPos = Random.insideUnitSphere * 3;

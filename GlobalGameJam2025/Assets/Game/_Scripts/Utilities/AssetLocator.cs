@@ -22,8 +22,8 @@ public static class AssetLocator
     {
         new Color32(255,191,97,255),
         new Color32(255,81,113,255),
+        new Color32(85,166,255,255),
         new Color32(185,213,47,255),
-        new Color32(85,166,255,255)
     };
 
     #region Player Skins

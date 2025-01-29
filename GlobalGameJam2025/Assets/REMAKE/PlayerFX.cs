@@ -1,9 +1,11 @@
 using DG.Tweening;
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerFX : MonoBehaviour
 {
+    [SerializeField] private PlayerFollow playerFollow;
     [Header("Renderers")]
     [SerializeField] private Renderer playerRenderer;
     [SerializeField] private Renderer playerIndicator;
@@ -13,21 +15,26 @@ public class PlayerFX : MonoBehaviour
     [Space(10)]
     [Header("Extra")]
     [SerializeField] private CollisionPainter collisionPainter;
+    private Sequence spawnSeq;
 
     public void Init(PlayerData data)
     {
+        playerFollow.Init(this as MonoBehaviour);
         InitAllRenderers(data);
         PlaySpawnAnim();
     }
 
     private void PlaySpawnAnim()
     {
+        if(spawnSeq != null) spawnSeq.Kill();
+        else spawnSeq = DOTween.Sequence();
+
         Transform playerTr = playerRenderer.transform;
         playerTr.localScale = Vector3.zero;
         playerRenderer.material.SetFloat("_Sat", 1.0f);
 
-        playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
-        playerRenderer.material.DOFloat(0, "_Sat", 0.65f);
+        spawnSeq.Append(playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
+        .Join(playerRenderer.material.DOFloat(0, "_Sat", 0.65f));
     }
 
     private void InitAllRenderers(PlayerData data)
