@@ -17,6 +17,11 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private List<PlayerData> m_playerList = new List<PlayerData>();
     public List<PlayerData> GetPlayerList() => m_playerList;
+    public int GetPlayerIndex(PlayerData data)
+    {
+        if (data == null) return -1;
+        return m_playerList.IndexOf(data);
+    }
     public void SetPlayerData(int playerIndex, PlayerData newPlayerData)
     {
         if (m_playerList[playerIndex] != null)

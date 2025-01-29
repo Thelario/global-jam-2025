@@ -8,15 +8,8 @@ public class PlayerConnection : MonoBehaviour
     private bool AlwaysAddKeyboard = true;
     GameManager gameManager;
 
-    //private void OnEnable()
-    //{
-    //    InputSystem.onDeviceChange += OnDeviceChange;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    InputSystem.onDeviceChange -= OnDeviceChange;
-    //}
+    private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
+    private void OnDisable() => InputSystem.onDeviceChange -= OnDeviceChange;
 
     private void Start()
     {
@@ -38,21 +31,13 @@ public class PlayerConnection : MonoBehaviour
 
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        switch (change)
+        if(change == InputDeviceChange.Added)
         {
-            case InputDeviceChange.Added:
-                if (device is Gamepad || device is Keyboard)
-                {
-                    AddPlayer(device);
-                }
-                break;
-
-            case InputDeviceChange.Removed:
-                if (device is Gamepad || device is Keyboard)
-                {
-                    RemovePlayer(device);
-                }
-                break;
+            if (device is Gamepad || device is Keyboard) AddPlayer(device);
+        }
+        else if(change == InputDeviceChange.Removed)
+        {
+            if (device is Gamepad || device is Keyboard) RemovePlayer(device);
         }
     }
 

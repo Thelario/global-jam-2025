@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ public class PlayerProfileUI : MonoBehaviour
 {
     [SerializeField] private Image controllerIcon;
     [SerializeField] private Image backgroundColor;
+    [SerializeField] private TextMeshProUGUI playerText;
     private CanvasGroup cg;
     private void Awake()
     {
@@ -17,5 +19,6 @@ public class PlayerProfileUI : MonoBehaviour
         cg.alpha = alpha;
         controllerIcon.sprite = AssetLocator.GetControllerIcon(data.GetDeviceType());
         backgroundColor.color = data.GetSkin().mainColor;
+        playerText.text = $"Player {GameManager.Instance.GetPlayerIndex(data)+1}";
     }
 }

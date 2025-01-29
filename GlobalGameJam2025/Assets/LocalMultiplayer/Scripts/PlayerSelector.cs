@@ -68,9 +68,10 @@ public class PlayerSelector : MonoBehaviour
         Vector3 spawnPos = Random.insideUnitSphere * 3;
         spawnPos.y = 1;
         Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
+        UpdatePlayerUI();
     }
     private void PlayerRemoved(PlayerData newPlayer)
     {
-
+        UpdatePlayerUI();
     }
 }

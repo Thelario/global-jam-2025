@@ -1162,7 +1162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1212,7 +1212,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8513859187771203891, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
+      propertyPath: m_Name
+      value: WallCollision
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513859187771203891, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7071182760956848314, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
+    - {fileID: 4109396432888090641, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1252,7 +1262,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: c8eb4e26aaa6b0745988b07469904e49, type: 3}
 --- !u!64 &1281555024
@@ -1772,7 +1782,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 10
+  field of view: 20
   orthographic: 0
   orthographic size: 5.7
   m_Depth: -1
@@ -1799,7 +1809,7 @@ Transform:
   m_GameObject: {fileID: 1833792182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.94969916, z: -0.31316373, w: 0}
-  m_LocalPosition: {x: 2.38, y: 75.05, z: 97.07}
+  m_LocalPosition: {x: 2.5, y: 35, z: 45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2100,6 +2110,10 @@ PrefabInstance:
     - target: {fileID: 6897645265027177776, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079608564501741680, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -11.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
