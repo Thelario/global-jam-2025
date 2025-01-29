@@ -24,6 +24,7 @@ public class PlayerSelector : MonoBehaviour
     private void OnEnable()
     {
         gameManager = GameManager.Instance;
+        UIPanel.GetPanel(typeof(RosterPanel)).Show();
         
         gameManager.OnPlayerAdded += PlayerAdded;
         gameManager.OnPlayerRemoved += PlayerRemoved;
@@ -51,20 +52,11 @@ public class PlayerSelector : MonoBehaviour
     }
     private void Start()
     {
-        StartPlayerUIFX();
         UpdatePlayerUI();
         //Crear players que ya existan 
         foreach(PlayerData pl in gameManager.GetPlayerList()) PlayerAdded(pl);
     }
 
-    private void StartPlayerUIFX()
-    {
-        for (int i = 0; i < playerList.Count; i++)
-        {
-            playerList[i].transform.DOScale(Vector3.one * 1.025f, 0.3f).SetDelay(i * Random.Range(0.2f, 0.7f))
-                .SetLoops(-1, LoopType.Yoyo);
-        }
-    }
     private void UpdatePlayerUI()
     {
         foreach (var cg in profileList) cg.SetProfileEmpty();
@@ -80,7 +72,7 @@ public class PlayerSelector : MonoBehaviour
     private void TryChangeScene()
     {
         if (GameManager.Instance.PlayerCount < 1) return;
-        SceneNav.GoTo(SceneType.GameSettings);
+        UIPanel.GetPanel(typeof(ConfigPanel)).Show();
     }
    
     private void PlayerAdded(PlayerData newPlayer)

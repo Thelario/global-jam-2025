@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d278e4f432efef4190cf1acb69bc9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastingObjects:
+  - {fileID: 6510537955376470440}
 --- !u!1 &1327641848454612375
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,6 +60,7 @@ public class PlayerFX : MonoBehaviour
             Vector2 newOffset = Vector2.zero;
             newOffset.x = (index / 8f);
             playerIndicator.material.SetVector("_Offset", newOffset);
+            playerIndicator.material.SetVector("_Color", mainColor);
         }
         if (playerParticles != null) //Particles Color
         {

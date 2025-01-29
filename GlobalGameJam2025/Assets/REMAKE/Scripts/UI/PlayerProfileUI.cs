@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +22,16 @@ public class PlayerProfileUI : MonoBehaviour
         if (removeButton) removeButton.onClick.AddListener(TryRemovePlayer);
         
         SetProfileEmpty();
+        StartTween();
     }
+
+    private void StartTween()
+    {
+        transform.DOScale(Vector3.one * 1.025f, 0.3f)
+            .SetDelay(UnityEngine.Random.Range(0.2f, 0.7f))
+            .SetLoops(-1, LoopType.Yoyo);
+    }
+
     private void TryRemovePlayer()
     {
         if(lastIndex != -1) GameManager.Instance.RemovePlayer(lastIndex);

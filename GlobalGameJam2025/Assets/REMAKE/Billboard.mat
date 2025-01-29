@@ -56,13 +56,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _FillAmmount: 0.525
+    - _Float: 0.1
     - _InnerRing: 0.65
     - _Offset: 0.5
     - _QueueControl: 1
     - _QueueOffset: 0
     - _Tiling: 0.2
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9056604, g: 0.21787111, b: 0.21787111, a: 1}
     - _MainColor: {r: 0.9960785, g: 0.75294125, b: 0.33333334, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SecondaryColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
