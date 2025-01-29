@@ -10,10 +10,13 @@ public class PlayerCore : MonoBehaviour
     PlayerFX playerFX;
     PlayerController playerController;
 
-    private void InitPlayer(PlayerData data)
+    public void InitPlayer(PlayerData data)
     {
         playerData = data;
         playerController = GetComponent<PlayerController>();
         playerFX = GetComponent<PlayerFX>();
+
+        playerController.Init(playerData);
+        playerFX.Init(playerData);
     }
 }

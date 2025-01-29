@@ -2,26 +2,45 @@ using UnityEngine;
 
 public class PlayerFX : MonoBehaviour
 {
-    public void Init()
+    [Header("Renderers")]
+    [SerializeField] private Renderer playerRenderer;
+    [SerializeField] private Renderer playerIndicator;
+    [SerializeField] private Renderer playerParticles;
+    [SerializeField] private Renderer playerDash;
+
+    [Space(10)]
+    [Header("Extra")]
+    [SerializeField] private CollisionPainter collisionPainter;
+
+    public void Init(PlayerData data)
     {
-        //if (TryGetComponent(out CollisionPainter painter))
-    //    {
-    //        painter.paintColor = AssetLocator.PaintColors[m_playerData.Index];
-    //    }
-    //    if (ren != null)
-    //    {
-    //        Vector2 newOffset = Vector2.zero;
-    //        newOffset.x = data.Index * 0.25f;
-    //        ren.material.SetTextureOffset("_BaseMap", newOffset);
-    //    }
-    //    if (part != null)
-    //    {
-    //        Renderer particleRenderer = part.GetComponent<Renderer>();
-    //        if (particleRenderer != null)
-    //        {
-    //            Material material = particleRenderer.material;
-    //            material.SetColor("_BaseColor", AssetLocator.PaintColors[data.Index]);
-    //        }
-    //    }
+        int index = GameManager.Instance.GetPlayerIndex(data);
+        Color mainColor = data.GetSkin().mainColor;
+
+        if (collisionPainter != null)
+        {
+            collisionPainter.paintColor = AssetLocator.PaintColors[index];
+        }
+        if (playerRenderer != null) //Assign Model Color
+        {
+            Vector2 newOffset = Vector2.zero;
+            newOffset.x = index * 0.25f;
+            playerRenderer.material.SetTextureOffset("_BaseMap", newOffset);
+        }
+        if (playerDash != null) //Dash Color
+        {
+            playerRenderer.material.SetColor("_BaseMap", mainColor);
+        }
+        if (playerIndicator != null)//Player Indicator Offset
+        {
+            Vector2 newOffset = Vector2.zero;
+            newOffset.x = (index / 8f);
+            playerIndicator.material.SetVector("_Offset", newOffset);
+        }
+        if (playerParticles != null) //Particles Color
+        {
+            Material material = playerParticles.material;
+            material.SetColor("_BaseColor", AssetLocator.PaintColors[index]);
+        }
     }
 }

@@ -8,7 +8,7 @@ public class AssetData : ScriptableObject
 {
     public List<MinigameBase> ALLGAMES;
     [Header("PLAYER")] 
-    public GameObject PlayerPrefab;
+    public PlayerCore PlayerPrefab;
     public PlayerSkin DefaultSkin;
     
     [Space(20)]

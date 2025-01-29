@@ -12,7 +12,8 @@ public class PlayerSelector : MonoBehaviour
 
     [Space(10)]
     [Header("UI Nav")]
-    [SerializeField] private Button gobackButton, continueButton;
+    [SerializeField] private Button gobackButton;
+    [SerializeField] private Button continueButton;
     
 
     //References
@@ -67,7 +68,9 @@ public class PlayerSelector : MonoBehaviour
     {
         Vector3 spawnPos = Random.insideUnitSphere * 3;
         spawnPos.y = 1;
-        Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
+        PlayerCore core = Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
+        core.InitPlayer(newPlayer);
+
         UpdatePlayerUI();
     }
     private void PlayerRemoved(PlayerData newPlayer)

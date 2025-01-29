@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         _doRollVolume = enable;
     }
 
-    void Awake()
+    public void Init(PlayerData data)
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
