@@ -51,6 +51,10 @@ public class GameManager : PersistentSingleton<GameManager>
         m_playerList.Remove(playerData);
         OnPlayerRemoved?.Invoke(playerData);
     }
+    public void RemovePlayer(int index)
+    {
+        if (m_playerList[index] != null) RemovePlayer(m_playerList[index]);
+    }
 
     #endregion
 }

@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCountText: {fileID: 42967138}
-  playerList:
+  profileList:
   - {fileID: 629480952}
   - {fileID: 656964707}
   - {fileID: 1271948406}
@@ -2110,10 +2110,6 @@ PrefabInstance:
     - target: {fileID: 6897645265027177776, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9079608564501741680, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -11.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

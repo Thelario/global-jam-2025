@@ -63,7 +63,10 @@ public class PlayerSelector : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.OnPlayerAdded -= PlayerAdded;
-        GameManager.Instance.OnPlayerRemoved -= PlayerRemoved;
+        GameManager.Instance.OnPlayerRemoved -= PlayerRemoved; 
+        
+        if (gobackButton) gobackButton.onClick.RemoveListener(() => SceneNav.GoTo(SceneType.MainMenuScene));
+        if (continueButton) continueButton.onClick.RemoveListener(TryChangeScene);
     }
     private void PlayerAdded(PlayerData newPlayer)
     {
@@ -74,6 +77,7 @@ public class PlayerSelector : MonoBehaviour
         playerList.Add(core);
         UpdatePlayerUI();
     }
+
     private void PlayerRemoved(PlayerData newPlayer)
     {
         PlayerCore playerToRemove = playerList.Find(p => p.PlayerData == newPlayer);
