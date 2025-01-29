@@ -9,119 +9,119 @@ using UnityEngine.UI;
 
 public class PillaPilla : MonoBehaviour
 {
-    [SerializeField] TMP_Text timer;
-    [SerializeField] TMP_Text quienPillaText;
-    [SerializeField] float maxTime;
-    [SerializeField] float delayStart;
-    Vector3 escalaInicial;
-    float currentTime;
-    List<MultiplayerInstance> players;
+//    [SerializeField] TMP_Text timer;
+//    [SerializeField] TMP_Text quienPillaText;
+//    [SerializeField] float maxTime;
+//    [SerializeField] float delayStart;
+//    Vector3 escalaInicial;
+//    float currentTime;
+//    List<MultiplayerInstance> players;
     
-    MultiplayerInstance elQuePilla;
-    bool endGame = false;
-    bool puedePillar = true;
+//    MultiplayerInstance elQuePilla;
+//    bool endGame = false;
+//    bool puedePillar = true;
 
-    void Start()
-    {
-        StartCoroutine(InicioConRetraso());
-    }
+//    void Start()
+//    {
+//        StartCoroutine(InicioConRetraso());
+//    }
 
-    IEnumerator InicioConRetraso()
-    {
-        yield return new WaitForSeconds(delayStart);
+//    IEnumerator InicioConRetraso()
+//    {
+//        yield return new WaitForSeconds(delayStart);
 
-        MinigameManager.Instance.SpawnPlayers();
-        ElegirElQuePilla();
+//        MinigameManager.Instance.SpawnPlayers();
+//        ElegirElQuePilla();
 
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
+//    }
+//    void Update()
+//    {
+//        if (Input.GetKeyDown(KeyCode.J))
+//        {
 
-        }
+//        }
 
-        UpdateTimer();
-        FinJuego();
-    }
-    void UpdateTimer()
-    {
-        if (!endGame)
-        {
-            currentTime -= Time.deltaTime;
-            timer.text = Mathf.Ceil(currentTime).ToString();
-        }
-    }
-    void UpdateQuienPilla(int playerIndex)
-    {
-        switch (playerIndex)
-        {
-            case 0:
-                quienPillaText.text = "pilla el jugador 1";
-                break;
-            case 1: 
-                quienPillaText.text = "pilla el jugador 2";
-                break;
-        }
-    }
+//        UpdateTimer();
+//        FinJuego();
+//    }
+//    void UpdateTimer()
+//    {
+//        if (!endGame)
+//        {
+//            currentTime -= Time.deltaTime;
+//            timer.text = Mathf.Ceil(currentTime).ToString();
+//        }
+//    }
+//    void UpdateQuienPilla(int playerIndex)
+//    {
+//        switch (playerIndex)
+//        {
+//            case 0:
+//                quienPillaText.text = "pilla el jugador 1";
+//                break;
+//            case 1: 
+//                quienPillaText.text = "pilla el jugador 2";
+//                break;
+//        }
+//    }
 
-    void FinJuego()
-    {
+//    void FinJuego()
+//    {
 
-        if (currentTime <= 0 && elQuePilla != null)
-        {
-            Destroy(elQuePilla.gameObject);
-            endGame = true;
-        }
-    }
-    private void SanChocao(Collision collision)
-    {
-        if (!puedePillar) return;
-        MultiplayerInstance jugadorChocado = collision.gameObject.GetComponent<MultiplayerInstance>();
-        if (jugadorChocado != null && jugadorChocado != elQuePilla ) 
-        {
-            elQuePilla.transform.localScale = escalaInicial;
-            elQuePilla.GetComponent<PlayerController>().OnCollisionEntered -= SanChocao;
-            ResetStats();
-            elQuePilla = collision.gameObject.GetComponent<MultiplayerInstance>();
-            elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
-//            UpdateQuienPilla(elQuePilla.playerIndex);
-            StatsDelQuePilla();
+//        if (currentTime <= 0 && elQuePilla != null)
+//        {
+//            Destroy(elQuePilla.gameObject);
+//            endGame = true;
+//        }
+//    }
+//    private void SanChocao(Collision collision)
+//    {
+//        if (!puedePillar) return;
+//        MultiplayerInstance jugadorChocado = collision.gameObject.GetComponent<MultiplayerInstance>();
+//        if (jugadorChocado != null && jugadorChocado != elQuePilla ) 
+//        {
+//            elQuePilla.transform.localScale = escalaInicial;
+//            elQuePilla.GetComponent<PlayerController>().OnCollisionEntered -= SanChocao;
+//            ResetStats();
+//            elQuePilla = collision.gameObject.GetComponent<MultiplayerInstance>();
+//            elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
+////            UpdateQuienPilla(elQuePilla.playerIndex);
+//            StatsDelQuePilla();
 
-            StartCoroutine(DelayPillar(.1f));
-        }
-    }
+//            StartCoroutine(DelayPillar(.1f));
+//        }
+//    }
 
-    private IEnumerator DelayPillar(float segundos)
-    {
-        puedePillar = false;
-        yield return new WaitForSeconds(segundos);
-        puedePillar = true;
-    }
-    void StatsDelQuePilla()
-    {
-        elQuePilla.transform.localScale = escalaInicial * 1.5f;
-        elQuePilla.GetComponent<PlayerController>().SetMovementForceMultiplier(2.5f);
-    }
-    void ResetStats()
-    {
-        elQuePilla.transform.localScale = escalaInicial;
-        elQuePilla.GetComponent<PlayerController>().ResetMovementForce();
-    }
-    void ElegirElQuePilla()
-    {
-        players = MinigameManager.Instance.GetAllPlayers();
-        if (players != null && players.Count > 0)
-        {
-            int randomIndex = Random.Range(0, players.Count);
-            elQuePilla = players[randomIndex];
-            escalaInicial = elQuePilla.transform.localScale;
-            StatsDelQuePilla();
-        }
+//    private IEnumerator DelayPillar(float segundos)
+//    {
+//        puedePillar = false;
+//        yield return new WaitForSeconds(segundos);
+//        puedePillar = true;
+//    }
+//    void StatsDelQuePilla()
+//    {
+//        elQuePilla.transform.localScale = escalaInicial * 1.5f;
+//        elQuePilla.GetComponent<PlayerController>().SetMovementForceMultiplier(2.5f);
+//    }
+//    void ResetStats()
+//    {
+//        elQuePilla.transform.localScale = escalaInicial;
+//        elQuePilla.GetComponent<PlayerController>().ResetMovementForce();
+//    }
+//    void ElegirElQuePilla()
+//    {
+//        players = MinigameManager.Instance.GetAllPlayers();
+//        if (players != null && players.Count > 0)
+//        {
+//            int randomIndex = Random.Range(0, players.Count);
+//            elQuePilla = players[randomIndex];
+//            escalaInicial = elQuePilla.transform.localScale;
+//            StatsDelQuePilla();
+//        }
 
-        elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
+//        elQuePilla.GetComponent<PlayerController>().OnCollisionEntered += SanChocao;
 
-        currentTime = maxTime;
-        //UpdateQuienPilla(elQuePilla.playerIndex);
-    }
+//        currentTime = maxTime;
+//        //UpdateQuienPilla(elQuePilla.playerIndex);
+//    }
 }

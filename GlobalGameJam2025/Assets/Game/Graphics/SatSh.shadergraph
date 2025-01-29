@@ -159,7 +159,7 @@
                 "m_Node": {
                     "m_Id": "f8e8500eef054613b5171635a0b1b36b"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 2
             }
         },
         {
@@ -386,10 +386,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -344.0,
-            "y": 79.0,
-            "width": 93.0,
-            "height": 34.0
+            "x": -432.99993896484377,
+            "y": 120.0,
+            "width": 92.99996948242188,
+            "height": 33.99998474121094
         }
     },
     "m_Slots": [
@@ -667,7 +667,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"ec7c4f95325f2124b84d0af8cfbdd594\",\"type\":3}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -683,10 +683,10 @@
     "m_Guid": {
         "m_GuidSerialized": "f149102b-b13f-4540-8302-cd4959216ef5"
     },
-    "m_Name": "Vector2",
+    "m_Name": "Offset",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Vector2",
-    "m_DefaultReferenceName": "_Vector2",
+    "m_RefNameGeneratedByDisplayName": "Offset",
+    "m_DefaultReferenceName": "_Offset",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -913,10 +913,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -176.0,
-            "y": 199.0,
-            "width": 208.0,
-            "height": 302.0
+            "x": -296.9999084472656,
+            "y": 18.9999942779541,
+            "width": 207.9998779296875,
+            "height": 302.00006103515627
         }
     },
     "m_Slots": [
@@ -994,9 +994,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1123.0,
-            "y": 335.0,
-            "width": 118.0,
+            "x": -1266.0,
+            "y": 286.9999694824219,
+            "width": 109.0,
             "height": 34.0
         }
     },
@@ -1229,7 +1229,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "be50c938a31c40398bceeed7eb0195bc",
     "m_Id": 0,
-    "m_DisplayName": "Vector2",
+    "m_DisplayName": "Offset",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "40a54cc4-1b41-4834-9707-c82363bb933f",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "2b3f568b-c697-4d1c-b9c7-7d678ef49c87",
@@ -172,17 +163,6 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e2085c1b-cb23-43bc-ab23-ac70daa1a7c0",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

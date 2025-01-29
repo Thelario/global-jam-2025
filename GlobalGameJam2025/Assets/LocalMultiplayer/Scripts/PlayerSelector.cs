@@ -45,7 +45,7 @@ public class PlayerSelector : MonoBehaviour
     }
     private void UpdatePlayerUI()
     {
-        foreach (var cg in profileList) cg.SetProfile(0.2f);
+        foreach (var cg in profileList) cg.SetProfileEmpty();
 
         List<PlayerData> allPlayers = GameManager.Instance.GetPlayerList();
         for (int i = 0; i < allPlayers.Count; i++)

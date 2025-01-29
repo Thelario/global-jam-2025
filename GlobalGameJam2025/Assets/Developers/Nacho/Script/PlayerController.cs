@@ -2,81 +2,99 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static PlayerController;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerState
-    {
-        Waiting,
-        CanMove
-    }
-    
-    private PlayerState playerState = PlayerState.Waiting;
-    public void ChangeState(PlayerState newState) => playerState = newState;
+    public enum PlayerState { Waiting, CanMove }
+
+    #region Properties
+
+    public PlayerState State { get; private set; } = PlayerState.Waiting;
+
+    private bool CanUseDash => dashDelayTimer >= dashDelayTime * 0.9f;
+
+    #endregion
+
+    #region Serialized Fields
 
     [Header("Collision")]
-    [SerializeField] float minimunVelocityOnCollision = 5;
+    [SerializeField] private float minimumVelocityOnCollision = 5;
 
     [Header("Movement")]
-    [SerializeField] float movementForce = 5;
-    float _movementForceInit;
+    [SerializeField] private float movementForce = 5;
+    private float _movementForceInit;
 
-    // Dash
     [Header("Dash")]
-    [SerializeField] float dashForce = 500;
-    [SerializeField] float dashTime = .1f;
-    [SerializeField] float dashDelayTime = 2;
-    float dashDelayTimer;
-    bool canUseDash = true;
+    [SerializeField] private float dashForce = 500;
+    [SerializeField] private float dashTime = 0.1f;
+    [SerializeField] private float dashDelayTime = 2;
+    private float dashDelayTimer;
+    private bool dashing;
+    private Vector2 dashDirection;
+    private Vector2 movementInput;
+    #endregion
 
-    Vector2 dashDirection;
-    bool dashing;
+    private Rigidbody rb;
 
-    // Jump
-    [Header("Jump")]
-    [SerializeField] float jumpForce = 500;
-    float smoothTime = .1f;
-    private Vector3 m_Velocity = Vector3.zero;
-    bool canDoubleJump;
-    float jumpRemember = .2f;
-    float jumpRememberTimer = -1;
+    #region Unity Methods
 
-    // Ground checker
-    [Header("Ground check")]
-    [SerializeField] Transform groundCheck_tr;
-    [SerializeField] LayerMask groundLayer;
-    [HideInInspector] public bool onGround;
-    float groundCheck_radius = .2f;
-    float groundRemember = .2f;
-    float groundRememberTimer = -1;
-
-    [HideInInspector] public bool stunned;
-
-    private bool _doRollVolume = true;
-
-    public event Action<Collision> OnCollisionEntered;
-
-    // Components
-    Rigidbody rb;
-    Animator anim;
-    BubbleScript bubbleScript;
-
-    // Movement
-    Vector2 movementInput;
-    private void OnEnable()
+    private void Update()
     {
-        ChangeState(PlayerState.Waiting);
-        MinigameManager manager = MinigameManager.Instance;
-        manager.OnMinigameStart += () => ChangeState(PlayerState.CanMove);
-        manager.OnMinigameEnd += () => ChangeState(PlayerState.Waiting);
+        if (State == PlayerState.Waiting) return;
+        dashDelayTimer += Time.deltaTime;
     }
-    private void OnDisable()
+
+    private void FixedUpdate()
     {
-        MinigameManager manager = MinigameManager.Instance;
-        manager.OnMinigameStart -= () => ChangeState(PlayerState.CanMove);
-        manager.OnMinigameEnd -= () => ChangeState(PlayerState.Waiting);
+        if (State == PlayerState.Waiting) return;
+        Move();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        HandleCollision(collision);
+    }
+    public void ChangeState(PlayerState newState)
+    {
+        State = newState;
+        if (rb) rb.isKinematic = newState == PlayerState.Waiting;
+    }
+    #endregion
+
+    #region Initialization
+
+    public void Init(PlayerData data)
+    {
+        rb = GetComponent<Rigidbody>();
+
+        _movementForceInit = movementForce;
+        SetMovementForceMultiplier(1f);
+
+        PlayerInput input = GetComponent<PlayerInput>();
+        input.SwitchCurrentControlScheme(data.GetDeviceType());
+        ChangeState(PlayerState.CanMove);
+    }
+
+    #endregion
+
+    #region Movement
+
+    public void MoveInput(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>();
+    }
+
+    private void Move()
+    {
+        Vector3 force = new Vector3(movementInput.x, 0, movementInput.y) * movementForce * Time.deltaTime;
+        rb.AddForce(force);
+
+        if (!dashing && movementInput.magnitude < 0.1f)
+        {
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime);
+        }
+    }
+
     public void SetMovementForceMultiplier(float multiplier)
     {
         movementForce *= multiplier;
@@ -85,283 +103,53 @@ public class PlayerController : MonoBehaviour
     public void ResetMovementForce()
     {
         movementForce = _movementForceInit;
-        print("entre");
     }
 
-    public void EnableRollVolume(bool enable)
+    #endregion
+
+    #region Dash
+
+    public void Dash_Input(InputAction.CallbackContext context)
     {
-        _doRollVolume = enable;
-    }
-
-    public void Init(PlayerData data)
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        anim = GetComponentInChildren<Animator>();
-        bubbleScript = GetComponentInChildren<BubbleScript>();
-
-        _doRollVolume = true;
-
-        dashDelayTimer = dashDelayTime;
-        _movementForceInit = movementForce;
-        SetMovementForceMultiplier(1f);
-    }
-
-    void Update()
-    {
-        if (SceneNav.GetCurrentScene() != "EarnPoints")
+        if (context.started && CanUseDash)
         {
-            if (playerState == PlayerState.Waiting) return;
-        }
-
-        UpdateDashDelay();
-
-        if (_doRollVolume == false) return;
-
-        float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 250);
-        SoundManager.Instance.PlaySound(Sound.BubbleRoll, volumeModifier);
-    }
-
-    void UpdateDashDelay()
-    {
-        if (dashDelayTimer >= dashDelayTime * 0.9f)
-        {
-            canUseDash = true;
-        }
-        dashDelayTimer += Time.deltaTime;
-        //dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
-    }
-
-
-    #region Input
-
-    public virtual void Jump_Input(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            jumpRememberTimer = jumpRemember;
-
-        if (context.canceled && rb.linearVelocity.y > 0)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * .55f);
-    }
-
-    public virtual void Dash_Input(InputAction.CallbackContext context)
-    {
-        if (context.started && canUseDash)
-        {
-            canUseDash = false;
             dashDelayTimer = 0;
-
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             dashDirection = movementInput;
-            rb.AddForce(TwoToThreeVector(dashDirection) * dashForce);
-
+            rb.AddForce(dashDirection * dashForce);
             dashing = true;
-            StartCoroutine(DashTime());
+            StartCoroutine(DashCoroutine());
         }
     }
 
-    IEnumerator DashTime()
+    private IEnumerator DashCoroutine()
     {
         yield return new WaitForSeconds(dashTime);
         dashing = false;
     }
 
-
     #endregion
 
-    #region Movility
+    #region Collision Handling
 
-    public void MoveInput(InputAction.CallbackContext context)
+    private void HandleCollision(Collision collision)
     {
-        movementInput.x = context.ReadValue<Vector2>().x;
-        movementInput.y = context.ReadValue<Vector2>().y;
-    }
-
-    public void LookInput(InputAction.CallbackContext context)
-    {
-        //input_hor = context.ReadValue<Vector2>().x;
-        //input_ver = context.ReadValue<Vector2>().y;
-    }
-
-    void FixedUpdate()
-    {
-        if (SceneNav.GetCurrentScene() != "EarnPoints")
-            if (playerState == PlayerState.Waiting) return;
-
-        Move();
-
-        CheckGround();
-    }
-
-    void Move()
-    {
-        float usableInputHor = movementInput.x;
-        float usableInputVer = movementInput.y;
-
-        //if ((attackingMoveDelay && onGround) || stunned)
-        //{ realInputHor = 0; realInputVer = 0; }
-
-        //if (!stunned)
-        //{
-        Vector3 currentMovementForce = new Vector3(usableInputHor, 0, usableInputVer) * movementForce * Time.deltaTime;
-        // And then smoothing it out and applying it to the character
-        //rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref m_Velocity, smoothTime);
-        rb.AddForce(currentMovementForce);
-
-        //Debug.Log("rb.linearVelocity = " + rb.linearVelocity);
-
-        // Frenar la bola
-        if (!dashing)
-        {
-            //if (rb.linearVelocity.magnitude > maxVelocity)
-            //    //rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, rb.linearVelocity.normalized * maxVelocity, Time.deltaTime);
-            //    rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime * rb.linearVelocity.magnitude / 2);
-
-            //else if (movementInput.magnitude < .1f)
-            //    rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime);
-
-            if (movementInput.magnitude < .1f)
-                rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime);
-        }
-
-        //}
-        //else
-        //{
-        //    Vector3 targetVelocity = new Vector2(0, rb.linearVelocity.y);
-        //    // And then smoothing it out and applying it to the character
-        //    rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref m_Velocity, .5f);
-        //}
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (groundCheck_tr != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck_tr.position, groundCheck_radius);
-        }
-    }
-
-    void CheckGround()
-    {
-        Collider[] colliders = Physics.OverlapSphere(groundCheck_tr.position, groundCheck_radius, groundLayer);
-
-        if (colliders.Length == 0)
-            onGround = false;
-        else
-        {
-            onGround = true;
-            canDoubleJump = true;
-
-            groundRememberTimer = groundRemember;
-        }
-
-        onGround_Remember = onGround;
-    }
-    bool onGround_Remember;
-
-    void JumpCheck()
-    {
-        jumpRememberTimer -= Time.deltaTime;
-        groundRememberTimer -= Time.deltaTime;
-
-        if (rb.linearVelocity.y > 4)
-            groundRememberTimer = 0;
-
-        if (stunned) return;
-
-        if (jumpRememberTimer > 0 && groundRememberTimer > 0)
-        {
-            jumpRememberTimer = 0;
-            groundRememberTimer = 0;
-
-            onGround = false;
-            //rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            rb.AddForce(new Vector3(0f, jumpForce, 0f));
-        }
-
-        if (jumpRememberTimer > 0 && canDoubleJump)
-        {
-            jumpRememberTimer = 0;
-
-            canDoubleJump = false;
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            rb.AddForce(new Vector2(0f, jumpForce));
-        }
-    }
-
-    #endregion
-
-    Vector3 TwoToThreeVector(Vector2 vector)
-    {
-        return new Vector3(vector.x, 0, vector.y);
-    }
-
-    Vector2 ThreeToTwoVector(Vector3 vector)
-    {
-        return new Vector2(vector.x, vector.z);
-    }
-
-    Vector3 IgnoreY(Vector3 vector)
-    {
-        return new Vector3(vector.x, 0, vector.z);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Aplicar velocidades de impacto
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
+        if (otherPlayer == null) return;
 
-        //GameplayMultiplayerManager.Instance.GetAllPlayers();
+        float playerVelocity = rb.linearVelocity.magnitude;
+        float otherVelocity = otherPlayer.rb.linearVelocity.magnitude;
+        float impactVelocity = Mathf.Clamp((playerVelocity + otherVelocity), minimumVelocityOnCollision, 1000);
 
-        if (otherPlayer != null)
+        Vector3 direction = (transform.position - otherPlayer.transform.position).normalized;
+
+        if (playerVelocity > otherVelocity)
         {
-            // El player que tenga mas velocidad resuelve las velocidades
-            float playerVelocity = GetVelocityMagnitude();
-            float otherPlayerVelocity = otherPlayer.GetVelocityMagnitude();
-
-            float velocityMid = (playerVelocity + otherPlayerVelocity);
-
-            Vector3 dir = transform.position - otherPlayer.transform.position;
-            dir.Normalize();
-
-            float resultVelocity = Mathf.Clamp(velocityMid, minimunVelocityOnCollision, 1000);
-
-            // El jugador que va mas rapido se encarga de resolver la colision
-            if (playerVelocity > otherPlayerVelocity)
-            {
-                SetLinearVelocity(dir * resultVelocity / 2);
-
-                if (dashing)
-                    otherPlayer.SetLinearVelocity(-dir * resultVelocity);
-                else
-                    otherPlayer.SetLinearVelocity(-dir * resultVelocity * 1.2f);
-            }
+            rb.linearVelocity = direction * impactVelocity / 2;
+            otherPlayer.rb.linearVelocity = dashing ? -direction * impactVelocity : -direction * impactVelocity * 1.2f;
         }
-
-        if (bubbleScript != null)
-            bubbleScript.Collision(collision);
-
-        OnCollisionEntered?.Invoke(collision);
     }
 
-    public void AddLinearVelocity(Vector3 vector)
-    {
-        rb.linearVelocity += vector;
-    }
-
-    public void SetLinearVelocity(Vector3 linearVelocity)
-    {
-        rb.linearVelocity = linearVelocity;
-    }
-
-    public Vector3 GetLinearVelocity()
-    {
-        return rb.linearVelocity;
-    }
-
-    public float GetVelocityMagnitude()
-    {
-        return rb.linearVelocity.magnitude;
-    }
+    #endregion
+   
 }

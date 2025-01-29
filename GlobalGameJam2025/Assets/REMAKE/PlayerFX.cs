@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerFX : MonoBehaviour
@@ -14,9 +16,24 @@ public class PlayerFX : MonoBehaviour
 
     public void Init(PlayerData data)
     {
+        InitAllRenderers(data);
+        PlaySpawnAnim();
+    }
+
+    private void PlaySpawnAnim()
+    {
+        Transform playerTr = playerRenderer.transform;
+        playerTr.localScale = Vector3.zero;
+        playerRenderer.material.SetFloat("_Sat", 1.0f);
+
+        playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+        playerRenderer.material.DOFloat(0, "_Sat", 0.65f);
+    }
+
+    private void InitAllRenderers(PlayerData data)
+    {
         int index = GameManager.Instance.GetPlayerIndex(data);
         Color mainColor = data.GetSkin().mainColor;
-
         if (collisionPainter != null)
         {
             collisionPainter.paintColor = AssetLocator.PaintColors[index];
@@ -25,7 +42,7 @@ public class PlayerFX : MonoBehaviour
         {
             Vector2 newOffset = Vector2.zero;
             newOffset.x = index * 0.25f;
-            playerRenderer.material.SetTextureOffset("_BaseMap", newOffset);
+            playerRenderer.material.SetVector("_Offset", newOffset);
         }
         if (playerDash != null) //Dash Color
         {

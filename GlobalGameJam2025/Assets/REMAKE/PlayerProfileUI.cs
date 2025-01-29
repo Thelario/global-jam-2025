@@ -9,11 +9,16 @@ public class PlayerProfileUI : MonoBehaviour
     [SerializeField] private Image backgroundColor;
     [SerializeField] private TextMeshProUGUI playerText;
     [SerializeField] private Button removeButton;
+
+    private Color initBackColor;
     private CanvasGroup cg;
     private void Awake()
     {
         cg = GetComponent<CanvasGroup>();
+        initBackColor = backgroundColor.color;
         if (removeButton) removeButton.onClick.AddListener(TryRemovePlayer);
+        
+        SetProfileEmpty();
     }
     private void TryRemovePlayer()
     {
@@ -23,7 +28,14 @@ public class PlayerProfileUI : MonoBehaviour
     {
         if (removeButton) removeButton.onClick.RemoveAllListeners();
     }
-    public void SetProfile(float al)=> cg.alpha = al;
+    //Para cuando se desconecte un mando
+    public void SetProfileEmpty()
+    {
+        cg.alpha = 0.2f;
+        backgroundColor.color = initBackColor;
+        playerText.text = "Press Start";
+    }
+    //Para cuando se Conecte un mando
     public void SetProfile(float alpha, PlayerData data)
     {
         cg.alpha = alpha;
