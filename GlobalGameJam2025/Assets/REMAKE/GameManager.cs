@@ -11,6 +11,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         base.Awake();
         playerConnect = gameObject.AddComponent<PlayerConnection>();
+        playerConnect.Init();
     }
 
     #region PLAYER MANAGEMENT
@@ -57,6 +58,11 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             RemovePlayer(m_playerList[index]);
         }
+    }
+    public void ClearAllPlayers()
+    {
+        m_playerList.Clear();
+        playerConnect.Init();
     }
 
     #endregion

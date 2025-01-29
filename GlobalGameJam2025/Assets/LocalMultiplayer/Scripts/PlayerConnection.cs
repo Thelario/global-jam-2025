@@ -11,7 +11,7 @@ public class PlayerConnection : MonoBehaviour
     private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
     private void OnDisable() => InputSystem.onDeviceChange -= OnDeviceChange;
 
-    private void Start()
+    public void Init()
     {
         gameManager = GameManager.Instance;
         if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);

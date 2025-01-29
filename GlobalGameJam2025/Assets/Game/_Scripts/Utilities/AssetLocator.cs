@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.XInput;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "AssetLocator", menuName = "Managers/AssetLocator", order = 1)]
 public static class AssetLocator
 {
     private static AssetData assetData;

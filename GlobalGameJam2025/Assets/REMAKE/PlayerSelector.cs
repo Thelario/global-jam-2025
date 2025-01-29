@@ -24,17 +24,14 @@ public class PlayerSelector : MonoBehaviour
     private void OnEnable()
     {
         gameManager = GameManager.Instance;
+        
         gameManager.OnPlayerAdded += PlayerAdded;
         gameManager.OnPlayerRemoved += PlayerRemoved;
 
-        if (gobackButton) gobackButton.onClick.AddListener(()=>
-        {
-            Debug.Log("KELOKE");
-            SceneNav.GoTo(SceneType.MainMenuScene);
-
-        });
+        if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
     }
+
     private void OnDisable()
     {
         GameManager.Instance.OnPlayerAdded -= PlayerAdded;
@@ -43,10 +40,21 @@ public class PlayerSelector : MonoBehaviour
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();
     }
+    private void GoToMainMenu()
+    {
+        //Siempre empezar de 0 en PlayerSelect
+        //Para evitar que se cree uno nuevo cuando se borran todos,
+        //y tenga el creat auto keyboard
+        GameManager.Instance.OnPlayerAdded -= PlayerAdded;
+        gameManager.ClearAllPlayers();
+        SceneNav.GoTo(SceneType.MainMenuScene);
+    }
     private void Start()
     {
         StartPlayerUIFX();
         UpdatePlayerUI();
+        //Crear players que ya existan 
+        foreach(PlayerData pl in gameManager.GetPlayerList()) PlayerAdded(pl);
     }
 
     private void StartPlayerUIFX()
