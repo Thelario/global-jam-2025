@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using static PlayerController;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,43 +11,9 @@ public class PlayerController : MonoBehaviour
         Waiting,
         CanMove
     }
-    private void OnEnable()
-    {
-        MinigameManager manager = MinigameManager.Instance;
-        manager.OnMinigameStart += () => ChangeState(PlayerState.CanMove);
-        manager.OnMinigameEnd += () => ChangeState(PlayerState.Waiting);
-    }
-    private void OnDisable()
-    {
-        MinigameManager manager = MinigameManager.Instance;
-        manager.OnMinigameStart -= () => ChangeState(PlayerState.CanMove);
-        manager.OnMinigameEnd -= () => ChangeState(PlayerState.Waiting);
-    }
-    public void ChangeState(PlayerState newState)
-    {
-        // No lo quites o gran jacobo tu que estas en los cielos
-        // Jacobo Nuestro, que estás en Discord,
-        // santificado sea tu codigo;
-        // venga a nosotros tu pull;
-        // hágase tu voluntad, en la tierra como en el cielo.
-
-        if (this == null)
-            return;
-
-        // PlayerData playerData = GetComponent<MultiplayerInstance>().PlayerData;
-
-        if (SceneNav.GetCurrentScene() != "EarnPoints")
-        {
-            rb.isKinematic = newState == PlayerState.Waiting;
-        }
-        playerState = newState;
-    }
-
+    
     private PlayerState playerState = PlayerState.Waiting;
-    [HideInInspector] public int playerIndex;
-
-    [Header("References")]
-    [SerializeField] Transform playerFollow;
+    public void ChangeState(PlayerState newState) => playerState = newState;
 
     [Header("Collision")]
     [SerializeField] float minimunVelocityOnCollision = 5;
@@ -55,14 +21,11 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float movementForce = 5;
     float _movementForceInit;
-    //[SerializeField] float maxVelocity = 5;
-
 
     // Dash
     [Header("Dash")]
     [SerializeField] float dashForce = 500;
     [SerializeField] float dashTime = .1f;
-    [SerializeField] Image dashRecharge;
     [SerializeField] float dashDelayTime = 2;
     float dashDelayTimer;
     bool canUseDash = true;
@@ -101,7 +64,19 @@ public class PlayerController : MonoBehaviour
 
     // Movement
     Vector2 movementInput;
-
+    private void OnEnable()
+    {
+        ChangeState(PlayerState.Waiting);
+        MinigameManager manager = MinigameManager.Instance;
+        manager.OnMinigameStart += () => ChangeState(PlayerState.CanMove);
+        manager.OnMinigameEnd += () => ChangeState(PlayerState.Waiting);
+    }
+    private void OnDisable()
+    {
+        MinigameManager manager = MinigameManager.Instance;
+        manager.OnMinigameStart -= () => ChangeState(PlayerState.CanMove);
+        manager.OnMinigameEnd -= () => ChangeState(PlayerState.Waiting);
+    }
     public void SetMovementForceMultiplier(float multiplier)
     {
         movementForce *= multiplier;
@@ -125,22 +100,11 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         bubbleScript = GetComponentInChildren<BubbleScript>();
 
-        playerFollow.name = gameObject.name + "_PlayerFollow";
-        playerFollow.parent = null;
         _doRollVolume = true;
 
         dashDelayTimer = dashDelayTime;
         _movementForceInit = movementForce;
         SetMovementForceMultiplier(1f);
-
-
-        rb.isKinematic = false;
-
-
-        // Set up character variables
-
-        //speed = thisCharacterActions.characterData.speed;
-        //jumpForce = thisCharacterActions.characterData.jumpForce;
     }
 
     void Update()
@@ -150,32 +114,9 @@ public class PlayerController : MonoBehaviour
             if (playerState == PlayerState.Waiting) return;
         }
 
-        JumpCheck();
-
-        playerFollow.transform.position = transform.position;
-
         UpdateDashDelay();
 
-        // Limitar velocidad descendente en caso de estar stuneado
-        //if (!stunned && !ignoreVelocityLimit)
-        //{
-        //    if (rb.linearVelocity.y < -15)
-        //        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -15);
-        //}
-
-        //// Update animator
-        //if (input_hor > .1f || input_hor < -.1f)
-        //    anim.SetFloat("HorVel", Mathf.Abs(rb.velocity.x));
-        //else
-        //    anim.SetFloat("HorVel", 0);
-
-
-        //anim.SetFloat("VerVel", rb.velocity.y);
-
-        //anim.SetBool("OnGround", onGround);
-
-        if (_doRollVolume == false)
-            return;
+        if (_doRollVolume == false) return;
 
         float volumeModifier = Mathf.Clamp01(rb.linearVelocity.sqrMagnitude / 250);
         SoundManager.Instance.PlaySound(Sound.BubbleRoll, volumeModifier);
@@ -188,7 +129,7 @@ public class PlayerController : MonoBehaviour
             canUseDash = true;
         }
         dashDelayTimer += Time.deltaTime;
-        dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
+        //dashRecharge.fillAmount = dashDelayTimer / dashDelayTime;
     }
 
 

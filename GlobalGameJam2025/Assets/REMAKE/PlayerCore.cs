@@ -1,16 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(PlayerFX))]
+
 public class PlayerCore : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //References
+    PlayerData playerData;
+    PlayerFX playerFX;
+    PlayerController playerController;
 
-    // Update is called once per frame
-    void Update()
+    private void InitPlayer(PlayerData data)
     {
-        
+        playerData = data;
+        playerController = GetComponent<PlayerController>();
+        playerFX = GetComponent<PlayerFX>();
     }
 }
