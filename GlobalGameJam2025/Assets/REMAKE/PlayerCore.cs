@@ -10,6 +10,7 @@ public class PlayerCore : MonoBehaviour
     PlayerFX playerFX;
     PlayerController playerController;
 
+    public PlayerData PlayerData { get { return playerData; } }
     public void InitPlayer(PlayerData data)
     {
         playerData = data;

@@ -29,7 +29,7 @@ public class PlayerFX : MonoBehaviour
         }
         if (playerDash != null) //Dash Color
         {
-            playerRenderer.material.SetColor("_BaseMap", mainColor);
+            playerDash.material.SetColor("_MainColor", mainColor);
         }
         if (playerIndicator != null)//Player Indicator Offset
         {

@@ -25,6 +25,23 @@ public class PlayerSkin : ScriptableObject
             if (!assignedSkins.Any(assigned => assigned.Index == skin.Index)) return skin;
         }
         return null;
+    }/// <summary>
+     /// Igual que arriba, pero coge la siguiente skin con index superior a la actual.
+     /// Para ir recorriendo todas las skins de una en una al asignar skin
+     /// </summary>
+    public static PlayerSkin GetNextAvailableSkin(PlayerSkin current, List<PlayerData> players)
+    {
+        PlayerSkin[] allSkins = AssetLocator.AllSkins().OrderBy(skin => skin.Index).ToArray();
+        List<PlayerSkin> assignedSkins = players.Select(p => p.GetSkin()).ToList();
+
+        foreach (var skin in allSkins)
+        {
+            if (skin.Index > current.Index && !assignedSkins.Any(assigned => assigned.Index == skin.Index))
+            {
+                return skin;
+            }
+        }
+        return GetFirstAvailableSkin(players);
     }
     /// <summary>
     /// Igual que arriba, pero ignorando index. No creo que se llegue a utilizar

@@ -8,13 +8,14 @@ public class PlayerSelector : MonoBehaviour
 {
     [Header("Player Panel Window")]
     [SerializeField] private TextMeshProUGUI playerCountText;
-    [SerializeField] private List<PlayerProfileUI> playerList;
+    [SerializeField] private List<PlayerProfileUI> profileList;
 
     [Space(10)]
     [Header("UI Nav")]
     [SerializeField] private Button gobackButton;
     [SerializeField] private Button continueButton;
-    
+
+    private List<PlayerCore> playerList = new List<PlayerCore>();
 
     //References
     GameManager gameManager;
@@ -44,12 +45,12 @@ public class PlayerSelector : MonoBehaviour
     }
     private void UpdatePlayerUI()
     {
-        foreach (var cg in playerList) cg.SetProfile(0.2f);
+        foreach (var cg in profileList) cg.SetProfile(0.2f);
 
         List<PlayerData> allPlayers = GameManager.Instance.GetPlayerList();
         for (int i = 0; i < allPlayers.Count; i++)
         {
-            playerList[i].SetProfile(1.0f, allPlayers[i]);
+            profileList[i].SetProfile(1.0f, allPlayers[i]);
         }
         playerCountText.text = $"Players {allPlayers.Count}/{GameSettings.MAX_PLAYERS}";
     }
@@ -70,11 +71,17 @@ public class PlayerSelector : MonoBehaviour
         spawnPos.y = 1;
         PlayerCore core = Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
         core.InitPlayer(newPlayer);
-
+        playerList.Add(core);
         UpdatePlayerUI();
     }
     private void PlayerRemoved(PlayerData newPlayer)
     {
+        PlayerCore playerToRemove = playerList.Find(p => p.PlayerData == newPlayer);
+        if (playerToRemove != null)
+        {
+            playerList.Remove(playerToRemove);
+            Destroy(playerToRemove.gameObject);
+        }
         UpdatePlayerUI();
     }
 }

@@ -22,3 +22,12 @@ public class PlayerData
     public void SetSkin(PlayerSkin newSkin) => m_skin = newSkin;
     public void AddPoints(int value) => m_points += value;
 }
+
+public static class PlayerDataExtensions
+{
+    // Extension method para comparar PlayeDatas
+    public static bool IsEqualTo(this PlayerData playerData, PlayerData other)
+    {
+        return playerData.GetID() == other.GetID();
+    }
+}
