@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerFollow : MonoBehaviour
@@ -20,7 +19,7 @@ public class PlayerFollow : MonoBehaviour
     {
         if (!initialized) return;
         //Follow
-        if(attachedGbj) transform.position = attachedGbj.position;
+        if (attachedGbj) transform.position = attachedGbj.position;
         else Destroy(this.gameObject);
 
         //Raycasting
@@ -32,15 +31,6 @@ public class PlayerFollow : MonoBehaviour
                 t.position = hit.point + Vector3.up * 0.05f;
             }
         }
-        
-    }
-}
-[CustomEditor(typeof(PlayerFollow))]
-public class PlayerFollowEditor : UnityEditor.Editor
-{
-    public override void OnInspectorGUI()
-    {
-        EditorGUILayout.HelpBox("This will de-attach on Play Mode!", MessageType.Warning);
-        DrawDefaultInspector();
+
     }
 }
