@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Minigame_Example", menuName = "Minigame/Shooting Bubbles Minigame", order = 1)]
-public class ShootingBubblesMinigame : MinigameBase
+public class ShootingBubblesMinigame : MinigameData
 {
     GameObject prefabIns;
     

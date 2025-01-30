@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: f264e4b7bc21d914890bd4014f90b0f5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PlayerPrefab: {instanceID: 0}
+  - MinigameEditorIcon: {instanceID: 0}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 9db284ab2e088ac47a384a8e98024eef, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

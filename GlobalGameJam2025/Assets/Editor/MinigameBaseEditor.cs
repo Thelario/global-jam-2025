@@ -1,12 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MinigameBase), true)]
+[CustomEditor(typeof(MinigameData), true)]
 public class MinigameBaseEditor : UnityEditor.Editor
 {
     public override void OnInspectorGUI()
     {
-        MinigameBase minigameBase = (MinigameBase)target;
+        MinigameData minigameBase = (MinigameData)target;
         serializedObject.Update();
 
         SerializedProperty minigameName = serializedObject.FindProperty("minigameName");
