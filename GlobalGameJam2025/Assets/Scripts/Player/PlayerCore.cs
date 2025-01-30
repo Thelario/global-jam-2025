@@ -29,4 +29,12 @@ public class PlayerCore : MonoBehaviour
         playerController.Init(playerData);
         playerFX.Init(playerData);
     }
+
+    //Wrapper de Controller
+    public void ToggleMovement(bool value)
+    {
+        playerController.ChangeState(value ? 
+            PlayerController.PlayerState.CanMove : 
+            PlayerController.PlayerState.Waiting);
+    }
 }

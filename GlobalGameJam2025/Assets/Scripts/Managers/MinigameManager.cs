@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static PlayerController;
 
 /// <summary>
 /// MINIGAMEMANAGER ahora solo se encarga de controlar un solo minijuego por vez.
@@ -99,6 +100,10 @@ public class MinigameManager : Singleton<MinigameManager>
         OnMinigameStart?.Invoke();
         Timer = GameSettings.MAX_TIMER;
         shouldCountTimer = true;
+        foreach (var pl in PlayerList)
+        {
+            pl.ToggleMovement(true);
+        }
     }
 
     public void KillPlayer(PlayerCore player)

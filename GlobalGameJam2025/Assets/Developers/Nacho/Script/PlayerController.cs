@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerInput input = GetComponent<PlayerInput>();
         input.SwitchCurrentControlScheme(data.GetDeviceType());
-        ChangeState(PlayerState.CanMove);
+        ChangeState(PlayerState.Waiting);
     }
 
     #endregion
@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCollision(Collision collision)
     {
+        if (!collision.gameObject.CompareTag("Player")) return;
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
         if (otherPlayer == null) return;
 

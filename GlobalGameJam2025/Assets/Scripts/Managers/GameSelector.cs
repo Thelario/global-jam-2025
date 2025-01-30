@@ -53,8 +53,8 @@ public class GameSelector : MonoBehaviour
     {
         if (right) pointsToWin++;
         else pointsToWin--;
-        if (pointsToWin < 0) pointsToWin = 15;
-        if (pointsToWin > 15) pointsToWin = 0;
+        if (pointsToWin < 5) pointsToWin = 15;
+        if (pointsToWin > 15) pointsToWin = 5;
         pointsText.text = pointsToWin.ToString();
     }
     public void ChangeElimination()

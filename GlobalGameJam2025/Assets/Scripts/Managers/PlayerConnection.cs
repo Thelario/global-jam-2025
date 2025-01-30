@@ -11,7 +11,6 @@ using UnityEngine.Events;
 
 public class PlayerConnection : MonoBehaviour
 {
-    private bool AlwaysAddKeyboard = true;
     GameManager gameManager;
 
     private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
@@ -20,7 +19,7 @@ public class PlayerConnection : MonoBehaviour
     public void Init()
     {
         gameManager = GameManager.Instance;
-        if (AlwaysAddKeyboard && Keyboard.current != null) AddPlayer(Keyboard.current);
+        if (GameSettings.ALWAYS_CREATE_KEYBOARD && Keyboard.current != null) AddPlayer(Keyboard.current);
     }
     private void Update()
     {
