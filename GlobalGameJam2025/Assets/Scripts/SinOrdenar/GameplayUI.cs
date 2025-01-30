@@ -15,7 +15,6 @@ public class GameplayUI : Singleton<GameplayUI>
     [Header("Sprites")]
     [SerializeField] private Sprite finishSprite;
     [SerializeField] private Sprite readySprite, setSprite, goSprite;
-    [SerializeField] private RectTransform playerPointsPrefab;
 
     private MinigameManager minigameManager;
     private bool shoudlCount = false;
@@ -28,7 +27,7 @@ public class GameplayUI : Singleton<GameplayUI>
         minigameManager.OnMinigameStart += () => shoudlCount = true;
         minigameManager.OnMinigameEnd += ShowEnd;
     }
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         minigameManager.OnMinigameInit -= ShowCountdown;
         minigameManager.OnMinigameStart -= () => shoudlCount = true;
@@ -98,24 +97,5 @@ public class GameplayUI : Singleton<GameplayUI>
     {
         yield return new WaitForSeconds(2f);
         SceneNav.GoTo(SceneType.Score);
-    }
-
-    //Spawn un decal en la posicion del jugador (coordenadas de canvas)
-    //En caso de haber ganado puntos al morir.
-    public void ShowPlayerPoints(PlayerCore player)
-    {
-        if (playerPointsPrefab == null || player == null) return;
-
-        // Instantiate UI sprite
-        RectTransform pointsRT = Instantiate(playerPointsPrefab, transform);
-
-        // Convert world position to canvas position
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(player.transform.position);
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(pointsRT, screenPoint, null, out Vector2 localPoint);
-        pointsRT.anchoredPosition = localPoint;
-
-        // Animate with DoTween
-        pointsRT.localScale = Vector3.zero;
-        pointsRT.DOScale(Vector3.one * 0.5f, 0.3f).SetEase(Ease.OutBack);
     }
 }

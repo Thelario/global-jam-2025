@@ -36,5 +36,6 @@ MonoBehaviour:
   - {fileID: 806336721, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
   - {fileID: -1785716296, guid: 04e0aaf5457cd89479adce7ebb2d9aa9, type: 3}
   MinigameEditorIcon: {fileID: 2800000, guid: 05573d86681d93945a07e11fce276750, type: 3}
+  PlayerPointsPrefab: {fileID: 3683465837118975562, guid: 2da0befb70ff34f4f8d237fb27afcdb5, type: 3}
   TexturePaintShader: {fileID: 4800000, guid: 9472ed3696ab33d4ab23fb2a11915e0c, type: 3}
   ExtendIslandsShader: {fileID: 4800000, guid: 30512f6167fa0784ab310b688406279d, type: 3}

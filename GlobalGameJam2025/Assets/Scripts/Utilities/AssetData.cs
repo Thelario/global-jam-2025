@@ -19,8 +19,12 @@ public class AssetData : ScriptableObject
 
     [Space(20)]
     [Header("Editor")]
-    public Texture2D MinigameEditorIcon; 
+    public Texture2D MinigameEditorIcon;
     
+    [Space(20)]
+    [Header("FX")]
+    public PlayerPoints PlayerPointsPrefab;
+
     [Space(20)]
     [Header("Paint Manager")]
     public Shader TexturePaintShader;

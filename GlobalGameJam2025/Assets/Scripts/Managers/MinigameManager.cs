@@ -53,7 +53,6 @@ public class MinigameManager : Singleton<MinigameManager>
             Debug.Log("Mingame not initialised in GameManager");
             return;
         }
-        if (!currentMinigame) return;
 
         //Spawnear Prefab del minijuego
         Instantiate(currentMinigame.MiniGamePrefab);
@@ -65,9 +64,8 @@ public class MinigameManager : Singleton<MinigameManager>
         OnMinigameInit?.Invoke();
 
     }
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
         if(gameManager) gameManager.OnPlayerRemoved -= KillPlayer;
     }
     private void SpawnPlayers()
@@ -108,10 +106,18 @@ public class MinigameManager : Singleton<MinigameManager>
         shouldCountTimer = true;
         foreach (var pl in PlayerList)
         {
+            CreatePointsVisualizer(pl);
             pl.ToggleMovement(true);
-            GameplayUI.Instance.ShowPlayerPoints(pl);
+            
         }
     }
+
+    private void CreatePointsVisualizer(PlayerCore player)
+    {
+        PlayerPoints pts = Instantiate(AssetLocator.Data.PlayerPointsPrefab, player.transform.position, Quaternion.identity);
+        pts.Init(2);
+    }
+
     public void EndMinigame()
     {
         OnMinigameEnd?.Invoke();
@@ -119,10 +125,10 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void KillPlayer(PlayerCore player)
     {
+        CreatePointsVisualizer(player);
         PlayerList.Remove(player);
         Destroy(player.gameObject);
-
-        if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
+        //if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
     }
 
     //Se utiliza cuando se desconecta un mando, para matar al jugador.
