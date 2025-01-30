@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -17,6 +14,9 @@ public class GameManager : PersistentSingleton<GameManager>
 
     #region PLAYER MANAGEMENT
 
+    //Esta lista es de Jugadores CONECTADOS, NO JUGANDO (se puede
+    //conectar/desconectar mandos durante la partida). Sino, utilizar la lista de Jugadores
+    //dentro del GameData de la partida
     private List<PlayerData> m_AllPlayersConnected = new List<PlayerData>();
     public List<PlayerData> GetPlayerList() => m_AllPlayersConnected;
     public int GetPlayerIndex(PlayerData data)
@@ -71,9 +71,11 @@ public class GameManager : PersistentSingleton<GameManager>
     #region GAME DATA MANAGEMENT
 
     public GameData CurrentGame { get; private set; }
-    public void AssignGameData(GameData gameData)
+    public void CreateGameData(GameData newGameData)
     {
-        if (gameData != null) CurrentGame = gameData;
+        if (newGameData == null) return;
+        newGameData.SetPlayers(m_AllPlayersConnected);
+        CurrentGame = newGameData;
     }
 
     #endregion

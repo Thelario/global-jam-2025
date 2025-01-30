@@ -42,7 +42,7 @@ public static class SceneNav
     {
         if (faderInstance == null)
         {
-            faderInstance = Object.Instantiate(AssetLocator.Fader);
+            faderInstance = Object.Instantiate(AssetLocator.Data.Fader);
         }
     }
 }

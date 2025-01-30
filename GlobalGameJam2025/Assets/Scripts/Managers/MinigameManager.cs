@@ -45,11 +45,21 @@ public class MinigameManager : Singleton<MinigameManager>
 
         //Obtiene la referencia del minijuego a jugar, y lo elimina de la lista
         gameManager = GameManager.Instance;
-        currentGameData = gameManager.CurrentGame;
-        currentMinigame = currentGameData.GetNextMinigame();
+        if(gameManager.CurrentGame != null)
+        {
+            currentGameData = gameManager.CurrentGame;
+            currentMinigame = currentGameData.GetNextMinigame();
+        }
+        else
+        {
+            Debug.Log("Mingame not initialised in GameManager");
+        }
+        
     }
     private void Start()
     {
+        if (!currentMinigame) return;
+
         //Spawnear Prefab del minijuego
         Instantiate(currentMinigame.MiniGamePrefab);
         //Spawnear Jugadores en Spawnpoints
@@ -66,7 +76,7 @@ public class MinigameManager : Singleton<MinigameManager>
     }
     private void SpawnPlayers()
     {
-        PlayerCore playerPrefab = AssetLocator.PlayerPrefab;
+        PlayerCore playerPrefab = AssetLocator.Data.PlayerPrefab;
         if (!playerPrefab) return;
         List<Vector3> spawnPositions = SpawnPoint.GetSpawnPoints();
         
@@ -81,7 +91,7 @@ public class MinigameManager : Singleton<MinigameManager>
         //Meter todos los jugadores en un Empty, instanciarlos e inicializarlos
         GameObject playerHolder = new GameObject("Player Holder");
         playerHolder.transform.Reset();
-        List<PlayerData> dataList = gameManager.GetPlayerList();
+        List<PlayerData> dataList = currentGameData.GamePlayers;
         for (int i = 0; i < dataList.Count; i++)
         {
             PlayerCore playerIns = Instantiate(playerPrefab, spawnPositions[i], Quaternion.identity, playerHolder.transform);
@@ -103,7 +113,12 @@ public class MinigameManager : Singleton<MinigameManager>
         foreach (var pl in PlayerList)
         {
             pl.ToggleMovement(true);
+            GameplayUI.Instance.ShowPlayerPoints(pl);
         }
+    }
+    public void EndMinigame()
+    {
+        OnMinigameEnd?.Invoke();
     }
 
     public void KillPlayer(PlayerCore player)
@@ -130,7 +145,16 @@ public class MinigameManager : Singleton<MinigameManager>
 
     private void Update()
     {
-        if (shouldCountTimer) Timer += Time.deltaTime;
+        if (shouldCountTimer)
+        {
+            if(Timer > 0) Timer -= Time.deltaTime;
+            else
+            {
+                Timer = 0;
+                shouldCountTimer = false;
+                EndMinigame();
+            }
+        }
     }
 
     #endregion

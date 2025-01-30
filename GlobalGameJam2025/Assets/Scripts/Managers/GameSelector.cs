@@ -29,8 +29,8 @@ public class GameSelector : MonoBehaviour
     }
     private void AssignGameInfo() //TEMPORAL ALL GAMES
     {
-        GameData gameData = new GameData(AssetLocator.ALLGAMES, pointsToWin, lastPlaceElim, lastPlacePenalty);
-        GameManager.Instance.AssignGameData(gameData);
+        GameData gameData = new GameData(AssetLocator.Data.ALLGAMES, pointsToWin, lastPlaceElim, lastPlacePenalty);
+        GameManager.Instance.CreateGameData(gameData);
     }
 
     public void ChangeGameMode(bool right)

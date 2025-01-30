@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     private Rigidbody rb;
+    public event Action onPlayerCollision;
 
     #region Unity Methods
 
@@ -135,6 +137,9 @@ public class PlayerController : MonoBehaviour
     private void HandleCollision(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
+        onPlayerCollision?.Invoke();
+
+        //Dios bendito que alguien cambie lo de abajo
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
         if (otherPlayer == null) return;
 

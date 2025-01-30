@@ -6,44 +6,44 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayUI : MonoBehaviour
+public class GameplayUI : Singleton<GameplayUI>
 {
+    [Header("References")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private CanvasGroup blocker;
     [SerializeField] private Image mainImage;
     [Header("Sprites")]
     [SerializeField] private Sprite finishSprite;
     [SerializeField] private Sprite readySprite, setSprite, goSprite;
-    [SerializeField] private List<TextMeshProUGUI> playerStats;
-    private MinigameManager manager;
+    [SerializeField] private RectTransform playerPointsPrefab;
+
+    private MinigameManager minigameManager;
     private bool shoudlCount = false;
-    private void OnEnable()
+    protected override void Awake()
     {
-        manager = MinigameManager.Instance;
-        manager.OnMinigameStart += () => shoudlCount = true;
-        manager.OnMinigameEnd += ShowEnd;
+        base.Awake();
+        minigameManager = MinigameManager.Instance;
+
+        minigameManager.OnMinigameInit += ShowCountdown;
+        minigameManager.OnMinigameStart += () => shoudlCount = true;
+        minigameManager.OnMinigameEnd += ShowEnd;
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
-        manager.OnMinigameStart -= () => shoudlCount = true;
-        manager.OnMinigameEnd -= ShowEnd;
+        minigameManager.OnMinigameInit -= ShowCountdown;
+        minigameManager.OnMinigameStart -= () => shoudlCount = true;
+        minigameManager.OnMinigameEnd -= ShowEnd;
     }
-    private IEnumerator Start()
+    private void ShowCountdown()
     {
-        List<PlayerData> buenaDataCrack = GameManager.Instance.GetPlayerList();
-        foreach(var tt in playerStats) tt.text = "0<size=60%>pts.";
-        //if (playerStats != null && buenaDataCrack != null)
-        //{
-        //    for(int i= 0; i < buenaDataCrack.Count; i++)
-        //    {
-        //        playerStats[i].text = $"{buenaDataCrack[i].TotalPoints}<size=60%>pts.";
-        //    }
-        //}
-        if (!mainImage) yield return null;
+        if (!mainImage)
+        {
+            MinigameManager.Instance.StartMinigame();
+            return;
+        }
         blocker.alpha = 1.0f;
         mainImage.sprite = readySprite;
         mainImage.DOFade(0, 0);
-        yield return new WaitForSeconds(1.0f);
         
         //guille me libre por este pedazo de mierdon
         Sequence introSeq = DOTween.Sequence();
@@ -81,7 +81,7 @@ public class GameplayUI : MonoBehaviour
     {
         if (timerText && shoudlCount)
         {
-            timerText.text = $"Timer\r\n<size=200%><color=#E7A950>{manager.Timer.ToString("0")}";
+            timerText.text = $"Timer\r\n<size=200%><color=#E7A950>{minigameManager.Timer.ToString("0")}";
         }
     }
     private void ShowEnd()
@@ -100,4 +100,22 @@ public class GameplayUI : MonoBehaviour
         SceneNav.GoTo(SceneType.Score);
     }
 
+    //Spawn un decal en la posicion del jugador (coordenadas de canvas)
+    //En caso de haber ganado puntos al morir.
+    public void ShowPlayerPoints(PlayerCore player)
+    {
+        if (playerPointsPrefab == null || player == null) return;
+
+        // Instantiate UI sprite
+        RectTransform pointsRT = Instantiate(playerPointsPrefab, transform);
+
+        // Convert world position to canvas position
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(player.transform.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(pointsRT, screenPoint, null, out Vector2 localPoint);
+        pointsRT.anchoredPosition = localPoint;
+
+        // Animate with DoTween
+        pointsRT.localScale = Vector3.zero;
+        pointsRT.DOScale(Vector3.one * 0.5f, 0.3f).SetEase(Ease.OutBack);
+    }
 }

@@ -7,16 +7,23 @@ using UnityEngine.InputSystem.Switch;
 using UnityEngine.InputSystem.XInput;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Clase statica generica para referencias (en general constantes)
+/// Para referencias directas de un asset, hacerlo del modo:
+/// AssetLocator.Data.(ReferenciaImagen.png)
+/// </summary>
 public static class AssetLocator
 {
-    private static AssetData assetData;
+    public static AssetData Data { get; private set; }
     static AssetLocator() => LoadAssetData();
 
     private static void LoadAssetData()
     {
-        assetData = Resources.Load<AssetData>("AssetData");
-        if (assetData == null) Debug.LogError("AssetData not found in Resources!");
+        Data = Resources.Load<AssetData>("AssetData");
+        if (Data == null) Debug.LogError("AssetData not found in Resources!");
     }
+    #region Generic
     public static List<Color> PaintColors => new List<Color>()
     {
         new Color32(255,191,97,255),
@@ -24,16 +31,17 @@ public static class AssetLocator
         new Color32(85,166,255,255),
         new Color32(185,213,47,255),
     };
+    #endregion
 
     #region Player Skins
-    public static PlayerSkin DefaultSkin => assetData.DefaultSkin;
     public static PlayerSkin[] AllSkins()
     {
         return m_allPlayers;
     }
     private static PlayerSkin[] m_allPlayers => Resources.LoadAll<PlayerSkin>("Skins");
     #endregion
-    //UI
+
+    #region UI
     public static Sprite GetControllerIcon(InputDevice device)
     {
         int index = device is Keyboard ? 0 :
@@ -42,13 +50,7 @@ public static class AssetLocator
                     gamepad is DualShockGamepad ? 2 :
                     gamepad is SwitchProControllerHID ? 3 : 0
                     : 0;
-        return assetData.ControllerIconSprites[index];
+        return Data.ControllerIconSprites[index];
     }
-
-
-    public static List<MinigameData> ALLGAMES => assetData.ALLGAMES;
-    public static Fader Fader => assetData.Fader;
-    public static Texture2D MinigameEditorIcon => assetData.MinigameEditorIcon;
-    public static GameObject MainCanvasPrefab => assetData.MainCanvasPrefab;
-    public static PlayerCore PlayerPrefab => assetData.PlayerPrefab;
+    #endregion
 }

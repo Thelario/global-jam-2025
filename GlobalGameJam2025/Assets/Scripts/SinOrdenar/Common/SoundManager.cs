@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : PersistentSingleton<SoundManager>
 {
-    [SerializeField] private string soundsLoadPath;
+    //Se podria inicializar esto, o cargar los settings de algun sitio
+    private string soundsLoadPath = "Sounds";
     [SerializeField] private float defaultVolume;
     [SerializeField] private float defaultPitch;
     [SerializeField] private float defaultPitchModifier;

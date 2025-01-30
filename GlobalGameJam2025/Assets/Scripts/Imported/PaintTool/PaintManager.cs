@@ -3,8 +3,8 @@ using UnityEngine.Rendering;
 
 public class PaintManager : Singleton<PaintManager>
 {
-    public Shader texturePaint;
-    public Shader extendIslands;
+    private Shader texturePaint;
+    private Shader extendIslands;
 
     int prepareUVID = Shader.PropertyToID("_PrepareUV");
     int positionID = Shader.PropertyToID("_PainterPosition");
@@ -25,7 +25,10 @@ public class PaintManager : Singleton<PaintManager>
     protected override void Awake()
     {
         base.Awake();
-        
+        texturePaint = AssetLocator.Data.TexturePaintShader;
+        extendIslands = AssetLocator.Data.ExtendIslandsShader;
+        if (!texturePaint || !extendIslands) return;
+
         paintMaterial = new Material(texturePaint);
         extendMaterial = new Material(extendIslands);
         command = new CommandBuffer();

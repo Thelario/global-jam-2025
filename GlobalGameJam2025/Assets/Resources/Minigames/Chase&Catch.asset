@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
   m_Name: Chase&Catch
   m_EditorClassIdentifier: 
-  minigameName: Chase & Catch
-  usesTimer: 0
-  maxTimer: 60
-  minigamePrefab: {fileID: 327422012583125190, guid: 15d6eefcbc65e1a43906581cf396d1d2, type: 3}
+  minigameID: GameID
+  miniGamePrefab: {fileID: 327422012583125190, guid: 15d6eefcbc65e1a43906581cf396d1d2, type: 3}

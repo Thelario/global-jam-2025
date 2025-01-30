@@ -14,6 +14,11 @@ public class GameData
         TwoVSTwo = 3
     }
     
+    //Cuando se comienza a jugar, todos los jugadores conectados en ese momento
+    //en GameManager se asignan aqui. De esta forma, si se desconecta un mando temporalmente
+    //se puede unir otra vez al comienzo de la ronda sin perder progreso
+    //(por el puto mando de Nacho que va a tirones por ejemplo)
+    public List<PlayerData> GamePlayers { get; private set; }
     public int MinigamesPlayed { get; private set; }
     public List<MinigameData> UpcomingMinigames { get; private set; }
     public Dictionary<PlayerData, int> PlayerRankings { get; private set; } // Key: PlayerData, Value: Puntuacion total
@@ -24,7 +29,7 @@ public class GameData
     public int LastPlacePenalty { get; private set; } = 0; // Default penalty
 
 
-    public GameData(List<MinigameData> allGames, int pointsToWin, bool lastPlaceElim, int lastPlacePenal )
+    public GameData(List<MinigameData> allGames, int pointsToWin, bool lastPlaceElim = false, int lastPlacePenal = 0)
     {
         UpcomingMinigames = new List<MinigameData>(allGames);
         PointsToWin = pointsToWin;
@@ -33,6 +38,10 @@ public class GameData
 
         MinigamesPlayed = 0;
         PlayerRankings = new Dictionary<PlayerData, int>();
+    }
+    public void SetPlayers(List<PlayerData> allPlayers)
+    {
+        GamePlayers = allPlayers;
     }
 
     /// <summary>

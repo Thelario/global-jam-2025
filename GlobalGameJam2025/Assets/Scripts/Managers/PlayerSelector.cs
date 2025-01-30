@@ -79,8 +79,10 @@ public class PlayerSelector : MonoBehaviour
     {
         Vector3 spawnPos = Random.insideUnitSphere * 3;
         spawnPos.y = 1;
-        PlayerCore core = Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
+        PlayerCore core = Instantiate(AssetLocator.Data.PlayerPrefab, spawnPos, Quaternion.identity);
         core.InitPlayer(newPlayer);
+        core.ToggleMovement(true);
+
         playerList.Add(core);
         foreach (var p in playerList) p.PlayerFX.RefreshRenderer(p.PlayerData);
         UpdatePlayerUI();

@@ -17,19 +17,36 @@ public class PlayerFX : MonoBehaviour
     [SerializeField] private CollisionPainter collisionPainter;
     private Sequence spawnSeq;
 
+    [Header("Collision FX")]
+    [SerializeField] private float scaleMultiplier = 0.85f;
+    Sequence collSeq;
+
     public void Init(PlayerData data)
     {
         playerFollow.Init(this as MonoBehaviour);
         RefreshRenderer(data);
         PlaySpawnAnim();
+        //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
+        GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
     }
+
+    private void CollisionFX()
+    {
+        if (collSeq != null) collSeq.Restart();
+        else collSeq = DOTween.Sequence();
+        collSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.15f)
+            .SetLoops(2, LoopType.Yoyo))
+            .Join(playerRenderer.material.DOFloat(0.75f, "_Sat", 0.075f).SetLoops(2, LoopType.Yoyo));
+    }
+
     private void OnDestroy()
     {
-        if (spawnSeq != null) spawnSeq.Kill();
+        spawnSeq?.Kill();
+        collSeq?.Kill();
     }
     private void PlaySpawnAnim()
     {
-        if(spawnSeq != null) spawnSeq.Kill();
+        if(spawnSeq != null) spawnSeq.Restart();
         else spawnSeq = DOTween.Sequence();
 
         Transform playerTr = playerRenderer.transform;
