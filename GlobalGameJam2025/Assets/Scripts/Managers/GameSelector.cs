@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static GameData;
 public class GameSelector : MonoBehaviour
 {
     //MAX CAPS/ VARIO
@@ -43,7 +45,7 @@ public class GameSelector : MonoBehaviour
         if (gameModeIndex == -1) gamemodeText.text = "All Games";
         else
         {
-            GameData.GameModeDisplay.TryGetValue((GameData.GameMode)gameModeIndex, out string val);
+            GameModeDisplay.TryGetValue((GameData.GameMode)gameModeIndex, out string val);
             gamemodeText.text = val;
         }   
     }
@@ -68,4 +70,13 @@ public class GameSelector : MonoBehaviour
         if (lastPlacePenalty > 5) lastPlacePenalty = 0;
         penaltyText.text = $"{lastPlacePenalty} Pts.";
     }
+    
+    //Para Leer enums como Strings, para tema de menus y tal
+    public static readonly Dictionary<GameMode, string> GameModeDisplay = new Dictionary<GameMode, string>
+    {
+        { GameMode.DeathMatch, "Deathmatch" },
+        { GameMode.Catch, "Cath-Match" },
+        { GameMode.OneVSAll, "One VS All" },
+        { GameMode.TwoVSTwo, "2 VS 2" }
+    };
 }

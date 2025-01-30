@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
-  m_Name: Battle Arena Minigame
+  m_Script: {fileID: 11500000, guid: de10dbec4213457439e618063afc3157, type: 3}
+  m_Name: Minigame Base
   m_EditorClassIdentifier: 
   minigameID: GameID
-  miniGamePrefab: {fileID: 8695392380013012607, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
+  miniGamePrefab: {fileID: 0}

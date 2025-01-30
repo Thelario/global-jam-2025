@@ -53,7 +53,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
     private void Update()
     {
-        CurrentMinigame?.MinigameUpdate();
+        //CurrentMinigame?.MinigameUpdate();
 
         if (timerOn)
         {
@@ -87,7 +87,7 @@ public class MinigameManager : Singleton<MinigameManager>
         m_GameList.RemoveAt(0);
 
         OnMinigameInit?.Invoke();
-        CurrentMinigame.MinigameInit();
+        //CurrentMinigame.MinigameInit();
 
         if (AssetLocator.MainCanvasPrefab)
             Instantiate(AssetLocator.MainCanvasPrefab);
@@ -104,7 +104,7 @@ public class MinigameManager : Singleton<MinigameManager>
         if (CurrentMinigame != null)
         {
             OnMinigameStart?.Invoke();
-            CurrentMinigame.MinigameStart();
+            //CurrentMinigame.MinigameStart();
         }
 
         StartTimer();
@@ -115,7 +115,7 @@ public class MinigameManager : Singleton<MinigameManager>
         if (CurrentMinigame == null) return;
 
         OnMinigameEnd?.Invoke();
-        CurrentMinigame.MinigameEnd();
+        //CurrentMinigame.MinigameEnd();
         CurrentMinigame = null;
 
         AddRemainingPlayersToScore();

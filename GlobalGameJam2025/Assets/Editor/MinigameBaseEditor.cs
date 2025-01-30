@@ -6,26 +6,27 @@ public class MinigameBaseEditor : UnityEditor.Editor
 {
     public override void OnInspectorGUI()
     {
-        MinigameData minigameBase = (MinigameData)target;
-        serializedObject.Update();
+        DrawDefaultInspector();
+        //MinigameData minigameBase = (MinigameData)target;
+        //serializedObject.Update();
 
-        SerializedProperty minigameName = serializedObject.FindProperty("minigameName");
-        SerializedProperty usesTimer = serializedObject.FindProperty("usesTimer");
-        SerializedProperty maxTimer = serializedObject.FindProperty("maxTimer");
-        SerializedProperty minigamePrefab = serializedObject.FindProperty("minigamePrefab");
+        //SerializedProperty minigameName = serializedObject.FindProperty("minigameName");
+        //SerializedProperty usesTimer = serializedObject.FindProperty("usesTimer");
+        //SerializedProperty maxTimer = serializedObject.FindProperty("maxTimer");
+        //SerializedProperty minigamePrefab = serializedObject.FindProperty("minigamePrefab");
 
-        EditorGUILayout.PropertyField(minigameName);
-        GUILayout.Space(10);
-        EditorGUILayout.PropertyField(usesTimer);
+        //EditorGUILayout.PropertyField(minigameName);
+        //GUILayout.Space(10);
+        //EditorGUILayout.PropertyField(usesTimer);
 
-        // Conditionally show maxTimer field
-        if (usesTimer.boolValue)
-        {
-            EditorGUILayout.PropertyField(maxTimer);
-        }
+        //// Conditionally show maxTimer field
+        //if (usesTimer.boolValue)
+        //{
+        //    EditorGUILayout.PropertyField(maxTimer);
+        //}
 
-        EditorGUILayout.PropertyField(minigamePrefab);
+        //EditorGUILayout.PropertyField(minigamePrefab);
 
-        serializedObject.ApplyModifiedProperties();
+        //serializedObject.ApplyModifiedProperties();
     }
 }

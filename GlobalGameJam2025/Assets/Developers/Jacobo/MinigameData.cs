@@ -1,16 +1,18 @@
 using UnityEngine;
 
+/// <summary>
+/// Para crear un scriptableObject de Minigame, por ahora solo
+/// requiere un ID para diferenciarlos (no es necesario de momento)
+/// Y el prefab a instanciar
+/// </summary>
+
+[CreateAssetMenu(fileName = "Minigame Base", menuName = "Minigame", order = 1)]
 public class MinigameData : ScriptableObject
 {
-    [SerializeField] protected string minigameName = "Minigame Default";
-    public string Name() => minigameName;
-    [SerializeField] protected bool usesTimer = false;
-    [SerializeField] protected int maxTimer = 999;
-    [SerializeField] protected GameObject minigamePrefab;
+    [SerializeField] private string minigameID = "GameID";
+    [SerializeField] private GameObject miniGamePrefab;
 
-    //protected SceneSearch targetScene;
-    public virtual void MinigameInit() { }
-    public virtual void MinigameStart() { }
-    public virtual void MinigameUpdate() { }
-    public virtual void MinigameEnd() { }
+    public string MinigameID => minigameID;
+    public GameObject MiniGamePrefab => miniGamePrefab;
+
 }

@@ -13,14 +13,7 @@ public class GameData
         OneVSAll = 2,
         TwoVSTwo = 3
     }
-    //Para Leer enums como Strings, para tema de menus y tal
-    public static readonly Dictionary<GameMode, string> GameModeDisplay = new Dictionary<GameMode, string>
-    {
-        { GameMode.DeathMatch, "Deathmatch" },
-        { GameMode.Catch, "Cath-Match" },
-        { GameMode.OneVSAll, "One VS All" },
-        { GameMode.TwoVSTwo, "2 VS 2" }
-    };
+    
     public int MinigamesPlayed { get; private set; }
     public List<MinigameData> UpcomingMinigames { get; private set; }
     public Dictionary<PlayerData, int> PlayerRankings { get; private set; } // Key: PlayerData, Value: Puntuacion total
@@ -33,13 +26,12 @@ public class GameData
 
     public GameData(List<MinigameData> allGames, int pointsToWin, bool lastPlaceElim, int lastPlacePenal )
     {
-        UpcomingMinigames = allGames;
+        UpcomingMinigames = new List<MinigameData>(allGames);
         PointsToWin = pointsToWin;
         LastPlaceElimination = lastPlaceElim;
         LastPlacePenalty = lastPlacePenal;
 
         MinigamesPlayed = 0;
-        UpcomingMinigames = new List<MinigameData>();
         PlayerRankings = new Dictionary<PlayerData, int>();
     }
 

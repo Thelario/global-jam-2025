@@ -72,7 +72,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public GameData CurrentGame { get; private set; }
     internal void AssignGameData(GameData gameData)
     {
-        if (CurrentGame != null)
+        if (gameData != null)
         {
             CurrentGame = gameData;
             Debug.Log("ASSINGED SUCCESFULLY: " + gameData.UpcomingMinigames.Count + " games");

@@ -13,13 +13,12 @@ public class SpawnPoint : MonoBehaviour
     private void Awake()
     {
         transform.parent = null;
-        if(spawnPoint == null) spawnPoint = new List<Vector3>();
-        spawnPoint.Add(transform.position);
+        spawnPoints.Add(transform.position);
     }
     private void OnDestroy()
     {
-        spawnPoint.Remove(transform.position);
+        spawnPoints.Remove(transform.position);
     }
-    private static List<Vector3> spawnPoint;
-    public static List<Vector3> GetSpawnPoints() => spawnPoint;//Devuelve todos los spawnpoints(no ordenado)
+    private static List<Vector3> spawnPoints = new List<Vector3>();
+    public static List<Vector3> GetSpawnPoints() => spawnPoints;//Devuelve todos los spawnpoints(no ordenado)
 }
