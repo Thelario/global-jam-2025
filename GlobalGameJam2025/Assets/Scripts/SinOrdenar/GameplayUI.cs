@@ -81,7 +81,7 @@ public class GameplayUI : MonoBehaviour
     {
         if (timerText && shoudlCount)
         {
-            timerText.text = $"Timer\r\n<size=200%><color=#E7A950>{manager.GameTimer.ToString("0")}";
+            timerText.text = $"Timer\r\n<size=200%><color=#E7A950>{manager.Timer.ToString("0")}";
         }
     }
     private void ShowEnd()

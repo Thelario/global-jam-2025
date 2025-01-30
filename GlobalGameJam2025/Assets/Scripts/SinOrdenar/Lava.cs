@@ -5,10 +5,9 @@ public class Lava : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         if (!collision.gameObject.CompareTag("Player")) return;
-        MinigameManager man = MinigameManager.Instance;
-        if(collision.gameObject.TryGetComponent(out MultiplayerInstance ins))
+        if(collision.gameObject.TryGetComponent(out PlayerCore player))
         {
-            man.PlayerDeath(ins);
+            MinigameManager.Instance.KillPlayer(player);
         }
     }
 }

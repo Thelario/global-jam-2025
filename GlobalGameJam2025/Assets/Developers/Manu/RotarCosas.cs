@@ -6,7 +6,7 @@ public class RotarCosas : MonoBehaviour
 {
     public Vector3 rotationSpeed = new Vector3(0, 50, 0);
     private bool isRotating = false;
-    List<MultiplayerInstance> players;
+    List<PlayerCore> players;
 
     void Start()
     {
@@ -16,8 +16,8 @@ public class RotarCosas : MonoBehaviour
 
     private IEnumerator WaitAndRotate()
     {
-        players = MinigameManager.Instance.GetAllPlayers();
-        foreach (MultiplayerInstance player in players)
+        players = MinigameManager.Instance.PlayerList;
+        foreach (PlayerCore player in players)
         {
             player.transform.localScale *= 1.5f;
         }

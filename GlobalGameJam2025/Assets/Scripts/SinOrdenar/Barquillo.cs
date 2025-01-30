@@ -7,13 +7,13 @@ public class Barquillo : MonoBehaviour
     public float forceToAdd = 300;
     public ForceMode forceM = ForceMode.VelocityChange;
     MinigameManager manager;
-    List<MultiplayerInstance> allPlayers;
+    List<PlayerCore> allPlayers;
     List<Rigidbody> allRbs;
     bool shouldPush = false;
     void Start()
     {
         manager = MinigameManager.Instance;
-        allPlayers = manager.GetAllPlayers();
+        allPlayers = manager.PlayerList;
         allRbs = new List<Rigidbody>();
         foreach (var tetas in allPlayers)
         {

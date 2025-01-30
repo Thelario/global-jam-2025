@@ -1,245 +1,131 @@
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
-using System.Linq;
+using UnityEngine;
+using UnityEngine.Events;
+
+/// <summary>
+/// MINIGAMEMANAGER ahora solo se encarga de controlar un solo minijuego por vez.
+/// Solo existe en la escena de Gameplay. Obtiene la referencia del GameData de GameManager
+/// Y coordina todos los otros sistemas del Minijuego
+/// </summary>
 
 public class MinigameManager : Singleton<MinigameManager>
 {
-    // Events
+    //Init se llama OnStart, se encarga de que se instancie todo correctamente
+    //Desde jugadores a Prefabs de jugadores, etc.
+
+    //Start se llama cuando comienza el minijuego; puede ser util para algunos obstaculos
+    //para empezar a girar, moverse, etc.
+
+    //End se llama una vez termina el juego por cualquier motivo. El prefab del minijuego 
+    //ya no deberia destruirse aqui
     public event UnityAction OnMinigameInit;
     public event UnityAction OnMinigameStart;
     public event UnityAction OnMinigameEnd;
 
-    // Properties
-    public MinigameData CurrentMinigame { get; private set; }
-    public int GameRounds { get; private set; } = 5;
-    public int RoundsLeft()
+    //Lista de jugadores spawneados esta ronda
+    public List<PlayerCore> PlayerList { get; private set; }
+
+    //Timer desde el comienzo del minijuego, no solo para terminar juego
+    public float Timer { get; private set; } = 0f;
+    private bool shouldCountTimer = false;
+
+    //Referencias
+    GameManager gameManager;
+    GameData currentGameData;
+    MinigameData currentMinigame;
+   
+    #region Init / Organizacion
+    protected override void Awake()
     {
-        if (m_GameList != null) return m_GameList.Count();
-        else return 0;
+        //Init Everything
+        base.Awake();
+        PlayerList = new List<PlayerCore>();
+
+        //Obtiene la referencia del minijuego a jugar, y lo elimina de la lista
+        gameManager = GameManager.Instance;
+        currentGameData = gameManager.CurrentGame;
+        currentMinigame = currentGameData.GetNextMinigame();
     }
-    public int GameMaxTimer { get; private set; } = 60;
-    public float GameTimer
-    {
-        get { return currentTimer; }
-        private set { currentTimer = Mathf.Max(0, value); }
-    }
-
-    // Private Fields
-    private static List<MinigameData> m_GameList = new List<MinigameData>();
-    private List<PlayerData> playersDead = new List<PlayerData>();
-    private List<MultiplayerInstance> allPlayers = new List<MultiplayerInstance>();
-    private float currentTimer = 0f;
-    private bool timerOn = false;
-
-    #region Unity Lifecycle
-
-    private void OnEnable() => SceneManager.sceneLoaded += InitMinigameOnLoad;
-
-    private void OnDisable() => SceneManager.sceneLoaded -= InitMinigameOnLoad;
-
     private void Start()
     {
-        //Testin only
-        if (SceneNav.IsGameplay())
+        //Spawnear Prefab del minijuego
+        Instantiate(currentMinigame.MiniGamePrefab);
+        //Spawnear Jugadores en Spawnpoints
+        SpawnPlayers();
+        //Cuando se desconecte un mando, matar jugador
+        gameManager.OnPlayerRemoved += KillPlayer;
+        //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
+        OnMinigameInit?.Invoke();
+
+    }
+    private void OnDestroy()
+    {
+        gameManager.OnPlayerRemoved -= KillPlayer;
+    }
+    private void SpawnPlayers()
+    {
+        PlayerCore playerPrefab = AssetLocator.PlayerPrefab;
+        if (!playerPrefab) return;
+        List<Vector3> spawnPositions = SpawnPoint.GetSpawnPoints();
+        
+        //En el caso de que no haya suficientes spawnpoints en el prefab, 
+        //instanciar todo en 0 0 0
+        if(gameManager.PlayerCount > spawnPositions.Count)
         {
-            InitMinigameInfo(1, 30);
-            InitMinigame();
+            Debug.Log("Faltan spawnpoints por colocar!" + spawnPositions.Count);
+            spawnPositions = new List<Vector3>(gameManager.PlayerCount) { new Vector3(0,1,0)};
+        }
+        
+        //Meter todos los jugadores en un Empty, instanciarlos e inicializarlos
+        GameObject playerHolder = new GameObject("Player Holder");
+        playerHolder.transform.Reset();
+        List<PlayerData> dataList = gameManager.GetPlayerList();
+        for (int i = 0; i < dataList.Count; i++)
+        {
+            PlayerCore playerIns = Instantiate(playerPrefab, spawnPositions[i], Quaternion.identity, playerHolder.transform);
+            playerIns.InitPlayer(dataList[i]);
+            PlayerList.Add(playerIns);
+        }
+        
+    }
+    #endregion
+
+    #region Minigame Methods
+    
+    //Despues de cuenta atras
+    public void StartMinigame()
+    {
+        OnMinigameStart?.Invoke();
+        Timer = GameSettings.MAX_TIMER;
+        shouldCountTimer = true;
+    }
+
+    public void KillPlayer(PlayerCore player)
+    {
+        PlayerList.Remove(player);
+        Destroy(player.gameObject);
+
+        if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
+    }
+
+    //Se utiliza cuando se desconecta un mando, para matar al jugador.
+    public void KillPlayer(PlayerData arg0)
+    {
+        List<PlayerCore> copyList = PlayerList;
+        foreach(var player in PlayerList) 
+        {
+            if (player != null && player.PlayerData == arg0) 
+            {
+                KillPlayer(player);
+                return;
+            }
         }
     }
 
     private void Update()
     {
-        //CurrentMinigame?.MinigameUpdate();
-
-        if (timerOn)
-        {
-            currentTimer -= Time.deltaTime;
-            if (currentTimer <= 0f)
-            {
-                timerOn = false;
-                EndMinigame();
-            }
-        }
-    }
-
-    #endregion
-
-    #region Minigame Initialization and Management
-
-    public void InitMinigameInfo(int rounds, int timer, int gameIndex = 0)
-    {
-        GameRounds = rounds;
-        GameMaxTimer = timer;
-        if (gameIndex == 0) AssignMinigamesRandom();
-        else AssignMinigame(gameIndex);
-    }
-
-    public void InitMinigame()
-    {
-        if (!SceneNav.IsGameplay() || m_GameList.Count == 0 || CurrentMinigame != null)
-            return;
-
-        CurrentMinigame = m_GameList[0];
-        m_GameList.RemoveAt(0);
-
-        OnMinigameInit?.Invoke();
-        //CurrentMinigame.MinigameInit();
-
-        if (AssetLocator.MainCanvasPrefab)
-            Instantiate(AssetLocator.MainCanvasPrefab);
-
-        SpawnPlayers();
-
-        //StartMinigame();
-    }
-
-    public void StartMinigame()
-    {
-        playersDead.Clear();
-
-        if (CurrentMinigame != null)
-        {
-            OnMinigameStart?.Invoke();
-            //CurrentMinigame.MinigameStart();
-        }
-
-        StartTimer();
-    }
-
-    public void EndMinigame()
-    {
-        if (CurrentMinigame == null) return;
-
-        OnMinigameEnd?.Invoke();
-        //CurrentMinigame.MinigameEnd();
-        CurrentMinigame = null;
-
-        AddRemainingPlayersToScore();
-    }
-
-    private void StartTimer()
-    {
-        currentTimer = GameMaxTimer;
-        timerOn = true;
-    }
-
-    #endregion
-
-    #region Minigame Assignment
-
-    private void AssignMinigamesRandom()
-    {
-        if (AssetLocator.ALLGAMES == null || AssetLocator.ALLGAMES.Count < 4) return;
-
-        var availableMinigames = new List<MinigameData>(AssetLocator.ALLGAMES);
-        m_GameList = new List<MinigameData>();
-
-        //for (int i = 0; i < GameRounds; i++)
-        for (int i = 0; i < 100; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, availableMinigames.Count);
-            m_GameList.Add(availableMinigames[randomIndex]);
-            //availableMinigames.RemoveAt(randomIndex);
-        }
-    }
-
-    private void AssignMinigame(int index)
-    {
-        if (AssetLocator.ALLGAMES == null || AssetLocator.ALLGAMES.Count < 4) return;
-
-        var availableMinigames = new List<MinigameData>(AssetLocator.ALLGAMES);
-        m_GameList = new List<MinigameData>();
-
-        for (int i = 0; i < 1000; i++)
-            m_GameList.Add(availableMinigames[index]);
-    }
-
-    #endregion
-
-    #region Player Management
-
-    public List<MultiplayerInstance> GetAllPlayers() => allPlayers;
-
-    public List<PlayerData> GetLastGameScore() => playersDead;
-
-    public void PlayerDeath(MultiplayerInstance player)
-    {
-        playersDead.Add(player.PlayerData);
-        int numberPlayers = GameManager.Instance.PlayerCount;
-        if (playersDead.Count >= numberPlayers - 1) EndMinigame();
-    }
-
-    private void AddRemainingPlayersToScore()
-    {
-        foreach (var player in allPlayers)
-        {
-            if (!playersDead.Contains(player.PlayerData))
-                playersDead.Add(player.PlayerData);
-        }
-    }
-
-    public void SpawnPlayers() 
-    {
-        //allPlayers.Clear();
-
-        //// if (SpawnPoint.spawnPoint != null && SpawnPoint.spawnPoint.Count > 4)
-        //// {
-        ////     SpawnPoint.ClearSpawnPoints();
-        //// }
-        
-        //var spawnPoints = SpawnPoint.GetSpawnPoints();
-        //var playerDataList = GameManager.Instance.GetAllPlayer();
-
-        //EnsureEnoughSpawnPoints(spawnPoints, playerDataList.Count);
-
-        //for (int i = 0; i < playerDataList.Count; i++)
-        //{
-        //    var playerObject = Instantiate(AssetLocator.PlayerPrefab(), spawnPoints[i], Quaternion.identity);
-        //    if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
-        //    {
-        //        multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
-        //        multiplayerInstance.AssignData(playerDataList[i]);
-        //        allPlayers.Add(multiplayerInstance);
-        //    }
-        //}
-    }
-
-  
-    public Transform SpawnPlayerByIndex(int playerIndex, Vector3 playerPosition)
-    {
-        //var playerDataList = GameManager.Instance.GetAllPlayer();
-
-        //var playerObject = Instantiate(AssetLocator.PlayerPrefab(), playerPosition, Quaternion.identity);
-        //if (playerObject.TryGetComponent(out MultiplayerInstance multiplayerInstance))
-        //{
-        //    multiplayerInstance.GetComponent<PlayerController>().EnableRollVolume(true);
-        //    multiplayerInstance.AssignData(playerDataList[playerIndex]);
-        //    allPlayers.Add(multiplayerInstance);
-        //}
-
-        return null;
-    }
-
-    private void EnsureEnoughSpawnPoints(List<Vector3> spawnPoints, int requiredCount)
-    {
-        while (spawnPoints.Count < requiredCount)
-        {
-            print("WHILE");
-            spawnPoints.Add(spawnPoints[spawnPoints.Count - 1]);
-        }
-    }
-
-    #endregion
-
-    #region Scene Loading
-
-    private void InitMinigameOnLoad(Scene scene, LoadSceneMode mode)
-    {
-        InitMinigame();
+        if (shouldCountTimer) Timer += Time.deltaTime;
     }
 
     #endregion
