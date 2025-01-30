@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -64,7 +65,19 @@ public class GameManager : PersistentSingleton<GameManager>
         m_playerList.Clear();
         playerConnect.Init();
     }
-
     #endregion
 
+    #region GAME DATA MANAGEMENT
+    
+    public GameData CurrentGame { get; private set; }
+    internal void AssignGameData(GameData gameData)
+    {
+        if (CurrentGame != null)
+        {
+            CurrentGame = gameData;
+            Debug.Log("ASSINGED SUCCESFULLY: " + gameData.UpcomingMinigames.Count + " games");
+        }
+    }
+
+    #endregion
 }

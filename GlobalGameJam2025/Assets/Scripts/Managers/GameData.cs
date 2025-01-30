@@ -1,16 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 [Serializable]
 public class GameData
 {
+    public enum GameMode
+    {
+        DeathMatch = 0,
+        Catch = 1,
+        OneVSAll = 2,
+        TwoVSTwo = 3
+    }
+    //Para Leer enums como Strings, para tema de menus y tal
+    public static readonly Dictionary<GameMode, string> GameModeDisplay = new Dictionary<GameMode, string>
+    {
+        { GameMode.DeathMatch, "Deathmatch" },
+        { GameMode.Catch, "Cath-Match" },
+        { GameMode.OneVSAll, "One VS All" },
+        { GameMode.TwoVSTwo, "2 VS 2" }
+    };
     public int MinigamesPlayed { get; private set; }
     public List<MinigameData> UpcomingMinigames { get; private set; }
     public Dictionary<PlayerData, int> PlayerRankings { get; private set; } // Key: PlayerData, Value: Puntuacion total
 
-    public GameData()
+    //Penalties
+    public int PointsToWin { get; private set; } = 10;
+    public bool LastPlaceElimination { get; private set; } = false;
+    public int LastPlacePenalty { get; private set; } = 0; // Default penalty
+
+
+    public GameData(List<MinigameData> allGames, int pointsToWin, bool lastPlaceElim, int lastPlacePenal )
     {
+        UpcomingMinigames = allGames;
+        PointsToWin = pointsToWin;
+        LastPlaceElimination = lastPlaceElim;
+        LastPlacePenalty = lastPlacePenal;
+
         MinigamesPlayed = 0;
         UpcomingMinigames = new List<MinigameData>();
         PlayerRankings = new Dictionary<PlayerData, int>();
@@ -58,6 +85,23 @@ public class GameData
     public int? GetPlayerRanking(PlayerData playerData)
     {
         return PlayerRankings.ContainsKey(playerData) ? PlayerRankings[playerData] : (int?)null;
+    }
+
+    public void ApplyLastPlacePenalty()
+    {
+        if (PlayerRankings.Count == 0) return;
+
+        // Find the lowest score
+        int minScore = PlayerRankings.Values.Min();
+
+        // Apply penalty to all players who have the lowest score
+        foreach (var player in PlayerRankings.Keys.ToList())
+        {
+            if (PlayerRankings[player] == minScore)
+            {
+                PlayerRankings[player] -= LastPlacePenalty;
+            }
+        }
     }
 
     /// <summary>
