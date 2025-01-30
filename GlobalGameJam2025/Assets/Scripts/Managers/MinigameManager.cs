@@ -106,15 +106,17 @@ public class MinigameManager : Singleton<MinigameManager>
         shouldCountTimer = true;
         foreach (var pl in PlayerList)
         {
-            CreatePointsVisualizer(pl);
+            CreatePointsVisualizer(pl.transform.position);
             pl.ToggleMovement(true);
             
         }
     }
 
-    private void CreatePointsVisualizer(PlayerCore player)
+    private void CreatePointsVisualizer(Vector3 playerPos)
     {
-        PlayerPoints pts = Instantiate(AssetLocator.Data.PlayerPointsPrefab, player.transform.position, Quaternion.identity);
+        PlayerPoints pts = Instantiate(AssetLocator.Data.PlayerPointsPrefab,
+            playerPos + Vector3.up*0.75f, 
+            Quaternion.identity);
         pts.Init(2);
     }
 
@@ -125,9 +127,10 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void KillPlayer(PlayerCore player)
     {
-        CreatePointsVisualizer(player);
+        if (!PlayerList.Contains(player)) return;
+        CreatePointsVisualizer(player.transform.position);
         PlayerList.Remove(player);
-        Destroy(player.gameObject);
+        player.KillPlayer();
         //if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
     }
 

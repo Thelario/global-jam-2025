@@ -45,7 +45,12 @@ public class PlayerController : MonoBehaviour
         if (State == PlayerState.Waiting) return;
         dashDelayTimer += Time.deltaTime;
     }
-
+    public void KillPlayer()
+    {
+        ChangeState(PlayerState.Waiting);
+        rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+    }
     private void FixedUpdate()
     {
         if (State == PlayerState.Waiting) return;

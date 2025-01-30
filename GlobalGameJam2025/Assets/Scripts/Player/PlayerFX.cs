@@ -19,7 +19,7 @@ public class PlayerFX : MonoBehaviour
 
     [Header("Collision FX")]
     [SerializeField] private float scaleMultiplier = 0.85f;
-    Sequence collSeq;
+    Sequence playerSeq;
 
     public void Init(PlayerData data)
     {
@@ -30,11 +30,19 @@ public class PlayerFX : MonoBehaviour
         GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
     }
 
+    public void KillPlayer()
+    {
+        if (playerSeq != null) playerSeq.Kill();
+        else playerSeq = DOTween.Sequence();
+        playerSeq.Append(playerRenderer.transform.DOScale(0, 0.15f).SetEase(Ease.InBack))
+            .Join(playerRenderer.material.DOFloat(0.75f, "_Sat", 0.075f));
+    }
+
     private void CollisionFX()
     {
-        if (collSeq != null) collSeq.Restart();
-        else collSeq = DOTween.Sequence();
-        collSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.15f)
+        if (playerSeq != null) playerSeq.Restart();
+        else playerSeq = DOTween.Sequence();
+        playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.15f)
             .SetLoops(2, LoopType.Yoyo))
             .Join(playerRenderer.material.DOFloat(0.75f, "_Sat", 0.075f).SetLoops(2, LoopType.Yoyo));
     }
@@ -42,7 +50,7 @@ public class PlayerFX : MonoBehaviour
     private void OnDestroy()
     {
         spawnSeq?.Kill();
-        collSeq?.Kill();
+        playerSeq?.Kill();
     }
     private void PlaySpawnAnim()
     {

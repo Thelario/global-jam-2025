@@ -37,4 +37,10 @@ public class PlayerCore : MonoBehaviour
             PlayerController.PlayerState.CanMove : 
             PlayerController.PlayerState.Waiting);
     }
+    public void KillPlayer()
+    {
+        playerController.KillPlayer();
+        PlayerFX.KillPlayer();
+        Destroy(gameObject, 1.0f);
+    }
 }
