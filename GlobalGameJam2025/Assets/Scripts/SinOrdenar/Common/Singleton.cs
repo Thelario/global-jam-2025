@@ -13,8 +13,14 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_instance == null)
             {
-                GameObject obj = new GameObject(typeof(T).Name);
-                _instance = obj.AddComponent<T>();
+                // Look for an existing instance in the scene
+                _instance = FindFirstObjectByType<T>();
+
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject(typeof(T).Name);
+                    _instance = obj.AddComponent<T>();
+                }
             }
             return _instance;
         }
@@ -23,6 +29,7 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
             _instance = value;
         }
     }
+
 
     protected static T _instance;
 
@@ -34,7 +41,14 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void OnApplicationQuit()
     {
         _instance = null;
-        Destroy(this); // Destroy only the component, not the GameObject
+        Destroy(gameObject); // Destroy only the component, not the GameObject
+    }
+    protected virtual void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+        }
     }
 }
 

@@ -8,8 +8,11 @@ public class TestMinigame : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager gameManager = GameManager.Instance;
+        PlayerConnection playerConn = gameManager.PlayerConnection;
+
         GameData newGameData = new GameData(new List<MinigameData>() { minigameData },
             pointsToWin);
-        GameManager.Instance.CreateGameData(newGameData);
+        GameManager.Instance.CreateGameData(newGameData, playerConn.GetAllConnectedDevices());
     }
 }

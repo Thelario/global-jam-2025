@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static PlayerController;
 
 /// <summary>
 /// MINIGAMEMANAGER ahora solo se encarga de controlar un solo minijuego por vez.
@@ -37,15 +36,14 @@ public class MinigameManager : Singleton<MinigameManager>
     MinigameData currentMinigame;
    
     #region Init / Organizacion
-    protected override void Awake()
+
+    private void Start()
     {
-        //Init Everything
-        base.Awake();
         PlayerList = new List<PlayerCore>();
 
         //Obtiene la referencia del minijuego a jugar, y lo elimina de la lista
         gameManager = GameManager.Instance;
-        if(gameManager.CurrentGame != null)
+        if (gameManager.CurrentGame != null)
         {
             currentGameData = gameManager.CurrentGame;
             currentMinigame = currentGameData.GetNextMinigame();
@@ -53,11 +51,8 @@ public class MinigameManager : Singleton<MinigameManager>
         else
         {
             Debug.Log("Mingame not initialised in GameManager");
+            return;
         }
-        
-    }
-    private void Start()
-    {
         if (!currentMinigame) return;
 
         //Spawnear Prefab del minijuego
@@ -65,14 +60,15 @@ public class MinigameManager : Singleton<MinigameManager>
         //Spawnear Jugadores en Spawnpoints
         SpawnPlayers();
         //Cuando se desconecte un mando, matar jugador
-        gameManager.OnPlayerRemoved += KillPlayer;
+        if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
         //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
         OnMinigameInit?.Invoke();
 
     }
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        gameManager.OnPlayerRemoved -= KillPlayer;
+        base.OnDestroy();
+        if(gameManager) gameManager.OnPlayerRemoved -= KillPlayer;
     }
     private void SpawnPlayers()
     {

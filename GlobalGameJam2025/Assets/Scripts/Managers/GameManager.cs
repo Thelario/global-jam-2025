@@ -77,6 +77,13 @@ public class GameManager : PersistentSingleton<GameManager>
         newGameData.SetPlayers(m_AllPlayersConnected);
         CurrentGame = newGameData;
     }
+    //Override que fuerza los jugadores al del parametro
+    public void CreateGameData(GameData newGameData, List<PlayerData> allPlayers)
+    {
+        if (newGameData == null) return;
+        newGameData.SetPlayers(allPlayers);
+        CurrentGame = newGameData;
+    }
 
     #endregion
 }

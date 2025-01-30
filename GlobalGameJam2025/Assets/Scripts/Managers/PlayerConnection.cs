@@ -75,4 +75,19 @@ public class PlayerConnection : MonoBehaviour
             gameManager.RemovePlayer(playerToRemove);
         }
     }
+    //Principalmente se utiliza para Testear minijuegos desde TestMinigame.cs
+    //De otra forma, se espera al input de Start/Enter o lo que sea. No llama a GameManager
+    public List<PlayerData> GetAllConnectedDevices()
+    {
+        List<InputDevice> allConnections = new List<InputDevice>(InputSystem.devices);
+        List<PlayerData> allData = new List<PlayerData>();
+        foreach(var dev in allConnections)
+        {
+            if (PlayerExists(dev)) continue;
+            PlayerSkin availableSkin = PlayerSkin.GetRandomUnassignedSkin(allData);
+            PlayerData newPlayerData = new PlayerData(dev, availableSkin);
+            allData.Add(newPlayerData);
+        }
+        return allData;
+    }
 }
