@@ -20,10 +20,13 @@ public class PlayerFX : MonoBehaviour
     public void Init(PlayerData data)
     {
         playerFollow.Init(this as MonoBehaviour);
-        InitAllRenderers(data);
+        RefreshRenderer(data);
         PlaySpawnAnim();
     }
-
+    private void OnDestroy()
+    {
+        if (spawnSeq != null) spawnSeq.Kill();
+    }
     private void PlaySpawnAnim()
     {
         if(spawnSeq != null) spawnSeq.Kill();
@@ -37,18 +40,18 @@ public class PlayerFX : MonoBehaviour
         .Join(playerRenderer.material.DOFloat(0, "_Sat", 0.65f));
     }
 
-    private void InitAllRenderers(PlayerData data)
+    public void RefreshRenderer(PlayerData data)
     {
         int index = GameManager.Instance.GetPlayerIndex(data);
         Color mainColor = data.GetSkin().mainColor;
         if (collisionPainter != null)
         {
-            collisionPainter.paintColor = AssetLocator.PaintColors[index];
+            collisionPainter.paintColor = mainColor;
         }
         if (playerRenderer != null) //Assign Model Color
         {
             Vector2 newOffset = Vector2.zero;
-            newOffset.x = index * 0.25f;
+            newOffset.x = data.GetSkin().Index * 0.25f;//TODO: NO SE COMO FUNCIONA PERO FUNCIONA. Quitar de AssetLocator
             playerRenderer.material.SetVector("_Offset", newOffset);
         }
         if (playerDash != null) //Dash Color
@@ -65,7 +68,7 @@ public class PlayerFX : MonoBehaviour
         if (playerParticles != null) //Particles Color
         {
             Material material = playerParticles.material;
-            material.SetColor("_BaseColor", AssetLocator.PaintColors[index]);
+            material.SetColor("_BaseColor", mainColor);
         }
     }
 }

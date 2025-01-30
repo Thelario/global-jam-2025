@@ -82,6 +82,7 @@ public class PlayerSelector : MonoBehaviour
         PlayerCore core = Instantiate(AssetLocator.PlayerPrefab, spawnPos, Quaternion.identity);
         core.InitPlayer(newPlayer);
         playerList.Add(core);
+        foreach (var p in playerList) p.PlayerFX.RefreshRenderer(p.PlayerData);
         UpdatePlayerUI();
     }
 
@@ -93,6 +94,7 @@ public class PlayerSelector : MonoBehaviour
             playerList.Remove(playerToRemove);
             Destroy(playerToRemove.gameObject);
         }
+        foreach (var p in playerList) p.PlayerFX.RefreshRenderer(p.PlayerData);
         UpdatePlayerUI();
     }
 }

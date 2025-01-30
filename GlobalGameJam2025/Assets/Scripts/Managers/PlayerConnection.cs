@@ -2,6 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
+
+/// <summary>
+/// Clase que se encarga de detectar conexiones de mandos/teclados
+/// Se anade por defecto por el GameManager en su Init
+/// </summary>
 
 public class PlayerConnection : MonoBehaviour
 {
@@ -54,6 +60,7 @@ public class PlayerConnection : MonoBehaviour
 
         PlayerSkin availableSkin = PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList());
         PlayerData newPlayerData = new PlayerData(device, availableSkin);
+
         gameManager.AddPlayer(newPlayerData);
     }
 
@@ -64,6 +71,9 @@ public class PlayerConnection : MonoBehaviour
         PlayerData playerToRemove = gameManager.GetPlayerList()
             .FirstOrDefault(p => p.GetID() == device.deviceId);
 
-        if (playerToRemove != null) gameManager.RemovePlayer(playerToRemove);
+        if (playerToRemove != null)
+        {
+            gameManager.RemovePlayer(playerToRemove);
+        }
     }
 }

@@ -15,6 +15,8 @@ public class PlayerCore : MonoBehaviour
 
 
     public PlayerData PlayerData { get { return playerData; } }
+    public PlayerFX PlayerFX { get { return playerFX; } }
+    public PlayerController PlayerController { get { return playerController; } }
     public PlayerInput PlayerInput { get { return playerInput; } }
 
     public void InitPlayer(PlayerData data)

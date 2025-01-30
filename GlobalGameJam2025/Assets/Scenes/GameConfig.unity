@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1306173794}
     m_Modifications:
+    - target: {fileID: 5471586906245984180, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_Name
       value: PlayerProfile
@@ -1730,6 +1734,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1306173794}
     m_Modifications:
+    - target: {fileID: 5471586906245984180, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_Name
       value: PlayerProfile
@@ -4140,6 +4148,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1306173794}
     m_Modifications:
+    - target: {fileID: 5471586906245984180, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_Name
       value: PlayerProfile
@@ -7427,6 +7439,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1306173794}
     m_Modifications:
+    - target: {fileID: 5471586906245984180, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6366639818281847038, guid: 8d39ed676891390418b99bb87bc1b4ad, type: 3}
       propertyPath: m_Name
       value: PlayerProfile
