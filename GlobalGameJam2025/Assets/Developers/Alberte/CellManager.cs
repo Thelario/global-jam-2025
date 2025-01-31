@@ -5,18 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class CellManager : MonoBehaviour
+public class CellManager : MonoBehaviour, IMinigameEventListener
 {
     private bool falling = false;
     public List<Cell> cellList;
-    void OnEnable()
-    {
-        MinigameManager.Instance.OnMinigameStart += StartGame;
-    }
-    void OnDisable()
-    {
-        MinigameManager.Instance.OnMinigameStart -= StartGame;
-    }
+
     public void StartGame()
     {
         if (falling) return;
@@ -39,5 +32,22 @@ public class CellManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnMinigameInit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnMinigameStart() => StartGame();
+
+    public void OnMinigameEnd()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnPlayerDeath(PlayerCore player)
+    {
+        throw new System.NotImplementedException();
     }
 }

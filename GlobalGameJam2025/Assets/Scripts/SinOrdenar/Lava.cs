@@ -7,7 +7,7 @@ public class Lava : MonoBehaviour
         if (!collision.gameObject.CompareTag("Player")) return;
         if(collision.gameObject.TryGetComponent(out PlayerCore player))
         {
-            MinigameManager.Instance.KillPlayer(player);
+            MinigameManager.Instance.PlayerDeath(player);
         }
     }
 }

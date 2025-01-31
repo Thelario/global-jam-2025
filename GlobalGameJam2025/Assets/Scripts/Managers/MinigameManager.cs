@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,15 +21,18 @@ public class MinigameManager : Singleton<MinigameManager>
 
     //End se llama una vez termina el juego por cualquier motivo. El prefab del minijuego 
     //ya no deberia destruirse aqui
-    public event UnityAction OnMinigameInit;
-    public event UnityAction OnMinigameStart;
-    public event UnityAction OnMinigameEnd;
+
+    //public event UnityAction OnMinigameInit;
+    //public event UnityAction OnMinigameStart;
+    //public event UnityAction OnMinigameEnd;
+    
+    private List<IMinigameEventListener> eventListeners = new List<IMinigameEventListener>();
     
     //Cuando muere un personaje. Puede servir para mas obstaculos, hacer el nivel mas pequeno, etc.
     public event UnityAction OnPlayerDeath;
 
     //Lista de jugadores spawneados esta ronda
-    public List<PlayerCore> PlayerList { get; private set; }
+    public List<PlayerCore> PlayerList { get; private set; } = new List<PlayerCore>();
 
     //Timer desde el comienzo del minijuego, no solo para terminar juego
     public float Timer { get; private set; } = 0f;
@@ -43,10 +47,12 @@ public class MinigameManager : Singleton<MinigameManager>
     public MinigameData TestingGame;
 
     #region Init / Organizacion
-
+    
     private void Start()
     {
-        PlayerList = new List<PlayerCore>();
+        //Inicializa la lista de objetos que implementan IMinigameEventListener.
+        //Cada vez que ocurra un evento (Game Start, Player Death, et.) se les notificara
+        RegisterAllListeners();
         //Asigna el juego, ya sea desde GameManager, o Test desde inspector
         AssignGame();
         //Spawnear Prefab del minijuego
@@ -56,9 +62,9 @@ public class MinigameManager : Singleton<MinigameManager>
         //Cuando se desconecte un mando, matar jugador
         if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
         //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
-        OnMinigameInit?.Invoke();
+        NotifyMinigameInit();
     }
-
+    
     private void AssignGame()
     {
         gameManager = GameManager.Instance;
@@ -123,15 +129,15 @@ public class MinigameManager : Singleton<MinigameManager>
     //Despues de cuenta atras
     public void StartMinigame()
     {
-        OnMinigameStart?.Invoke();
         Timer = GameSettings.MAX_TIMER;
         shouldCountTimer = true;
         foreach (var pl in PlayerList)
         {
             CreatePointsVisualizer(pl.transform.position);
             pl.ToggleMovement(true);
-            
         }
+
+        NotifyMinigameStart();
     }
 
     private void CreatePointsVisualizer(Vector3 playerPos)
@@ -143,17 +149,20 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void EndMinigame()
     {
-        OnMinigameEnd?.Invoke();
+        NotifyMinigameEnd();
+        SceneNav.GoTo(SceneType.PlayerSelect);
     }
 
-    public void KillPlayer(PlayerCore player)
+    public void PlayerDeath(PlayerCore player)
     {
         if (!PlayerList.Contains(player)) return;
         CreatePointsVisualizer(player.transform.position);
         PlayerList.Remove(player);
+        
         player.KillPlayer();
-        OnPlayerDeath?.Invoke();
-        if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
+        NotifyPlayerDeath(player);
+
+        if (PlayerList.Count <= 1) EndMinigame();
     }
 
     //Se utiliza cuando se desconecta un mando, para matar al jugador.
@@ -164,7 +173,7 @@ public class MinigameManager : Singleton<MinigameManager>
         {
             if (player != null && player.PlayerData == arg0) 
             {
-                KillPlayer(player);
+                PlayerDeath(player);
                 return;
             }
         }
@@ -184,5 +193,25 @@ public class MinigameManager : Singleton<MinigameManager>
         }
     }
 
+    #endregion
+
+    #region EVENTS
+    private void RegisterAllListeners()
+    {
+        // Find all objects of type IMinigameEventListener in the scene
+        var listeners = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IMinigameEventListener>();
+
+        foreach (var listener in listeners)
+        {
+            if (listener is IMinigameEventListener eventListener)
+            {
+                eventListeners.Add(eventListener);
+            }
+        }
+    }
+    private void NotifyMinigameInit() { foreach (var listener in eventListeners) listener.OnMinigameInit(); }
+    private void NotifyMinigameStart() { foreach (var listener in eventListeners) listener.OnMinigameStart(); }
+    private void NotifyMinigameEnd() { foreach (var listener in eventListeners) listener.OnMinigameEnd(); }
+    private void NotifyPlayerDeath(PlayerCore player) { foreach (var listener in eventListeners) listener.OnPlayerDeath(player); }
     #endregion
 }

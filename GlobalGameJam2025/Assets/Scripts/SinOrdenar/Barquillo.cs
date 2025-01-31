@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Barquillo : MonoBehaviour
+public class Barquillo : MonoBehaviour, IMinigameEventListener
 {
     public float forceToAdd = 300;
     public ForceMode forceM = ForceMode.VelocityChange;
@@ -19,16 +19,32 @@ public class Barquillo : MonoBehaviour
         {
             allRbs.Add(tetas.GetComponent<Rigidbody>());
         }
-        manager.OnMinigameStart += () => shouldPush = true;
-    }
-    private void OnDisable()
-    {
-        manager.OnMinigameStart -= () => shouldPush = true;
     }
     private void OnTriggerStay(Collider other)
     {
         if (!shouldPush) return;
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb) rb.AddForce(Vector3.forward * forceToAdd, forceM);
+    }
+
+
+    public void OnMinigameInit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnMinigameStart()
+    {
+        shouldPush = true;
+    }
+
+    public void OnMinigameEnd()
+    {
+        shouldPush = false;
+    }
+
+    public void OnPlayerDeath(PlayerCore player)
+    {
+        throw new System.NotImplementedException();
     }
 }

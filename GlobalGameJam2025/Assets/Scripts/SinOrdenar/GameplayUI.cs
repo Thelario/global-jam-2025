@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayUI : MonoBehaviour
+public class GameplayUI : MonoBehaviour, IMinigameEventListener
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI timerText;
@@ -27,18 +27,8 @@ public class GameplayUI : MonoBehaviour
             Debug.Log("Minigame Manager Missing!");
             return;
         }
+    }
 
-        minigameManager.OnMinigameInit += ShowCountdown;
-        minigameManager.OnMinigameStart += () => shoudlCount = true;
-        minigameManager.OnMinigameEnd += ShowEnd;
-    }
-    protected void OnDisable()
-    {
-        if (!minigameManager) return;
-        minigameManager.OnMinigameInit -= ShowCountdown;
-        minigameManager.OnMinigameStart -= () => shoudlCount = true;
-        minigameManager.OnMinigameEnd -= ShowEnd;
-    }
     private void ShowCountdown()
     {
         if (!mainImage)
@@ -103,5 +93,19 @@ public class GameplayUI : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SceneNav.GoTo(SceneType.Score);
+    }
+
+
+    public void OnMinigameInit() => ShowCountdown();
+
+    public void OnMinigameStart()
+    {
+        shoudlCount = true;
+    }
+
+    public void OnMinigameEnd() => ShowEnd();
+    public void OnPlayerDeath(PlayerCore player)
+    {
+        throw new NotImplementedException();
     }
 }

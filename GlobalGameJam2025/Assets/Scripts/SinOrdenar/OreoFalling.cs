@@ -3,20 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OreoFalling : MonoBehaviour
+public class OreoFalling : MonoBehaviour, IMinigameEventListener
 {
     private bool running = false;
     public List<Oreo> oreoList;
-
-    void OnEnable()
-    {
-        MinigameManager.Instance.OnMinigameStart += StartGame;
-    }
-
-    void OnDisable()
-    {
-        MinigameManager.Instance.OnMinigameStart -= StartGame;
-    }
 
     public void StartGame()
     {
@@ -38,5 +28,22 @@ public class OreoFalling : MonoBehaviour
             }
             yield return new WaitForSeconds(Random.Range(2.5f, 3.25f));
         }
+    }
+
+    public void OnMinigameInit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnMinigameStart() => StartGame();
+
+    public void OnMinigameEnd()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnPlayerDeath(PlayerCore player)
+    {
+        throw new System.NotImplementedException();
     }
 }
