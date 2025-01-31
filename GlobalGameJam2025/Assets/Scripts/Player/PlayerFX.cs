@@ -46,9 +46,10 @@ public class PlayerFX : MonoBehaviour
         // Only restart the sequence if it's not active or is null
         if (playerSeq == null || !playerSeq.IsActive()) playerSeq = DOTween.Sequence();
         
-        playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.225f)
+        if (playerSeq.IsPlaying()) return;
+        playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.125f)
             .SetLoops(2, LoopType.Yoyo))
-        .Join(playerRenderer.material.DOFloat(0.45f, "_Sat", 0.225f).SetLoops(2, LoopType.Yoyo));
+        .Join(playerRenderer.material.DOFloat(0.5f, "_Sat", 0.125f).SetLoops(2, LoopType.Yoyo));
     }
 
     private void OnDestroy()
@@ -80,7 +81,7 @@ public class PlayerFX : MonoBehaviour
         if (playerRenderer != null) //Assign Model Color
         {
             Vector2 newOffset = Vector2.zero;
-            newOffset.x = data.GetSkin().Index * 0.25f;//TODO: NO SE COMO FUNCIONA PERO FUNCIONA. Quitar de AssetLocator
+            newOffset.x = data.GetSkin().Index / 8f;
             playerRenderer.material.SetVector("_Offset", newOffset);
         }
         if (playerDash != null) //Dash Color

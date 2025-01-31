@@ -70,24 +70,26 @@ public class GameData
         return nextMinigame;
     }
 
-    /// <summary>
-    /// Modifica Ranking de un jugador (siempre add)
+    // <summary>
+    /// Modifica Points de un jugador
     /// </summary>
-    public void SetPlayerRanking(PlayerData playerData, int rank)
+    public void SetPlayerPoints(PlayerData playerData, int points = 0)
     {
-        if (playerData != null && rank > 0)
+        if (PlayerRankings.ContainsKey(playerData))
         {
-            PlayerRankings[playerData] += rank;
+            PlayerRankings[playerData] += points; // Add points to existing value
         }
     }
+
 
     /// <summary>
     /// Devuelve Ranking jugador (si existe o null)
     /// </summary>
-    public int? GetPlayerRanking(PlayerData playerData)
+    public int? GetPlayerPoints(PlayerData playerData)
     {
         return PlayerRankings.ContainsKey(playerData) ? PlayerRankings[playerData] : (int?)null;
     }
+    
 
     public void ApplyLastPlacePenalty()
     {

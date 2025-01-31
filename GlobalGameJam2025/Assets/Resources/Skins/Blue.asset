@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Blue
   m_EditorClassIdentifier: 
   Index: 2
-  mainColor: {r: 0.16602883, g: 0.5062192, b: 0.8584906, a: 1}
-  secondaryColor: {r: 0.09611962, g: 0.25375542, b: 0.754717, a: 1}
+  mainColor: {r: 0.33333334, g: 0.6509804, b: 1, a: 1}
+  secondaryColor: {r: 0.25882354, g: 0.47843137, b: 1, a: 1}
   skinTexture: {fileID: 0}

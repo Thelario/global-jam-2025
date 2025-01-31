@@ -23,15 +23,7 @@ public static class AssetLocator
         Data = Resources.Load<AssetData>("AssetData");
         if (Data == null) Debug.LogError("AssetData not found in Resources!");
     }
-    #region Generic
-    public static List<Color> PaintColors => new List<Color>()
-    {
-        new Color32(255,191,97,255),
-        new Color32(255,81,113,255),
-        new Color32(85,166,255,255),
-        new Color32(185,213,47,255),
-    };
-    #endregion
+
 
     #region Player Skins
     public static PlayerSkin[] AllSkins()

@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -19,5 +21,16 @@ public static class ExtensionMethods
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, camera, out localPoint);
 
         return localPoint;
+    }
+
+    public static Coroutine StartCoroutine(System.Action action, float delay)
+    {
+        return CoroutineRunner.instance.StartCoroutine(WaitAndDo(delay, action));
+    }
+
+    private static IEnumerator WaitAndDo(float time, System.Action action)
+    {
+        yield return new WaitForSeconds(time);
+        action();
     }
 }

@@ -1,18 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using System.Resources;
-using Unity.VisualScripting;
-using System.Collections.Generic;
+
 
 [System.Serializable]
 public enum SceneType
 {
     MainMenuScene = 0,
     PlayerSelect = 1,
-    GameSettings = 2,
-    Gameplay = 3,
-    Score = 4
+    Gameplay = 2,
+    Score = 3
 }
 public static class SceneNav
 {
@@ -29,6 +26,19 @@ public static class SceneNav
         EnsureFader();
 
         busy = true;
+        EnsureBeforeChange(scene);
+        
+    }
+    //Lo mismo pero esperando un tiempo
+    public static void GoToWithDelay(SceneType scene, float delay)
+    {
+        if (busy) return;
+        EnsureFader();
+        busy = true;
+        ExtensionMethods.StartCoroutine(() => EnsureBeforeChange(scene), 2.0f);
+    }
+    private static void EnsureBeforeChange(SceneType scene)
+    {
         faderInstance.FadeOut(() =>
         {
             DOTween.KillAll();

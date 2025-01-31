@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -42,6 +43,8 @@ public class MinigameManager : Singleton<MinigameManager>
     GameManager gameManager;
     GameData currentGameData;
     MinigameData currentMinigame;
+    //Lista de jugadores que ha muerto, por orden de muerte. TODO: ver ocasiones de empate, etc.
+    List<PlayerData> playersDead = new List<PlayerData>();
 
     //PARA TESTING
     public MinigameData TestingGame;
@@ -131,44 +134,44 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         Timer = GameSettings.MAX_TIMER;
         shouldCountTimer = true;
-        foreach (var pl in PlayerList)
-        {
-            CreatePointsVisualizer(pl.transform.position);
-            pl.ToggleMovement(true);
-        }
-
+        foreach (var pl in PlayerList) pl.ToggleMovement(true);
         NotifyMinigameStart();
     }
 
-    private void CreatePointsVisualizer(Vector3 playerPos)
-    {
-        PlayerPoints pts = Instantiate(AssetLocator.Data.PlayerPointsPrefab,
-            playerPos, Quaternion.identity);
-        pts.Init(2);
-    }
 
     public void EndMinigame()
     {
+        shouldCountTimer = false;
         NotifyMinigameEnd();
-        SceneNav.GoTo(SceneType.PlayerSelect);
+        SceneNav.GoToWithDelay(SceneType.PlayerSelect, 2.0f);
+        foreach(PlayerCore player in PlayerList)
+        {
+            if (playersDead.Contains(player.PlayerData)) return;
+            AssignPoints(player);
+        }
     }
 
     public void PlayerDeath(PlayerCore player)
     {
         if (!PlayerList.Contains(player)) return;
-        CreatePointsVisualizer(player.transform.position);
-        PlayerList.Remove(player);
-        
-        player.KillPlayer();
-        NotifyPlayerDeath(player);
 
+        PlayerList.Remove(player);
+        player.KillPlayer();
+        
+        //Add a lista de muertos
+        if (!playersDead.Contains(player.PlayerData))
+            playersDead.Add(player.PlayerData);
+        NotifyPlayerDeath(player);
+        
+        //TODO: Otra forma por si no siempre es uno
+        AssignPoints(player);
         if (PlayerList.Count <= 1) EndMinigame();
     }
 
     //Se utiliza cuando se desconecta un mando, para matar al jugador.
     public void KillPlayer(PlayerData arg0)
     {
-        List<PlayerCore> copyList = PlayerList;
+        //List<PlayerCore> copyList = PlayerList;
         foreach(var player in PlayerList) 
         {
             if (player != null && player.PlayerData == arg0) 
@@ -187,7 +190,6 @@ public class MinigameManager : Singleton<MinigameManager>
             else
             {
                 Timer = 0;
-                shouldCountTimer = false;
                 EndMinigame();
             }
         }
@@ -203,12 +205,41 @@ public class MinigameManager : Singleton<MinigameManager>
 
         foreach (var listener in listeners)
         {
-            if (listener is IMinigameEventListener eventListener)
+            if (listener is IMinigameEventListener eventListener && !eventListeners.Contains(eventListener))
             {
                 eventListeners.Add(eventListener);
             }
         }
     }
+    //Por si se instancia en mitad del minijuego(un proyectil por ejemplo)
+    public void RegisterMinigameListener(IMinigameEventListener newListener)
+    {
+        if (newListener != null)
+        {
+            if (!eventListeners.Contains(newListener))
+            {
+                eventListeners.Add(newListener);
+            }
+            else
+            {
+                Debug.Log("Listener already registered.");
+            }
+        }
+    }
+    public void AssignPoints(PlayerCore player)
+    {
+        int pointsToAssign = playersDead.Count-1;
+        gameManager.AssignPoints(player.PlayerData, pointsToAssign);
+        CreatePointsVisualizer(player.transform.position).Init(pointsToAssign);
+    }
+    //TODO: Moverlo a otra clase
+    private PlayerPoints CreatePointsVisualizer(Vector3 playerPos)
+    {
+        return Instantiate(AssetLocator.Data.PlayerPointsPrefab,
+            playerPos, Quaternion.identity);
+        
+    }
+
     private void NotifyMinigameInit() { foreach (var listener in eventListeners) listener.OnMinigameInit(); }
     private void NotifyMinigameStart() { foreach (var listener in eventListeners) listener.OnMinigameStart(); }
     private void NotifyMinigameEnd() { foreach (var listener in eventListeners) listener.OnMinigameEnd(); }

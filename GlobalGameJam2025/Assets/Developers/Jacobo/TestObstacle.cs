@@ -1,24 +1,28 @@
+using System.Collections;
 using UnityEngine;
 
-public class TestObstacle : MonoBehaviour, IMinigameEventListener
+public class RotatingFloor : MonoBehaviour, IMinigameEventListener
 {
-    public void OnMinigameEnd()
-    {
-        transform.localScale = Vector3.one * 8.0f;
-    }
+    public float rotMod = 0.5f;
+    float rotationSpeed;
 
-    public void OnMinigameInit()
-    {
-        transform.localScale = Vector3.one * 0.5f;
-    }
-
+    //Cuando comience el juego
     public void OnMinigameStart()
     {
-        transform.localScale = Vector3.one * 2.0f;
+        rotationSpeed = 2.0f;
     }
-
+    //Cuando termine el juego
+    public void OnMinigameEnd()
+    {
+        rotationSpeed = 0.0f;
+    }
+    //Cuando un jugador muere
     public void OnPlayerDeath(PlayerCore player)
     {
-        transform.localScale = Vector3.one * 4.0f;
+        rotationSpeed += 5.0f;
+    }
+    private void Update()
+    {
+        transform.Rotate(new Vector3(0,1,0) * rotationSpeed);
     }
 }

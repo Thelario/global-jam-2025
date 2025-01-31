@@ -84,6 +84,11 @@ public class GameManager : PersistentSingleton<GameManager>
         newGameData.SetPlayers(allPlayers);
         CurrentGame = newGameData;
     }
+    //Wrapper para mas rapidez
+    public void AssignPoints(PlayerData player, int points = 0)
+    {
+        if (CurrentGame != null) CurrentGame.SetPlayerPoints(player, points);
+    }
 
     #endregion
 }

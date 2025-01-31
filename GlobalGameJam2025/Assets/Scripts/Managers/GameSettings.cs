@@ -8,4 +8,7 @@ public static class GameSettings
     public const float MAX_TIMER = 60;
     //Siempre anadir por defecto el teclado que este conectado
     public const bool ALWAYS_CREATE_KEYBOARD = true;
+    //True = se van asignando por order de index(amarillo, rojo, azul, etc.)
+    //False = se asigna una skin aun no asignada aleatoria
+    public const bool ASSIGN_SKINS_IN_ORDER = false;
 }

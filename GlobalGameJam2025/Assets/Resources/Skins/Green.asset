@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f7277535cdd60743841b0f242fdf6a6, type: 3}
-  m_Name: Yellow
+  m_Name: Green
   m_EditorClassIdentifier: 
-  Index: 0
-  mainColor: {r: 1, g: 0.7490196, b: 0.38039216, a: 1}
-  secondaryColor: {r: 1, g: 0.5411765, b: 0.20784314, a: 1}
+  Index: 3
+  mainColor: {r: 0.7254902, g: 0.8352941, b: 0.18431373, a: 1}
+  secondaryColor: {r: 0.58431375, g: 0.8235294, b: 0.1882353, a: 1}
   skinTexture: {fileID: 0}

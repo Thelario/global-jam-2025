@@ -1,7 +1,6 @@
-using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class SceneSelectWindow : EditorWindow
 {
@@ -15,6 +14,7 @@ public class SceneSelectWindow : EditorWindow
 
     // Internal Variables
     private int currentScene = 0;
+
     // Asset References
     private string[] sceneNames = { "Main Menu", "Game Config", "Gameplay", "Ranking" };
     private string[] scenePaths = {
@@ -27,27 +27,32 @@ public class SceneSelectWindow : EditorWindow
     private void OnEnable()
     {
         Selection.selectionChanged += Repaint;
-        EditorApplication.update += Repaint; // Always repaint
     }
 
     private void OnDisable()
     {
         Selection.selectionChanged -= Repaint;
-        EditorApplication.update -= Repaint; // Clean up
     }
 
     private void OnGUI()
     {
         GUIStyle boldStyle = new GUIStyle(GUI.skin.button) { fontStyle = FontStyle.Bold };
-
         using (new GUILayout.VerticalScope(EditorStyles.helpBox))
         {
             GUILayout.Label("UI/Intro Scenes", EditorStyles.boldLabel);
+
+            string currentScenePath = EditorSceneManager.GetActiveScene().path;
+
             for (int i = 0; i < scenePaths.Length; i++)
             {
-                GUI.enabled = i != currentScene;
+                bool isCurrentScene = scenePaths[i] == currentScenePath;
+                GUI.enabled = !isCurrentScene; // Disable the button if it's the active scene
+
                 if (GUILayout.Button(new GUIContent(sceneNames[i]), boldStyle, GUILayout.Height(30)))
+                {
                     ChangeLocalScene(i);
+                }
+                GUI.enabled = true;
                 GUILayout.Space(5);
             }
         }
@@ -55,10 +60,8 @@ public class SceneSelectWindow : EditorWindow
 
     public void ChangeLocalScene(int value)
     {
+        // Save open scenes and load the selected scene
         EditorSceneManager.SaveOpenScenes();
         EditorSceneManager.OpenScene(scenePaths[value]);
-        RefreshSceneLogic();
     }
-
-    public void RefreshSceneLogic() => currentScene = SceneManager.GetActiveScene().buildIndex;
 }

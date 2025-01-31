@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f7277535cdd60743841b0f242fdf6a6, type: 3}
-  m_Name: Yellow
+  m_Name: Celeste
   m_EditorClassIdentifier: 
-  Index: 0
-  mainColor: {r: 1, g: 0.7490196, b: 0.38039216, a: 1}
-  secondaryColor: {r: 1, g: 0.5411765, b: 0.20784314, a: 1}
+  Index: 5
+  mainColor: {r: 0.49019608, g: 0.93333334, b: 0.84313726, a: 1}
+  secondaryColor: {r: 0.27058825, g: 0.73333335, b: 0.81960785, a: 1}
   skinTexture: {fileID: 0}

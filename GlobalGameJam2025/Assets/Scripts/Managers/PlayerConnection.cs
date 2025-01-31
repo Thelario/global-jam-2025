@@ -57,8 +57,7 @@ public class PlayerConnection : MonoBehaviour
 
         if (PlayerExists(device)) return;
 
-        PlayerSkin availableSkin = PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList());
-        PlayerData newPlayerData = new PlayerData(device, availableSkin);
+        PlayerData newPlayerData = new PlayerData(device, GetPlayerSkin());
 
         gameManager.AddPlayer(newPlayerData);
     }
@@ -84,10 +83,15 @@ public class PlayerConnection : MonoBehaviour
         foreach(var dev in allConnections)
         {
             if (PlayerExists(dev)) continue;
-            PlayerSkin availableSkin = PlayerSkin.GetRandomUnassignedSkin(allData);
-            PlayerData newPlayerData = new PlayerData(dev, availableSkin);
+            PlayerData newPlayerData = new PlayerData(dev, GetPlayerSkin());
             allData.Add(newPlayerData);
         }
         return allData;
+    }
+    private PlayerSkin GetPlayerSkin()
+    {
+        return GameSettings.ASSIGN_SKINS_IN_ORDER ?
+            PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList()) :
+            PlayerSkin.GetRandomUnassignedSkin(gameManager.GetPlayerList());
     }
 }
