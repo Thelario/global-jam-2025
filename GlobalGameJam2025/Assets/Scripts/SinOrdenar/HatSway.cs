@@ -18,6 +18,7 @@ public class HatSway : MonoBehaviour
 
     void Update()
     {
+        if (!transform) return;
         transform.position = playerTransform.position;
         Vector3 velocity = rb.linearVelocity;
 

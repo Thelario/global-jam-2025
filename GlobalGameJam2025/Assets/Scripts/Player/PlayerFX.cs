@@ -46,7 +46,6 @@ public class PlayerFX : MonoBehaviour
         // Only restart the sequence if it's not active or is null
         if (playerSeq == null || !playerSeq.IsActive()) playerSeq = DOTween.Sequence();
         
-        if (playerSeq.IsPlaying()) return;
         playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.125f)
             .SetLoops(2, LoopType.Yoyo))
         .Join(playerRenderer.material.DOFloat(0.5f, "_Sat", 0.125f).SetLoops(2, LoopType.Yoyo));

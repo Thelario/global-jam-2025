@@ -14,13 +14,13 @@ public class PinballCylinder : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent<PlayerController>(out var playerController) != true)
-            return;
+        if (!other.gameObject.TryGetComponent(out PlayerCore playerCore)) return;
 
         Vector3 hitDirection = other.transform.position - other.contacts[0].point;
+        hitDirection.Normalize();
 
-        SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
-        //playerController.SetLinearVelocity(hitDirection * pinballForce);
+        //SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
+        playerCore.AddForce(hitDirection * pinballForce*100);//.SetLinearVelocity(hitDirection * pinballForce);
         PopUp();
     }
 

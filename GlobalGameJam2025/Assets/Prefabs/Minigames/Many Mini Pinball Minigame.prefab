@@ -1872,6 +1872,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: pinballForce
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2219,6 +2223,10 @@ PrefabInstance:
     - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: pinballForce
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size
@@ -2707,6 +2715,10 @@ PrefabInstance:
     - target: {fileID: 5612852782956509579, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
+      propertyPath: pinballForce
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7930186352306389385, guid: a5b326ba883851e41bc9ef24449554a7, type: 3}
       propertyPath: sounds.Array.size

@@ -32,6 +32,7 @@ public class PlayerCore : MonoBehaviour
     }
 
     #region Wrappers
+    public void AddForce(Vector3 forceDir) => playerController.AddForce(forceDir);
     public void ToggleMovement(bool value)
     {
         playerController.ChangeState(value ?

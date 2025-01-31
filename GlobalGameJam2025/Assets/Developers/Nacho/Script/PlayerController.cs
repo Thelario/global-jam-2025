@@ -57,6 +57,11 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
+    public void AddForce(Vector3 forceDir)
+    {
+        if(rb) rb.AddForce(forceDir);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         HandleCollision(collision);
