@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayUI : Singleton<GameplayUI>
+public class GameplayUI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TextMeshProUGUI timerText;
@@ -18,17 +18,23 @@ public class GameplayUI : Singleton<GameplayUI>
 
     private MinigameManager minigameManager;
     private bool shoudlCount = false;
-    private void Start()
+
+    private void OnEnable()
     {
-        base.Awake();
         minigameManager = MinigameManager.Instance;
+        if (!minigameManager)
+        {
+            Debug.Log("Minigame Manager Missing!");
+            return;
+        }
 
         minigameManager.OnMinigameInit += ShowCountdown;
         minigameManager.OnMinigameStart += () => shoudlCount = true;
         minigameManager.OnMinigameEnd += ShowEnd;
     }
-    protected void OnDestroy()
+    protected void OnDisable()
     {
+        if (!minigameManager) return;
         minigameManager.OnMinigameInit -= ShowCountdown;
         minigameManager.OnMinigameStart -= () => shoudlCount = true;
         minigameManager.OnMinigameEnd -= ShowEnd;

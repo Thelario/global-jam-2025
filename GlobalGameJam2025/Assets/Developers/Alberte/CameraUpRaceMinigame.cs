@@ -8,7 +8,6 @@ public class CameraUpRaceMinigame : MonoBehaviour
 {
     public Transform secondposition, endposition;
     private bool firstmove, secondmove;
-    bool enableinput = false;
     
 
     void Start()

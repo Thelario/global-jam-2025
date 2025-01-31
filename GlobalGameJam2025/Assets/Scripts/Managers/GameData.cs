@@ -6,6 +6,7 @@ using UnityEditor;
 [Serializable]
 public class GameData
 {
+    [Serializable]
     public enum GameMode
     {
         DeathMatch = 0,

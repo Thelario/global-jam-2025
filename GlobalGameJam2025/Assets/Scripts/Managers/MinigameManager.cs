@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,26 +38,17 @@ public class MinigameManager : Singleton<MinigameManager>
     GameManager gameManager;
     GameData currentGameData;
     MinigameData currentMinigame;
-   
+
+    //PARA TESTING
+    public MinigameData TestingGame;
+
     #region Init / Organizacion
 
     private void Start()
     {
         PlayerList = new List<PlayerCore>();
-
-        //Obtiene la referencia del minijuego a jugar, y lo elimina de la lista
-        gameManager = GameManager.Instance;
-        if (gameManager.CurrentGame != null)
-        {
-            currentGameData = gameManager.CurrentGame;
-            currentMinigame = currentGameData.GetNextMinigame();
-        }
-        else
-        {
-            Debug.Log("Mingame not initialised in GameManager");
-            return;
-        }
-
+        //Asigna el juego, ya sea desde GameManager, o Test desde inspector
+        AssignGame();
         //Spawnear Prefab del minijuego
         Instantiate(currentMinigame.MiniGamePrefab);
         //Spawnear Jugadores en Spawnpoints
@@ -65,9 +57,36 @@ public class MinigameManager : Singleton<MinigameManager>
         if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
         //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
         OnMinigameInit?.Invoke();
-        StartMinigame();
     }
-    protected void OnDestroy()
+
+    private void AssignGame()
+    {
+        gameManager = GameManager.Instance;
+        if (gameManager.CurrentGame != null)
+        {
+            //Obtiene minijuego y lo elimina de la lista
+            currentGameData = gameManager.CurrentGame;
+            currentMinigame = currentGameData.GetNextMinigame();
+        }
+        else if (TestingGame != null)
+        {
+            //Crea un nuevo GameData con el minijuego test del inspector
+            GameData testGameData = new GameData(new List<MinigameData>() { TestingGame }, 10);
+            gameManager.CreateGameData(testGameData,
+                gameManager.PlayerConnection.GetAllConnectedDevices());
+
+            currentGameData = gameManager.CurrentGame;
+            currentMinigame = currentGameData.GetNextMinigame();
+        }
+        else
+        {
+            Debug.Log("Mingame not initialised in GameManager");
+            SceneNav.GoTo(SceneType.PlayerSelect);
+            return;
+        }
+    }
+
+    private void OnDestroy()
     {
         if(gameManager) gameManager.OnPlayerRemoved -= KillPlayer;
     }
@@ -133,7 +152,6 @@ public class MinigameManager : Singleton<MinigameManager>
         CreatePointsVisualizer(player.transform.position);
         PlayerList.Remove(player);
         player.KillPlayer();
-
         OnPlayerDeath?.Invoke();
         if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
     }
