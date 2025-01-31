@@ -35,19 +35,20 @@ public class PlayerFX : MonoBehaviour
         Destroy(playerFollow.gameObject);
         playerParticles.Stop();
 
-        if (playerSeq != null) playerSeq.Kill();
-        else playerSeq = DOTween.Sequence();
+        if (playerSeq == null || !playerSeq.IsActive()) playerSeq = DOTween.Sequence();
+
         playerSeq.Append(playerRenderer.transform.DOScale(0, 0.15f).SetEase(Ease.InBack))
             .Join(playerRenderer.material.DOFloat(0.75f, "_Sat", 0.075f));
     }
 
     private void CollisionFX()
     {
-        if (playerSeq != null) playerSeq.Restart();
-        else playerSeq = DOTween.Sequence();
-        playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.15f)
+        // Only restart the sequence if it's not active or is null
+        if (playerSeq == null || !playerSeq.IsActive()) playerSeq = DOTween.Sequence();
+        
+        playerSeq.Append(playerRenderer.transform.DOScale(scaleMultiplier, 0.225f)
             .SetLoops(2, LoopType.Yoyo))
-            .Join(playerRenderer.material.DOFloat(0.75f, "_Sat", 0.075f).SetLoops(2, LoopType.Yoyo));
+        .Join(playerRenderer.material.DOFloat(0.45f, "_Sat", 0.225f).SetLoops(2, LoopType.Yoyo));
     }
 
     private void OnDestroy()

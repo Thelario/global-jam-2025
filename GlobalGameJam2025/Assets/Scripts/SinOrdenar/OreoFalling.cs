@@ -30,20 +30,5 @@ public class OreoFalling : MonoBehaviour, IMinigameEventListener
         }
     }
 
-    public void OnMinigameInit()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnMinigameStart() => StartGame();
-
-    public void OnMinigameEnd()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPlayerDeath(PlayerCore player)
-    {
-        throw new System.NotImplementedException();
-    }
 }

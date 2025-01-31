@@ -104,8 +104,4 @@ public class GameplayUI : MonoBehaviour, IMinigameEventListener
     }
 
     public void OnMinigameEnd() => ShowEnd();
-    public void OnPlayerDeath(PlayerCore player)
-    {
-        throw new NotImplementedException();
-    }
 }

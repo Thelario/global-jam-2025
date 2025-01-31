@@ -27,12 +27,6 @@ public class Barquillo : MonoBehaviour, IMinigameEventListener
         if (rb) rb.AddForce(Vector3.forward * forceToAdd, forceM);
     }
 
-
-    public void OnMinigameInit()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnMinigameStart()
     {
         shouldPush = true;
@@ -41,10 +35,5 @@ public class Barquillo : MonoBehaviour, IMinigameEventListener
     public void OnMinigameEnd()
     {
         shouldPush = false;
-    }
-
-    public void OnPlayerDeath(PlayerCore player)
-    {
-        throw new System.NotImplementedException();
     }
 }

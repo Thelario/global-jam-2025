@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ALLGAMES:
   - {fileID: 11400000, guid: 9092ad694bc88284190403768164e410, type: 2}
+  - {fileID: 11400000, guid: 737bb224776d9f74f9913e4ad57ce4ca, type: 2}
+  - {fileID: 11400000, guid: 91640aa6d6f633949b79e3172b89892f, type: 2}
+  - {fileID: 11400000, guid: 24c0c5b437c9cff428b023088a8966dc, type: 2}
   PlayerPrefab: {fileID: 5885236349941548951, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
   DefaultSkin: {fileID: 11400000, guid: 99fd3f54b8b43dd409c7fe9b47d5a3ff, type: 2}
   MainCanvasPrefab: {fileID: 2664128070008245586, guid: d1e8823ce78631b4bb493fdd857259cd, type: 3}
