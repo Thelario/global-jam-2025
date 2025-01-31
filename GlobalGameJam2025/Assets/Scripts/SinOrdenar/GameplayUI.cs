@@ -18,7 +18,7 @@ public class GameplayUI : Singleton<GameplayUI>
 
     private MinigameManager minigameManager;
     private bool shoudlCount = false;
-    protected override void Awake()
+    private void Start()
     {
         base.Awake();
         minigameManager = MinigameManager.Instance;

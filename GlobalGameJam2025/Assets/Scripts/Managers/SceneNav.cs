@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Resources;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 [System.Serializable]
 public enum SceneType
@@ -30,6 +32,7 @@ public static class SceneNav
         faderInstance.FadeOut(() =>
         {
             DOTween.KillAll();
+            DestroyAllSingletons();
             SceneManager.LoadScene((int)scene, LoadSceneMode.Single);
             faderInstance.FadeIn(() => busy = false);
         });
@@ -43,6 +46,17 @@ public static class SceneNav
         if (faderInstance == null)
         {
             faderInstance = Object.Instantiate(AssetLocator.Data.Fader);
+        }
+    }
+    private static void DestroyAllSingletons()
+    {
+        foreach (var singleton in Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None))
+        {
+            if (singleton.GetType().BaseType?.IsGenericType == true &&
+                (singleton.GetType().BaseType.GetGenericTypeDefinition() == typeof(Singleton<>)))
+            {
+                Object.Destroy(singleton.gameObject);
+            }
         }
     }
 }

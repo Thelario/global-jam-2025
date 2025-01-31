@@ -35,8 +35,8 @@ public class PlayerSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnPlayerAdded -= PlayerAdded;
-        GameManager.Instance.OnPlayerRemoved -= PlayerRemoved;
+        if(gameManager) gameManager.OnPlayerAdded -= PlayerAdded;
+        if(gameManager) gameManager.OnPlayerRemoved -= PlayerRemoved;
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();

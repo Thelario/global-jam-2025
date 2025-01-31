@@ -69,7 +69,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 0.9960785, g: 0.75294125, b: 0.33333334, a: 1}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Offset: {r: 0.25, g: 0, b: 0, a: 0}
     - _SecondaryColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

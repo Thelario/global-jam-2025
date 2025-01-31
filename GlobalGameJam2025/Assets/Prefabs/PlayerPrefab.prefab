@@ -5294,9 +5294,10 @@ MonoBehaviour:
   playerFollow: {fileID: 1785076030379638802}
   playerRenderer: {fileID: 169845784150075049}
   playerIndicator: {fileID: 2089984327738672125}
-  playerParticles: {fileID: 7326762071734810300}
   playerDash: {fileID: 6737859183260022632}
+  playerParticles: {fileID: 1482520850257127716}
   collisionPainter: {fileID: 0}
+  scaleMultiplier: 0.85
 --- !u!114 &6081376282041427126
 MonoBehaviour:
   m_ObjectHideFlags: 0

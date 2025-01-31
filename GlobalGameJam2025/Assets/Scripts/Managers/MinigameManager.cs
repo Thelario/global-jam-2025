@@ -22,6 +22,9 @@ public class MinigameManager : Singleton<MinigameManager>
     public event UnityAction OnMinigameInit;
     public event UnityAction OnMinigameStart;
     public event UnityAction OnMinigameEnd;
+    
+    //Cuando muere un personaje. Puede servir para mas obstaculos, hacer el nivel mas pequeno, etc.
+    public event UnityAction OnPlayerDeath;
 
     //Lista de jugadores spawneados esta ronda
     public List<PlayerCore> PlayerList { get; private set; }
@@ -62,7 +65,7 @@ public class MinigameManager : Singleton<MinigameManager>
         if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
         //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
         OnMinigameInit?.Invoke();
-
+        StartMinigame();
     }
     protected void OnDestroy()
     {
@@ -115,8 +118,7 @@ public class MinigameManager : Singleton<MinigameManager>
     private void CreatePointsVisualizer(Vector3 playerPos)
     {
         PlayerPoints pts = Instantiate(AssetLocator.Data.PlayerPointsPrefab,
-            playerPos + Vector3.up*0.75f, 
-            Quaternion.identity);
+            playerPos, Quaternion.identity);
         pts.Init(2);
     }
 
@@ -131,7 +133,9 @@ public class MinigameManager : Singleton<MinigameManager>
         CreatePointsVisualizer(player.transform.position);
         PlayerList.Remove(player);
         player.KillPlayer();
-        //if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
+
+        OnPlayerDeath?.Invoke();
+        if (PlayerList.Count <= 1) SceneNav.GoTo(SceneType.PlayerSelect);
     }
 
     //Se utiliza cuando se desconecta un mando, para matar al jugador.

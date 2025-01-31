@@ -9,8 +9,8 @@ public class PlayerFX : MonoBehaviour
     [Header("Renderers")]
     [SerializeField] private Renderer playerRenderer;
     [SerializeField] private Renderer playerIndicator;
-    [SerializeField] private Renderer playerParticles;
     [SerializeField] private Renderer playerDash;
+    [SerializeField] private ParticleSystem playerParticles;
 
     [Space(10)]
     [Header("Extra")]
@@ -32,6 +32,9 @@ public class PlayerFX : MonoBehaviour
 
     public void KillPlayer()
     {
+        Destroy(playerFollow.gameObject);
+        playerParticles.Stop();
+
         if (playerSeq != null) playerSeq.Kill();
         else playerSeq = DOTween.Sequence();
         playerSeq.Append(playerRenderer.transform.DOScale(0, 0.15f).SetEase(Ease.InBack))
@@ -92,7 +95,7 @@ public class PlayerFX : MonoBehaviour
         }
         if (playerParticles != null) //Particles Color
         {
-            Material material = playerParticles.material;
+            Material material = playerParticles.GetComponent<Renderer>().material;
             material.SetColor("_BaseColor", mainColor);
         }
     }
