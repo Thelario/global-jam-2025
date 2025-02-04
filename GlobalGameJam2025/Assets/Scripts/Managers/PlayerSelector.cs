@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerSelector : MonoBehaviour
 {
-    EventBinding<PlayerEvent> OnPlayerAdded;
+    EventBinding<PlayerAddedEvent> OnPlayerAdded;
+    EventBinding<PlayerRemovedEvent> OnPlayerRemoved;
 
     [Header("Player Panel Window")]
     [SerializeField] private TextMeshProUGUI playerCountText;
@@ -28,8 +29,12 @@ public class PlayerSelector : MonoBehaviour
         gameManager = GameManager.Instance;
         UIPanel.GetPanel(typeof(RosterPanel)).Show();
 
-        OnPlayerAdded = new EventBinding<PlayerEvent>(PlayerAdded);
-        EventBus<PlayerEvent>.Register(OnPlayerAdded);
+        //Added
+        OnPlayerAdded = new EventBinding<PlayerAddedEvent>(HandlePlayerAddedEvent);
+        EventBus<PlayerAddedEvent>.Register(OnPlayerAdded);
+        //Removed
+        OnPlayerRemoved = new EventBinding<PlayerRemovedEvent>(HandlePlayerRemovedEvent);
+        EventBus<PlayerRemovedEvent>.Register(OnPlayerRemoved);
 
         if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
@@ -37,7 +42,8 @@ public class PlayerSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        EventBus<PlayerEvent>.DeRegister(OnPlayerAdded);
+        EventBus<PlayerAddedEvent>.DeRegister(OnPlayerAdded);
+        EventBus<PlayerRemovedEvent>.DeRegister(OnPlayerRemoved);
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();
@@ -55,14 +61,14 @@ public class PlayerSelector : MonoBehaviour
     {
         UpdatePlayerUI();
         //Crear players que ya existan 
-        foreach(PlayerData pl in gameManager.GetPlayerList()) PlayerAdded(pl);
+        foreach(PlayerData pl in gameManager.PlayersConnected) PlayerAdded(pl);
     }
 
     private void UpdatePlayerUI()
     {
         foreach (var cg in profileList) cg.SetProfileEmpty();
 
-        List<PlayerData> allPlayers = GameManager.Instance.GetPlayerList();
+        List<PlayerData> allPlayers = GameManager.Instance.PlayersConnected;
         for (int i = 0; i < allPlayers.Count; i++)
         {
             profileList[i].SetProfile(1.0f, allPlayers[i]);
@@ -76,6 +82,7 @@ public class PlayerSelector : MonoBehaviour
         UIPanel.GetPanel(typeof(ConfigPanel)).Show();
     }
    
+    private void HandlePlayerAddedEvent(PlayerAddedEvent newPlayer) => PlayerAdded(newPlayer.data);
     private void PlayerAdded(PlayerData newPlayer)
     {
         Vector3 spawnPos = Random.insideUnitSphere * 5.5f;
@@ -88,6 +95,7 @@ public class PlayerSelector : MonoBehaviour
         UpdatePlayerUI();
     }
 
+    private void HandlePlayerRemovedEvent(PlayerRemovedEvent newPlayer) => PlayerRemoved(newPlayer.data);
     private void PlayerRemoved(PlayerData newPlayer)
     {
         PlayerCore playerToRemove = playerList.Find(p => p.PlayerData == newPlayer);

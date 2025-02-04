@@ -44,11 +44,11 @@ public static class EventBusUtil
         List<Type> allBuses = new List<Type>();
 
         var typedef = typeof(EventBus<>);
-        foreach (var type in EventTypes)
+        foreach (var eventType in EventTypes)
         {
-            var busType = typedef.MakeGenericType(type);
+            var busType = typedef.MakeGenericType(eventType);
             allBuses.Add(busType);
-            if(GameSettings.LOG_EVENT_BUS) Debug.Log($"INICIALIZADO EventBus<{type.Name}>");
+            if(GameSettings.LOG_EVENT_BUS) Debug.Log($"INICIALIZADO EventBus<{eventType.Name}>");
         }
         return allBuses;
     }

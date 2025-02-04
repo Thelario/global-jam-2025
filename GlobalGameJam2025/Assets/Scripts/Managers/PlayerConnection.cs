@@ -2,47 +2,45 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.Events;
-using System;
-
-/// <summary>
-/// Clase que se encarga de detectar conexiones de mandos/teclados
-/// Se anade por defecto al GameManager en GameManager Init
-/// </summary>
 
 public class PlayerConnection : MonoBehaviour
 {
-    GameManager gameManager;
+    private GameManager gameManager;
 
     private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
     private void OnDisable() => InputSystem.onDeviceChange -= OnDeviceChange;
 
-    public void Init()
+    public void Init(GameManager manager)
     {
-        gameManager = GameManager.Instance;
-        if (GameSettings.ALWAYS_CREATE_KEYBOARD && Keyboard.current != null) AddPlayer(Keyboard.current);
-        foreach(var connPl in GetAllConnectedDevices())
+        gameManager = manager;
+
+        if (GameSettings.INITIALIZE_CONTROLLERS)
         {
-            AddPlayer(connPl);
+            foreach (var connPl in GetAllConnectedDevices())
+            {
+                AddPlayer(connPl);
+            }
         }
-        //if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
+
+        // Optionally simulate players if needed
+        // if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
     }
-    private void AddFakePlayers()
-    {
-        for (int i = 0; i < GameSettings.SIMULATE_PLAYERS; i++)
-        {
-            InputDevice fakeDev = InputSystem.AddDevice<Gamepad>($"Fake{gameManager.PlayerCount}");
-            AddPlayer(fakeDev);
-        }
-    }
+
     private void Update()
     {
-        //Conectar mando on START
+        //HandleDeviceInput();
+    }
+
+    private void HandleDeviceInput()
+    {
+        // Connect controller on START
         if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {
             AddPlayer(Gamepad.current);
         }
-        if (Input.GetKey(KeyCode.Return)) //Conectar Teclado on ENTER
+
+        // Connect keyboard on ENTER
+        if (Input.GetKey(KeyCode.Return))
         {
             AddPlayer(Keyboard.current);
         }
@@ -50,25 +48,27 @@ public class PlayerConnection : MonoBehaviour
 
     private void OnDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        if(change == InputDeviceChange.Added)
+        if (change == InputDeviceChange.Added)
         {
-            if (device is Gamepad || device is Keyboard) AddPlayer(device);
+            if (device is Gamepad || device is Keyboard)
+                AddPlayer(device);
         }
-        else if(change == InputDeviceChange.Removed)
+        else if (change == InputDeviceChange.Removed)
         {
-            if (device is Gamepad || device is Keyboard) RemovePlayer(device);
+            if (device is Gamepad || device is Keyboard)
+                RemovePlayer(device);
         }
     }
 
-    // Checkea si un jugador ya esta conectado por ID de mando
+    // Check if player already exists by device ID
     public bool PlayerExists(InputDevice device)
     {
-        return gameManager.GetPlayerList().Exists(p => p.GetID() == device.deviceId);
+        return gameManager.PlayersConnected.Exists(p => p.GetID() == device.deviceId);
     }
+
     private void AddPlayer(InputDevice device)
     {
-        if (device == null) return;
-        if (PlayerExists(device)) return;
+        if (device == null || PlayerExists(device)) return;
 
         PlayerData newPlayerData = new PlayerData(device, GetPlayerSkin());
         gameManager.AddPlayer(newPlayerData);
@@ -78,7 +78,7 @@ public class PlayerConnection : MonoBehaviour
     {
         if (device == null) return;
 
-        PlayerData playerToRemove = gameManager.GetPlayerList()
+        PlayerData playerToRemove = gameManager.PlayersConnected
             .FirstOrDefault(p => p.GetID() == device.deviceId);
 
         if (playerToRemove != null)
@@ -94,11 +94,10 @@ public class PlayerConnection : MonoBehaviour
             .ToList();
     }
 
-
     private PlayerSkin GetPlayerSkin()
     {
         return GameSettings.ASSIGN_SKINS_IN_ORDER ?
-            PlayerSkin.GetFirstAvailableSkin(gameManager.GetPlayerList()) :
-            PlayerSkin.GetRandomUnassignedSkin(gameManager.GetPlayerList());
+            PlayerSkin.GetFirstAvailableSkin(gameManager.PlayersConnected) :
+            PlayerSkin.GetRandomUnassignedSkin(gameManager.PlayersConnected);
     }
 }

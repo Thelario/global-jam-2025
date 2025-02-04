@@ -7,7 +7,11 @@ public struct TestEvent : IEvent
 
 }
 
-public struct PlayerEvent : IEvent
+public struct PlayerAddedEvent : IEvent
+{
+    public PlayerData data;
+}
+public struct PlayerRemovedEvent : IEvent
 {
     public PlayerData data;
 }
