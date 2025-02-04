@@ -2,6 +2,9 @@ using UnityEngine;
 
 public static class GameSettings 
 {
+    #region LOGGING
+    public static bool LOG_EVENT_BUS = false;
+    #endregion
     //Numero de jugadores maximo 
     public const int MAX_PLAYERS = 4;
     //Max Timer por defecto

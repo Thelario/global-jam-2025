@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerSelector : MonoBehaviour
 {
+    EventBinding<PlayerEvent> OnPlayerAdded;
+
     [Header("Player Panel Window")]
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private List<PlayerProfileUI> profileList;
@@ -26,10 +28,8 @@ public class PlayerSelector : MonoBehaviour
         gameManager = GameManager.Instance;
         UIPanel.GetPanel(typeof(RosterPanel)).Show();
 
-        //gameManager.OnPlayerAdded += PlayerAdded;
-        //gameManager.OnPlayerRemoved += PlayerRemoved;
-        EventBus.Subscribe("ControllerConnected", PlayerAdded);
-        EventBus.Subscribe("ControllerDisconnected", PlayerRemoved);
+        OnPlayerAdded = new EventBinding<PlayerEvent>(PlayerAdded);
+        EventBus<PlayerEvent>.Register(OnPlayerAdded);
 
         if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
@@ -37,10 +37,7 @@ public class PlayerSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        //if(gameManager) gameManager.OnPlayerAdded -= PlayerAdded;
-        //if (gameManager) gameManager.OnPlayerRemoved -= PlayerRemoved;
-        EventBus.Unsubscribe("ControllerConnected", PlayerAdded);
-        EventBus.Unsubscribe("ControllerDisconnected", PlayerRemoved);
+        EventBus<PlayerEvent>.DeRegister(OnPlayerAdded);
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();
@@ -50,7 +47,7 @@ public class PlayerSelector : MonoBehaviour
         //Siempre empezar de 0 en PlayerSelect
         //Para evitar que se cree uno nuevo cuando se borran todos,
         //y tenga el creat auto keyboard
-        GameManager.Instance.OnPlayerAdded -= PlayerAdded;
+        //GameManager.Instance.OnPlayerAdded -= PlayerAdded;
         gameManager.ClearAllPlayers();
         SceneNav.GoTo(SceneType.MainMenuScene);
     }

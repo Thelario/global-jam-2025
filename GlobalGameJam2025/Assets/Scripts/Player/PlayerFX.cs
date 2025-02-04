@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerFX : MonoBehaviour
 {
+    EventBinding<PlayerEvent> OnPlayerAdded;
+
     [SerializeField] private PlayerFollow playerFollow;
     [Header("Renderers")]
     [SerializeField] private Renderer playerRenderer;
@@ -22,6 +24,7 @@ public class PlayerFX : MonoBehaviour
     private PlayerData playerData;
     private Sequence playerSeq;
 
+
     #region Init Methods / Main 
     public void Init(PlayerData data)
     {
@@ -33,10 +36,9 @@ public class PlayerFX : MonoBehaviour
     private void OnEnable() 
     {
         //Events
-        EventBus.Subscribe("ControllerConnected", PlayerReconnected);
-        EventBus.Subscribe("ControllerDisconnected", PlayerDisconnected);
-        //GameManager.Instance.OnPlayerAdded += PlayerReconnected;
-        //GameManager.Instance.OnPlayerRemoved += PlayerDisconnected;
+        OnPlayerAdded = new EventBinding<PlayerEvent>(PlayerReconnected);
+        EventBus<PlayerEvent>.Register(OnPlayerAdded);
+
         //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
         GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
     }
@@ -44,8 +46,8 @@ public class PlayerFX : MonoBehaviour
     {
         spawnSeq?.Kill();
         playerSeq?.Kill();
-        EventBus.Unsubscribe("ControllerConnected", PlayerReconnected);
-        EventBus.Unsubscribe("ControllerDisconnected", PlayerDisconnected);
+
+        EventBus<PlayerEvent>.DeRegister(OnPlayerAdded);
         //GameManager.Instance.OnPlayerAdded -= PlayerReconnected;
         //GameManager.Instance.OnPlayerRemoved -= PlayerDisconnected;
 
@@ -122,8 +124,9 @@ public class PlayerFX : MonoBehaviour
     }
 
     
-    public void PlayerDisconnected(PlayerData data) 
-    {RefreshRenderer();
+    void PlayerDisconnected(PlayerData data) 
+    {
+        RefreshRenderer();
         if (playerIndicator == null || data != playerData) return;
 
         Vector2 newOffset = Vector2.zero;
@@ -131,7 +134,7 @@ public class PlayerFX : MonoBehaviour
         playerIndicator.material.SetVector("_Offset", newOffset);
         playerIndicator.material.SetVector("_Color", playerData.GetSkin().mainColor);
     }
-    public void PlayerReconnected(PlayerData data)
+    void PlayerReconnected(PlayerEvent data)
     {
         RefreshRenderer();
         //if (data == null || data != playerData) return;

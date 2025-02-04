@@ -36,9 +36,10 @@ public class GameManager : PersistentSingleton<GameManager>
     }
 
     // Events
-    public event UnityAction<PlayerData> OnPlayerAdded;
-    public event UnityAction<PlayerData> OnPlayerRemoved;
-
+    private void OnEnable()
+    {
+        
+    }
     //Logica manejada por PlayerConnection
     public void AddPlayer(PlayerData playerData)
     {
@@ -46,7 +47,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
         m_AllPlayersConnected.Add(playerData);
         //OnPlayerAdded?.Invoke(playerData);
-        EventBus.Publish("ControllerConnected", playerData);
+        EventBus<PlayerEvent>.Raise(new PlayerEvent { data = playerData });
     }
 
     public void RemovePlayer(PlayerData playerData)
@@ -55,7 +56,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
         m_AllPlayersConnected.Remove(playerData);
         //OnPlayerRemoved?.Invoke(playerData);
-        EventBus.Publish("ControllerDisconnected", playerData);
     }
     public void RemovePlayer(int index)
     {
