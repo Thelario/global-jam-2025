@@ -39,7 +39,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (playerData == null) return;
 
         PlayersConnected.Add(playerData);
-        EventBus<PlayerAddedEvent>.Raise(new PlayerAddedEvent { data = playerData });
+        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Connected, data = playerData });
     }
 
     public void RemovePlayer(PlayerData playerData)
@@ -47,7 +47,7 @@ public class GameManager : PersistentSingleton<GameManager>
         if (playerData == null) return;
 
         PlayersConnected.Remove(playerData);
-        EventBus<PlayerRemovedEvent>.Raise(new PlayerRemovedEvent { data = playerData });
+        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Disconnected, data = playerData });
     }
 
     public void RemovePlayer(int index)

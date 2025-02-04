@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerFX : MonoBehaviour
 {
-    EventBinding<PlayerAddedEvent> OnPlayerAdded;
-    EventBinding<PlayerRemovedEvent> OnPlayerRemoved;
+    EventBinding<PlayerConnectionEvent> OnPlayerConnection;
 
     [SerializeField] private PlayerFollow playerFollow;
     [Header("Renderers")]
@@ -22,25 +21,22 @@ public class PlayerFX : MonoBehaviour
     [Header("Collision FX")]
     [SerializeField] private float scaleMultiplier = 0.85f;
 
-    private PlayerData playerData;
     private Sequence playerSeq;
-
+    PlayerData playerData;
 
     #region Init Methods / Main 
     public void Init(PlayerData data)
     {
         playerData = data;
         if (playerFollow) playerFollow.Init(this as MonoBehaviour);
-        RefreshRenderer();
+        RefreshRenderer(data);
         PlaySpawnAnim();
     }
     private void OnEnable() 
     {
         //Events
-        OnPlayerAdded = new EventBinding<PlayerAddedEvent>(PlayerReconnected);
-        EventBus<PlayerAddedEvent>.Register(OnPlayerAdded);
-        OnPlayerRemoved = new EventBinding<PlayerRemovedEvent>(PlayerDisconnected);
-        EventBus<PlayerRemovedEvent>.Register(OnPlayerRemoved);
+        OnPlayerConnection = new EventBinding<PlayerConnectionEvent>(PlayerConnected);
+        EventBus<PlayerConnectionEvent>.Register(OnPlayerConnection);
 
         //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
         GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
@@ -50,15 +46,14 @@ public class PlayerFX : MonoBehaviour
         spawnSeq?.Kill();
         playerSeq?.Kill();
 
-        EventBus<PlayerAddedEvent>.DeRegister(OnPlayerAdded);
-        EventBus<PlayerRemovedEvent>.DeRegister(OnPlayerRemoved);
+        EventBus<PlayerConnectionEvent>.DeRegister(OnPlayerConnection);
 
         GetComponent<PlayerController>().onPlayerCollision -= CollisionFX;
     }
-    public void RefreshRenderer()
+    public void RefreshRenderer(PlayerData data)
     {
-        int index = GameManager.Instance.GetPlayerIndex(playerData);
-        Color mainColor = playerData.GetSkin().mainColor;
+        int index = GameManager.Instance.GetPlayerIndex(data); //TODO
+        Color mainColor = data.GetSkin().mainColor;
         if (collisionPainter != null)
         {
             collisionPainter.paintColor = mainColor;
@@ -66,7 +61,7 @@ public class PlayerFX : MonoBehaviour
         if (playerRenderer != null) //Assign Model Color
         {
             Vector2 newOffset = Vector2.zero;
-            newOffset.x = playerData.GetSkin().Index / 8f;
+            newOffset.x = data.GetSkin().Index / 8f;
             playerRenderer.material.SetVector("_Offset", newOffset);
         }
         if (playerDash != null) //Dash Color
@@ -126,19 +121,22 @@ public class PlayerFX : MonoBehaviour
     }
 
     
-    void PlayerDisconnected(PlayerRemovedEvent playerRemov) 
+    void PlayerConnected(PlayerConnectionEvent playerCon) 
     {
-        RefreshRenderer();
-        if (playerIndicator == null || playerRemov.data != playerData) return;
+        if (playerIndicator == null) return;
 
-        Vector2 newOffset = Vector2.zero;
-        newOffset.x = (7f / 8f);//ultimo de spritesheet
-        playerIndicator.material.SetVector("_Offset", newOffset);
-        playerIndicator.material.SetVector("_Color", playerData.GetSkin().mainColor);
-    }
-    void PlayerReconnected(PlayerAddedEvent data)
-    {
-        RefreshRenderer();
-        //if (data == null || data != playerData) return;
+        if (playerCon.data != playerData)
+        {
+            RefreshRenderer(playerData);
+            return;
+        }
+        
+        if (playerCon.conType == ConnectionType.Disconnected)
+        {
+            Vector2 newOffset = Vector2.zero;
+            newOffset.x = (7f / 8f);//ultimo de spritesheet
+            playerIndicator.material.SetVector("_Offset", newOffset);
+            playerIndicator.material.SetVector("_Color", Color.white);
+        }
     }
 }

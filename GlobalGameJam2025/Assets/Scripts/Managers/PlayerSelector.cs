@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerSelector : MonoBehaviour
 {
-    EventBinding<PlayerAddedEvent> OnPlayerAdded;
-    EventBinding<PlayerRemovedEvent> OnPlayerRemoved;
+    EventBinding<PlayerConnectionEvent> OnPlayerConnected;
 
     [Header("Player Panel Window")]
     [SerializeField] private TextMeshProUGUI playerCountText;
@@ -30,11 +29,8 @@ public class PlayerSelector : MonoBehaviour
         UIPanel.GetPanel(typeof(RosterPanel)).Show();
 
         //Added
-        OnPlayerAdded = new EventBinding<PlayerAddedEvent>(HandlePlayerAddedEvent);
-        EventBus<PlayerAddedEvent>.Register(OnPlayerAdded);
-        //Removed
-        OnPlayerRemoved = new EventBinding<PlayerRemovedEvent>(HandlePlayerRemovedEvent);
-        EventBus<PlayerRemovedEvent>.Register(OnPlayerRemoved);
+        OnPlayerConnected = new EventBinding<PlayerConnectionEvent>(HandlePlayerConnection);
+        EventBus<PlayerConnectionEvent>.Register(OnPlayerConnected);
 
         if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
@@ -42,8 +38,7 @@ public class PlayerSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        EventBus<PlayerAddedEvent>.DeRegister(OnPlayerAdded);
-        EventBus<PlayerRemovedEvent>.DeRegister(OnPlayerRemoved);
+        EventBus<PlayerConnectionEvent>.DeRegister(OnPlayerConnected);
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();
@@ -82,7 +77,12 @@ public class PlayerSelector : MonoBehaviour
         UIPanel.GetPanel(typeof(ConfigPanel)).Show();
     }
    
-    private void HandlePlayerAddedEvent(PlayerAddedEvent newPlayer) => PlayerAdded(newPlayer.data);
+    private void HandlePlayerConnection(PlayerConnectionEvent pl)
+    {
+        if(pl.conType == ConnectionType.Connected) PlayerAdded(pl.data);
+        else PlayerRemoved(pl.data);
+    }
+    
     private void PlayerAdded(PlayerData newPlayer)
     {
         Vector3 spawnPos = Random.insideUnitSphere * 5.5f;
@@ -95,7 +95,6 @@ public class PlayerSelector : MonoBehaviour
         UpdatePlayerUI();
     }
 
-    private void HandlePlayerRemovedEvent(PlayerRemovedEvent newPlayer) => PlayerRemoved(newPlayer.data);
     private void PlayerRemoved(PlayerData newPlayer)
     {
         PlayerCore playerToRemove = playerList.Find(p => p.PlayerData == newPlayer);

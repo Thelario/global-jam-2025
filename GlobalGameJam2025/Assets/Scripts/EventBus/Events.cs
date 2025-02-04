@@ -7,11 +7,14 @@ public struct TestEvent : IEvent
 
 }
 
-public struct PlayerAddedEvent : IEvent
+
+public struct PlayerConnectionEvent : IEvent
 {
+    public ConnectionType conType;
     public PlayerData data;
 }
-public struct PlayerRemovedEvent : IEvent
+public enum ConnectionType
 {
-    public PlayerData data;
+    Connected,
+    Disconnected,
 }

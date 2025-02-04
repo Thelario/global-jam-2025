@@ -37,6 +37,27 @@ public class MinigameManager : Singleton<MinigameManager>
 
     //Lista de jugadores spawneados esta ronda
     public List<PlayerCore> PlayerList { get; private set; } = new List<PlayerCore>();
+    public int GetPlayerIndex(PlayerCore core)
+    {
+        if (core == null) return -1;
+        return PlayerList.IndexOf(core);
+    }
+    public int GetPlayerIndex(PlayerData data)
+    {
+        if (data == null) return -1;
+        for (int i = 0; i < PlayerList.Count; i++)
+        {
+            if (PlayerList[i].PlayerData == data) return i;
+        }
+        return -1;
+    }
+
+    public PlayerCore GetPlayerCore(PlayerData data)
+    {
+        if (data == null) return null;
+        foreach(PlayerCore core in PlayerList) { if (core.PlayerData == data) return core; }
+        return null;
+    }
 
     //Timer desde el comienzo del minijuego, no solo para terminar juego
     public float Timer { get; private set; } = 0f;
