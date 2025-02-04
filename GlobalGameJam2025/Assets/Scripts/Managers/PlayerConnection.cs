@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
+using System;
 
 /// <summary>
 /// Clase que se encarga de detectar conexiones de mandos/teclados
@@ -22,8 +23,16 @@ public class PlayerConnection : MonoBehaviour
         if (GameSettings.ALWAYS_CREATE_KEYBOARD && Keyboard.current != null) AddPlayer(Keyboard.current);
         foreach(var connPl in GetAllConnectedDevices())
         {
-            Debug.Log("CONECTED");
             AddPlayer(connPl);
+        }
+        if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
+    }
+    private void AddFakePlayers()
+    {
+        for (int i = 0; i < GameSettings.SIMULATE_PLAYERS; i++)
+        {
+            InputDevice fakeDev = InputSystem.AddDevice<Gamepad>($"Fake{gameManager.PlayerCount}");
+            AddPlayer(fakeDev);
         }
     }
     private void Update()

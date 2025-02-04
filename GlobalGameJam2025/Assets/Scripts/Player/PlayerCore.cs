@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerFX))]
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInputHandler))]
 
 public class PlayerCore : MonoBehaviour
 {
@@ -12,23 +12,24 @@ public class PlayerCore : MonoBehaviour
     PlayerData playerData;
     PlayerFX playerFX;
     PlayerController playerController;
-    NewPlayerInput playerInput;
+    PlayerInputHandler playerInput;
 
 
     public PlayerData PlayerData { get { return playerData; } }
     public PlayerFX PlayerFX { get { return playerFX; } }
     public PlayerController PlayerController { get { return playerController; } }
-    public NewPlayerInput PlayerInput { get { return playerInput; } }
+    public PlayerInputHandler PlayerInput { get { return playerInput; } }
 
     public void InitPlayer(PlayerData data)
     {
         playerData = data;
         playerController = GetComponent<PlayerController>();
         playerFX = GetComponent<PlayerFX>();
-        playerInput = GetComponent<NewPlayerInput>();
+        playerInput = GetComponent<PlayerInputHandler>();
 
         playerController.Init(playerData);
         playerFX.Init(playerData);
+        PlayerInput.Init(playerController);
     }
 
     #region Wrappers

@@ -84,7 +84,6 @@ public class PlayerSelector : MonoBehaviour
         core.ToggleMovement(true);
 
         playerList.Add(core);
-        foreach (var p in playerList) p.PlayerFX.RefreshRenderer(p.PlayerData);
         UpdatePlayerUI();
     }
 
@@ -96,7 +95,6 @@ public class PlayerSelector : MonoBehaviour
             playerList.Remove(playerToRemove);
             Destroy(playerToRemove.gameObject);
         }
-        foreach (var p in playerList) p.PlayerFX.RefreshRenderer(p.PlayerData);
         UpdatePlayerUI();
     }
 }

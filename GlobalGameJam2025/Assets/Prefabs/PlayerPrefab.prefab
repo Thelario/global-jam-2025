@@ -5239,10 +5239,10 @@ GameObject:
   - component: {fileID: 5885236349941548951}
   - component: {fileID: 5618386424239299470}
   - component: {fileID: 6081376282041427126}
+  - component: {fileID: 3466339566270811429}
   - component: {fileID: 2635385285230055073}
   - component: {fileID: 4031469406445159302}
   - component: {fileID: 4305440611370116197}
-  - component: {fileID: 925900405199630377}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -5317,6 +5317,18 @@ MonoBehaviour:
   dashForce: 800
   dashTime: 0.5
   dashDelayTime: 2
+--- !u!114 &3466339566270811429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339635329292493138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b0cb431572d06409bfc490991fbbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2635385285230055073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5447,18 +5459,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &925900405199630377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7339635329292493138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a55cd1fd769e814fb026aa33a89d573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7535623979587450345
 GameObject:
   m_ObjectHideFlags: 0

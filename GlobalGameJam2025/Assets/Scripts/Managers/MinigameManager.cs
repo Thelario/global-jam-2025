@@ -66,7 +66,7 @@ public class MinigameManager : Singleton<MinigameManager>
         //Spawnear Jugadores en Spawnpoints
         SpawnPlayers();
         //Cuando se desconecte un mando, matar jugador
-        if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
+        //if(gameManager) gameManager.OnPlayerRemoved += KillPlayer;
         //Inicializar sistemas. En este punto ya esta todo listo, comienza cuenta atras
         NotifyMinigameInit();
     }
@@ -100,7 +100,7 @@ public class MinigameManager : Singleton<MinigameManager>
 
     private void OnDestroy()
     {
-        if(gameManager) gameManager.OnPlayerRemoved -= KillPlayer;
+        //if(gameManager) gameManager.OnPlayerRemoved -= KillPlayer;
     }
     private void SpawnPlayers()
     {

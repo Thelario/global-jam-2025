@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerController : MonoBehaviour
 {
     public enum PlayerState { Waiting, CanMove }
@@ -45,12 +45,14 @@ public class PlayerController : MonoBehaviour
         if (State == PlayerState.Waiting) return;
         dashDelayTimer += Time.deltaTime;
     }
+
     public void KillPlayer()
     {
         ChangeState(PlayerState.Waiting);
         rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
     }
+
     private void FixedUpdate()
     {
         if (State == PlayerState.Waiting) return;
@@ -59,18 +61,20 @@ public class PlayerController : MonoBehaviour
 
     public void AddForce(Vector3 forceDir)
     {
-        if(rb) rb.AddForce(forceDir);
+        if (rb) rb.AddForce(forceDir);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         HandleCollision(collision);
     }
+
     public void ChangeState(PlayerState newState)
     {
         State = newState;
         if (rb) rb.isKinematic = newState == PlayerState.Waiting;
     }
+
     #endregion
 
     #region Initialization
@@ -91,9 +95,9 @@ public class PlayerController : MonoBehaviour
 
     #region Movement
 
-    public void MoveInput(InputAction.CallbackContext context)
+    public void MoveInput(Vector2 moveDir)
     {
-        movementInput = context.ReadValue<Vector2>();
+        movementInput = moveDir;
     }
 
     private void Move()
@@ -149,7 +153,6 @@ public class PlayerController : MonoBehaviour
         if (!collision.gameObject.CompareTag("Player")) return;
         onPlayerCollision?.Invoke();
 
-        //Dios bendito que alguien cambie lo de abajo
         PlayerController otherPlayer = collision.gameObject.GetComponent<PlayerController>();
         if (otherPlayer == null) return;
 
@@ -167,5 +170,4 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-   
 }

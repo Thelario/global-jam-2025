@@ -17,7 +17,7 @@ public class RankManager : MonoBehaviour
     }
     private void PlacePodiums()
     {
-        float spacing = 2f;
+        float spacing = 7f;
         int playerCount = GameManager.Instance.PlayerCount;
         bool isEven = playerCount % 2 == 0;
         int midIndex = playerCount / 2;
