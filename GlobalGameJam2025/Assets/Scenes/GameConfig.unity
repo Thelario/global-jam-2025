@@ -4118,6 +4118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1155236358}
   - component: {fileID: 1155236359}
+  - component: {fileID: 1155236360}
   m_Layer: 0
   m_Name: PlayerSelector
   m_TagString: Untagged
@@ -4160,6 +4161,34 @@ MonoBehaviour:
   - {fileID: 2724523}
   gobackButton: {fileID: 1041406468}
   continueButton: {fileID: 1272360536}
+--- !u!114 &1155236360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155236357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749ea253640c65a49bc16d250d680f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: b2700fcd0e13bc94681677636e6d74e6, type: 2}
+  callback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1155236359}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1155315194
 GameObject:
   m_ObjectHideFlags: 0

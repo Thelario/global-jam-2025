@@ -10,7 +10,7 @@ public static class GameSettings
     public const bool ALWAYS_CREATE_KEYBOARD = true;
     //True = se van asignando por order de index(amarillo, rojo, azul, etc.)
     //False = se asigna una skin aun no asignada aleatoria
-    public const bool ASSIGN_SKINS_IN_ORDER = true;
+    public const bool ASSIGN_SKINS_IN_ORDER = false;
     //PELIGRO DE MUERTE
     public const int SIMULATE_PLAYERS = 0;
 }

@@ -45,7 +45,8 @@ public class GameManager : PersistentSingleton<GameManager>
         if (playerData == null) return;
 
         m_AllPlayersConnected.Add(playerData);
-        OnPlayerAdded?.Invoke(playerData);
+        //OnPlayerAdded?.Invoke(playerData);
+        EventBus.Publish("ControllerConnected", playerData);
     }
 
     public void RemovePlayer(PlayerData playerData)
@@ -53,7 +54,8 @@ public class GameManager : PersistentSingleton<GameManager>
         if (playerData == null) return;
 
         m_AllPlayersConnected.Remove(playerData);
-        OnPlayerRemoved?.Invoke(playerData);
+        //OnPlayerRemoved?.Invoke(playerData);
+        EventBus.Publish("ControllerDisconnected", playerData);
     }
     public void RemovePlayer(int index)
     {

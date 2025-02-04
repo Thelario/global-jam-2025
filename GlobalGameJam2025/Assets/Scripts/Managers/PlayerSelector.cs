@@ -25,9 +25,11 @@ public class PlayerSelector : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         UIPanel.GetPanel(typeof(RosterPanel)).Show();
-        
-        gameManager.OnPlayerAdded += PlayerAdded;
-        gameManager.OnPlayerRemoved += PlayerRemoved;
+
+        //gameManager.OnPlayerAdded += PlayerAdded;
+        //gameManager.OnPlayerRemoved += PlayerRemoved;
+        EventBus.Subscribe("ControllerConnected", PlayerAdded);
+        EventBus.Subscribe("ControllerDisconnected", PlayerRemoved);
 
         if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
@@ -35,8 +37,10 @@ public class PlayerSelector : MonoBehaviour
 
     private void OnDisable()
     {
-        if(gameManager) gameManager.OnPlayerAdded -= PlayerAdded;
-        if(gameManager) gameManager.OnPlayerRemoved -= PlayerRemoved;
+        //if(gameManager) gameManager.OnPlayerAdded -= PlayerAdded;
+        //if (gameManager) gameManager.OnPlayerRemoved -= PlayerRemoved;
+        EventBus.Unsubscribe("ControllerConnected", PlayerAdded);
+        EventBus.Unsubscribe("ControllerDisconnected", PlayerRemoved);
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();

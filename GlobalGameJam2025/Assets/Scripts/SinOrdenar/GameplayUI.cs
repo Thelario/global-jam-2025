@@ -19,7 +19,7 @@ public class GameplayUI : MonoBehaviour, IMinigameEventListener
     private MinigameManager minigameManager;
     private bool shoudlCount = false;
 
-    private void OnEnable()
+    private void Start()
     {
         minigameManager = MinigameManager.Instance;
         if (!minigameManager)

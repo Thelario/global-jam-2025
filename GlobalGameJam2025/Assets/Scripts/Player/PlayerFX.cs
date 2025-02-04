@@ -1,7 +1,4 @@
 using DG.Tweening;
-using DG.Tweening.Core.Easing;
-using System;
-using System.Data;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,20 +29,25 @@ public class PlayerFX : MonoBehaviour
         if (playerFollow) playerFollow.Init(this as MonoBehaviour);
         RefreshRenderer();
         PlaySpawnAnim();
-
+    }
+    private void OnEnable() 
+    {
         //Events
-        GameManager.Instance.OnPlayerAdded += PlayerReconnected;
-        GameManager.Instance.OnPlayerRemoved += PlayerDisconnected;
+        EventBus.Subscribe("ControllerConnected", PlayerReconnected);
+        EventBus.Subscribe("ControllerDisconnected", PlayerDisconnected);
+        //GameManager.Instance.OnPlayerAdded += PlayerReconnected;
+        //GameManager.Instance.OnPlayerRemoved += PlayerDisconnected;
         //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
         GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         spawnSeq?.Kill();
         playerSeq?.Kill();
-
-        GameManager.Instance.OnPlayerAdded -= PlayerReconnected;
-        GameManager.Instance.OnPlayerRemoved -= PlayerDisconnected;
+        EventBus.Unsubscribe("ControllerConnected", PlayerReconnected);
+        EventBus.Unsubscribe("ControllerDisconnected", PlayerDisconnected);
+        //GameManager.Instance.OnPlayerAdded -= PlayerReconnected;
+        //GameManager.Instance.OnPlayerRemoved -= PlayerDisconnected;
 
         GetComponent<PlayerController>().onPlayerCollision -= CollisionFX;
     }
@@ -121,7 +123,7 @@ public class PlayerFX : MonoBehaviour
 
     
     public void PlayerDisconnected(PlayerData data) 
-    {
+    {RefreshRenderer();
         if (playerIndicator == null || data != playerData) return;
 
         Vector2 newOffset = Vector2.zero;
@@ -131,7 +133,7 @@ public class PlayerFX : MonoBehaviour
     }
     public void PlayerReconnected(PlayerData data)
     {
-        if (data == null || data != playerData) return;
         RefreshRenderer();
+        //if (data == null || data != playerData) return;
     }
 }

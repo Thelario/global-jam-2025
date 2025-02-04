@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
   m_Name: RollingPlatform
   m_EditorClassIdentifier: 
-  minigameName: Rotating Walls
-  usesTimer: 1
-  maxTimer: 60
-  minigamePrefab: {fileID: 552778821056232318, guid: 1b3e03c35d9be84448dab0ca37f56f8a, type: 3}
+  minigameID: RollingPlatform
+  miniGamePrefab: {fileID: 552778821056232318, guid: 1b3e03c35d9be84448dab0ca37f56f8a, type: 3}

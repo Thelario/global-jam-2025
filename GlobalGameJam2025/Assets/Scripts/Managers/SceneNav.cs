@@ -34,6 +34,7 @@ public static class SceneNav
         DOTween.KillAll();
         DestroyAllSingletons();
         SceneManager.LoadScene((int)scene, LoadSceneMode.Single);
+        if(faderInstance) faderInstance.FadeIn(() => busy = false);
     }
 
     //Lo mismo pero esperando un tiempo

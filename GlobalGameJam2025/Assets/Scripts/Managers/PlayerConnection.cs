@@ -25,7 +25,7 @@ public class PlayerConnection : MonoBehaviour
         {
             AddPlayer(connPl);
         }
-        if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
+        //if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
     }
     private void AddFakePlayers()
     {

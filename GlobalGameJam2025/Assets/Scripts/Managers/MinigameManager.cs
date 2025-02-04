@@ -77,12 +77,18 @@ public class MinigameManager : Singleton<MinigameManager>
     private bool AssignGame()
     {
         gameManager = GameManager.Instance;
+        //For Testing
         if (gameManager.CurrentGame == null)
         {
             if (TestingGame != null)
             {
                 //Crea un nuevo GameData con el minijuego test del inspector
-                GameData testGameData = new GameData(new List<MinigameData>() { TestingGame }, 10);
+                GameData testGameData = new GameData(new List<MinigameData>()
+                { 
+                    TestingGame,
+                    TestingGame,
+                    TestingGame},
+                    10);
                 gameManager.CreateGameData(testGameData);
             }
             else
@@ -95,6 +101,12 @@ public class MinigameManager : Singleton<MinigameManager>
         //Obtiene minijuego y lo elimina de la lista
         currentGameData = gameManager.CurrentGame;
         currentMinigame = currentGameData.GetNextMinigame();
+        if(currentMinigame == null)
+        {
+            Debug.LogWarning("No hay mas Minijuegos!");
+            SceneNav.GoToInmediate(SceneType.PlayerSelect);
+            return false;
+        }
         return true;
     }
 
@@ -146,7 +158,7 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         shouldCountTimer = false;
         NotifyMinigameEnd();
-        SceneNav.GoToWithDelay(SceneType.PlayerSelect, 2.0f);
+        SceneNav.GoToWithDelay(SceneType.Gameplay, 2.0f);
         foreach(PlayerCore player in PlayerList)
         {
             if (playersDead.Contains(player.PlayerData)) return;
