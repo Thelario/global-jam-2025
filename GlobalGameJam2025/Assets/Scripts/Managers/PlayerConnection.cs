@@ -28,7 +28,7 @@ public class PlayerConnection : MonoBehaviour
 
     private void Update()
     {
-        //HandleDeviceInput();
+        HandleDeviceInput();
     }
 
     private void HandleDeviceInput()

@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public static class EventBus<T> where T : IEvent 
+public static class EventBus<T> where T : IEvent
 {
     static readonly HashSet<IEventBinding<T>> bindings = new HashSet<IEventBinding<T>>();
 
@@ -12,16 +10,21 @@ public static class EventBus<T> where T : IEvent
 
     public static void Raise(T @event)
     {
-        foreach (var binding in bindings)
+        var snapshot = new HashSet<IEventBinding<T>>(bindings);
+
+        foreach (var binding in snapshot)
         {
-            binding.OnEvent.Invoke(@event);
-            binding.OnEventNoArgs.Invoke();
+            if (bindings.Contains(binding))
+            {
+                binding.OnEvent.Invoke(@event);
+                binding.OnEventNoArgs.Invoke();
+            }
         }
     }
 
     static void Clear()
     {
-        if (GameSettings.LOG_EVENT_BUS) Debug.Log($"Limpiando {typeof(T).Name}");
+        Debug.Log($"Clearing {typeof(T).Name} bindings");
         bindings.Clear();
     }
 }
