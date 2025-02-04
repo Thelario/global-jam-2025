@@ -29,6 +29,13 @@ public static class SceneNav
         EnsureBeforeChange(scene);
         
     }
+    public static void GoToInmediate(SceneType scene)
+    {
+        DOTween.KillAll();
+        DestroyAllSingletons();
+        SceneManager.LoadScene((int)scene, LoadSceneMode.Single);
+    }
+
     //Lo mismo pero esperando un tiempo
     public static void GoToWithDelay(SceneType scene, float delay)
     {

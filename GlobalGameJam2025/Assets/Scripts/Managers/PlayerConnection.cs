@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 /// <summary>
 /// Clase que se encarga de detectar conexiones de mandos/teclados
-/// Se anade por defecto por el GameManager en su Init
+/// Se anade por defecto al GameManager en GameManager Init
 /// </summary>
 
 public class PlayerConnection : MonoBehaviour
@@ -20,6 +20,11 @@ public class PlayerConnection : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         if (GameSettings.ALWAYS_CREATE_KEYBOARD && Keyboard.current != null) AddPlayer(Keyboard.current);
+        foreach(var connPl in GetAllConnectedDevices())
+        {
+            Debug.Log("CONECTED");
+            AddPlayer(connPl);
+        }
     }
     private void Update()
     {
@@ -54,11 +59,9 @@ public class PlayerConnection : MonoBehaviour
     private void AddPlayer(InputDevice device)
     {
         if (device == null) return;
-
         if (PlayerExists(device)) return;
 
         PlayerData newPlayerData = new PlayerData(device, GetPlayerSkin());
-
         gameManager.AddPlayer(newPlayerData);
     }
 
@@ -74,20 +77,15 @@ public class PlayerConnection : MonoBehaviour
             gameManager.RemovePlayer(playerToRemove);
         }
     }
-    //Principalmente se utiliza para Testear minijuegos desde TestMinigame.cs
-    //De otra forma, se espera al input de Start/Enter o lo que sea. No llama a GameManager
-    public List<PlayerData> GetAllConnectedDevices()
+
+    public List<InputDevice> GetAllConnectedDevices()
     {
-        List<InputDevice> allConnections = new List<InputDevice>(InputSystem.devices);
-        List<PlayerData> allData = new List<PlayerData>();
-        foreach(var dev in allConnections)
-        {
-            if (PlayerExists(dev)) continue;
-            PlayerData newPlayerData = new PlayerData(dev, GetPlayerSkin());
-            allData.Add(newPlayerData);
-        }
-        return allData;
+        return InputSystem.devices
+            .Where(device => device is Keyboard || device is Gamepad)
+            .ToList();
     }
+
+
     private PlayerSkin GetPlayerSkin()
     {
         return GameSettings.ASSIGN_SKINS_IN_ORDER ?

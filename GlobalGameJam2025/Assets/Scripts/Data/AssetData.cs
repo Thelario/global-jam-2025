@@ -10,16 +10,16 @@ public class AssetData : ScriptableObject
     [Header("PLAYER")] 
     public PlayerCore PlayerPrefab;
     public PlayerSkin DefaultSkin;
-    
+
+    [Space(20)]
+    [Header("Vario")]
+    public GameObject PodiumPrefab;
+
     [Space(20)]
     [Header("UI")]
     public GameObject MainCanvasPrefab;
     public Fader Fader;
     public Sprite[] ControllerIconSprites;
-
-    [Space(20)]
-    [Header("Editor")]
-    public Texture2D MinigameEditorIcon;
     
     [Space(20)]
     [Header("FX")]

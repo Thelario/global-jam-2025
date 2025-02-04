@@ -1,8 +1,11 @@
+using NUnit.Framework.Internal;
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -57,7 +60,7 @@ public class MinigameManager : Singleton<MinigameManager>
         //Cada vez que ocurra un evento (Game Start, Player Death, et.) se les notificara
         RegisterAllListeners();
         //Asigna el juego, ya sea desde GameManager, o Test desde inspector
-        AssignGame();
+        if (!AssignGame()) return;
         //Spawnear Prefab del minijuego
         Instantiate(currentMinigame.MiniGamePrefab);
         //Spawnear Jugadores en Spawnpoints
@@ -68,31 +71,31 @@ public class MinigameManager : Singleton<MinigameManager>
         NotifyMinigameInit();
     }
     
-    private void AssignGame()
+    //Si existe un minijuego asignado en el GameManager(se viene desde la escena de Select)
+    //se asigna ese. Sino, si existe un TestMinigame asignado, se asigna ese (junto a jugadores)
+    //Sino, devuelve falso, interrumpe el proceso de Init y vuelve a la escena de Seleccion
+    private bool AssignGame()
     {
         gameManager = GameManager.Instance;
-        if (gameManager.CurrentGame != null)
+        if (gameManager.CurrentGame == null)
         {
-            //Obtiene minijuego y lo elimina de la lista
-            currentGameData = gameManager.CurrentGame;
-            currentMinigame = currentGameData.GetNextMinigame();
+            if (TestingGame != null)
+            {
+                //Crea un nuevo GameData con el minijuego test del inspector
+                GameData testGameData = new GameData(new List<MinigameData>() { TestingGame }, 10);
+                gameManager.CreateGameData(testGameData);
+            }
+            else
+            {
+                Debug.LogWarning("No existe Minijuego Asignado!");
+                SceneNav.GoToInmediate(SceneType.PlayerSelect);
+                return false;
+            }
         }
-        else if (TestingGame != null)
-        {
-            //Crea un nuevo GameData con el minijuego test del inspector
-            GameData testGameData = new GameData(new List<MinigameData>() { TestingGame }, 10);
-            gameManager.CreateGameData(testGameData,
-                gameManager.PlayerConnection.GetAllConnectedDevices());
-
-            currentGameData = gameManager.CurrentGame;
-            currentMinigame = currentGameData.GetNextMinigame();
-        }
-        else
-        {
-            Debug.Log("Mingame not initialised in GameManager");
-            SceneNav.GoTo(SceneType.PlayerSelect);
-            return;
-        }
+        //Obtiene minijuego y lo elimina de la lista
+        currentGameData = gameManager.CurrentGame;
+        currentMinigame = currentGameData.GetNextMinigame();
+        return true;
     }
 
     private void OnDestroy()

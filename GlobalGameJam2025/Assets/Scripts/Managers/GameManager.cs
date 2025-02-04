@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -19,11 +20,13 @@ public class GameManager : PersistentSingleton<GameManager>
     //dentro del GameData de la partida
     private List<PlayerData> m_AllPlayersConnected = new List<PlayerData>();
     public List<PlayerData> GetPlayerList() => m_AllPlayersConnected;
+    public int PlayerCount => m_AllPlayersConnected.Count;
     public int GetPlayerIndex(PlayerData data)
     {
         if (data == null) return -1;
         return m_AllPlayersConnected.IndexOf(data);
     }
+    //Para reasignar skins, etc.
     public void SetPlayerData(int playerIndex, PlayerData newPlayerData)
     {
         if (m_AllPlayersConnected[playerIndex] != null)
@@ -31,7 +34,6 @@ public class GameManager : PersistentSingleton<GameManager>
             m_AllPlayersConnected[playerIndex] = newPlayerData;
         }
     }
-    public int PlayerCount => m_AllPlayersConnected.Count;
 
     // Events
     public event UnityAction<PlayerData> OnPlayerAdded;

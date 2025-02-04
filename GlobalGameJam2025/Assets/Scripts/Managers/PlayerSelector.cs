@@ -77,7 +77,7 @@ public class PlayerSelector : MonoBehaviour
    
     private void PlayerAdded(PlayerData newPlayer)
     {
-        Vector3 spawnPos = Random.insideUnitSphere * 3;
+        Vector3 spawnPos = Random.insideUnitSphere * 5.5f;
         spawnPos.y = 1;
         PlayerCore core = Instantiate(AssetLocator.Data.PlayerPrefab, spawnPos, Quaternion.identity);
         core.InitPlayer(newPlayer);
