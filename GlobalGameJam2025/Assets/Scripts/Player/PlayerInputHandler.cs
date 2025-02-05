@@ -1,52 +1,65 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum PlayerActionType
+{
+    Menu,
+    Gameplay
+}
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
+    private InputActionAsset inputActions;
     private PlayerController playerController;
     private PlayerInput playerInput;
 
-    public void Init(PlayerController pl)
+    public void Init(PlayerController pl, PlayerActionType actionType)
     {
         playerInput = GetComponent<PlayerInput>();
         playerController = pl;
-        BindActions();
+        SetInputActions(actionType);
     }
 
-    private void BindActions()
+    public void SetInputActions(PlayerActionType actionType)
     {
-        if (!playerInput) return;
-        // Bind Input Actions
-        playerInput.actions["Move"].performed += OnMoveInput;
-        playerInput.actions["Move"].canceled += OnMoveInput;
-        playerInput.actions["Dash"].performed += OnDashInput;
+        Debug.Log("Setup Started: " + playerInput.currentActionMap.name);
+        switch (actionType)
+        {
+            case PlayerActionType.Menu:
+                playerInput.SwitchCurrentActionMap("Menu");
+                break;
+            case PlayerActionType.Gameplay:
+                playerInput.SwitchCurrentActionMap("Gameplay");
+                break;
+        }
+        Debug.Log("Setup FInished: " + playerInput.currentActionMap.name);
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        if (!playerInput) return;
-        // Unbind Input Actions
-        playerInput.actions["Move"].performed -= OnMoveInput;
-        playerInput.actions["Move"].canceled -= OnMoveInput;
-        playerInput.actions["Dash"].performed -= OnDashInput;
+        playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += HandleInput;
     }
 
-    private void OnMoveInput(InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        playerController.MoveInput(context.ReadValue<Vector2>());
+        playerInput.onActionTriggered -= HandleInput;
     }
 
-    private void OnDashInput(InputAction.CallbackContext context)
+    private void HandleInput(InputAction.CallbackContext context)
     {
-        playerController.Dash_Input(context);
+        if (context.action.name == "Move")
+        {
+            playerController?.MoveInput(context.ReadValue<Vector2>());
+            Debug.Log("MOVING");
+        }
+        else if (context.action.name == "Dash")
+        {
+            playerController?.Dash_Input(context);
+        }
+        else if (context.action.name == "Special")
+        {
+            Debug.Log("Game Special!");
+        }
     }
-    //private void Update()
-    //{
-    //    if (true)
-    //    {
-    //        playerController.MoveInput(new Vector2(Random.Range(-1,1),
-    //            Random.Range(-1, 1)).normalized);
-    //    }
-    //}
 }

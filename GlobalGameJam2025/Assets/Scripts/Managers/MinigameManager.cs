@@ -156,7 +156,7 @@ public class MinigameManager : Singleton<MinigameManager>
         for (int i = 0; i < dataList.Count; i++)
         {
             PlayerCore playerIns = Instantiate(playerPrefab, spawnPositions[i], Quaternion.identity, playerHolder.transform);
-            playerIns.InitPlayer(dataList[i]);
+            playerIns.InitPlayer(dataList[i], PlayerActionType.Gameplay);
             PlayerList.Add(playerIns);
         }
         
