@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "AssetData", menuName = "Managers/AssetData", order = 0)]

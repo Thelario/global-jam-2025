@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
         _movementForceInit = movementForce;
         SetMovementForceMultiplier(1f);
 
+        PlayerInput input = GetComponent<PlayerInput>();
+        input.SwitchCurrentControlScheme(data.GetDeviceType());
         ChangeState(PlayerState.Waiting);
     }
 

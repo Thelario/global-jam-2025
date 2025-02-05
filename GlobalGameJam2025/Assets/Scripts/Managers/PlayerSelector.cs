@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Recorder;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -89,7 +88,7 @@ public class PlayerSelector : MonoBehaviour
         Vector3 spawnPos = Random.insideUnitSphere * 5.5f;
         spawnPos.y = 1;
         PlayerCore core = Instantiate(AssetLocator.Data.PlayerPrefab, spawnPos, Quaternion.identity);
-        core.InitPlayer(newPlayer, PlayerActionType.Menu);
+        core.InitPlayer(newPlayer);
         core.ToggleMovement(true);
 
         playerList.Add(core);

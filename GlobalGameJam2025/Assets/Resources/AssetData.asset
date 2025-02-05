@@ -16,8 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9092ad694bc88284190403768164e410, type: 2}
   PlayerPrefab: {fileID: 5885236349941548951, guid: 15f8f3a7b4dce5d4892e2456eee34c2f, type: 3}
   DefaultSkin: {fileID: 11400000, guid: 99fd3f54b8b43dd409c7fe9b47d5a3ff, type: 2}
-  controllerActions: {fileID: -944628639613478452, guid: 3971a364de5098b4d92438c78f523dfb, type: 3}
-  selectionMenuActions: {fileID: -944628639613478452, guid: 01b6eae45e4de7f43968ff64cb771983, type: 3}
   PodiumPrefab: {fileID: 919132149155446097, guid: 734bad728aaa3cd4e919e07b49ae1785, type: 3}
   MainCanvasPrefab: {fileID: 2664128070008245586, guid: d1e8823ce78631b4bb493fdd857259cd, type: 3}
   Fader: {fileID: 4007716831337006598, guid: 1000dff636690484598b7919c8e6deda, type: 3}

@@ -18,5 +18,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Ranking.unity
     guid: ae29f3ee962dde24598c0c45f14d41d1
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 01b6eae45e4de7f43968ff64cb771983, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

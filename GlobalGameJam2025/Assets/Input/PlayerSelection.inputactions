@@ -1,12 +1,12 @@
 {
-    "name": "PlayerController",
+    "name": "PlayerSelection",
     "maps": [
         {
             "name": "Player",
             "id": "0be81f40-6ab4-4b9d-9f15-6ad5d0938b1c",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "MovePoiner",
                     "type": "Value",
                     "id": "0f2926ff-1bd1-421b-a48f-16847b69aa30",
                     "expectedControlType": "Vector2",
@@ -15,27 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Select",
                     "type": "Button",
                     "id": "8ce08cf5-3b6f-4f29-863e-08c72e2e0d26",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "BasicAttack",
-                    "type": "Button",
-                    "id": "2b3f568b-c697-4d1c-b9c7-7d678ef49c87",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SpecialAttack",
-                    "type": "Button",
-                    "id": "57d075f2-d866-4540-8d63-cc6f3489ac27",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -50,7 +32,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +43,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -72,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -83,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -94,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -105,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -116,7 +98,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -127,7 +109,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -138,7 +120,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -149,7 +131,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -160,7 +142,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -171,51 +153,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Move",
+                    "action": "MovePoiner",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ee1eb8b5-5e47-4d9a-8b9f-ffc449c95c8e",
+                    "id": "ca53a9d8-228d-47d1-94d9-b3e1a0a0c34b",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BasicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bf70354c-d702-44dc-a192-1724a9641131",
-                    "path": "<DualShockGamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BasicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e9dc307b-6f19-4463-ab5f-36f4f65d1cdc",
-                    "path": "<Keyboard>/l",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpecialAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f0fcd25b-ee68-4ab8-b796-b2695bae54e9",
-                    "path": "<DualShockGamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpecialAttack",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -226,18 +175,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "928cf2fa-d76a-4de9-a9d8-1b76c96080b4",
-                    "path": "<DualShockGamepad>/buttonSouth",
+                    "id": "11479f67-77cc-49ea-ba88-556939628184",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
