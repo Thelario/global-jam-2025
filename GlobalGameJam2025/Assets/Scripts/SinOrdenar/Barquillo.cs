@@ -13,7 +13,7 @@ public class Barquillo : MonoBehaviour, IMinigameEventListener
     void Start()
     {
         manager = MinigameManager.Instance;
-        allPlayers = manager.PlayerList;
+        allPlayers = PlayerCore.AllPlayers;
         allRbs = new List<Rigidbody>();
         foreach (var tetas in allPlayers)
         {

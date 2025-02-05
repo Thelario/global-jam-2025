@@ -16,7 +16,7 @@ public class RotarCosas : MonoBehaviour
 
     private IEnumerator WaitAndRotate()
     {
-        players = MinigameManager.Instance.PlayerList;
+        players = PlayerCore.AllPlayers;
         foreach (PlayerCore player in players)
         {
             player.transform.localScale *= 1.5f;

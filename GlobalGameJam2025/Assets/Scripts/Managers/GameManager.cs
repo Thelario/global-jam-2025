@@ -19,6 +19,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
 
     #region PLAYER MANAGEMENT
+
+    //Data se encarga de los datos de los jugadores(Input que utilizan, color, etc.)
     public List<PlayerData> PlayersConnected { get; private set; } = new List<PlayerData>();
     public int PlayerCount => PlayersConnected.Count;
 

@@ -16,6 +16,7 @@ public class HatSway : MonoBehaviour
 
     void Update()
     {
+        if (!rb) return;
         Vector3 velocity = rb.linearVelocity;
         Vector3 swayDirection = -velocity.normalized;
         float swayAmount = Mathf.Clamp(velocity.magnitude * swayFactor, 0f, maxRotation);

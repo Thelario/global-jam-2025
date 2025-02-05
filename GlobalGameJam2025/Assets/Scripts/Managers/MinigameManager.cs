@@ -36,28 +36,27 @@ public class MinigameManager : Singleton<MinigameManager>
     public event UnityAction OnPlayerDeath;
 
     //Lista de jugadores spawneados esta ronda
-    public List<PlayerCore> PlayerList { get; private set; } = new List<PlayerCore>();
-    public int GetPlayerIndex(PlayerCore core)
-    {
-        if (core == null) return -1;
-        return PlayerList.IndexOf(core);
-    }
-    public int GetPlayerIndex(PlayerData data)
-    {
-        if (data == null) return -1;
-        for (int i = 0; i < PlayerList.Count; i++)
-        {
-            if (PlayerList[i].PlayerData == data) return i;
-        }
-        return -1;
-    }
+    //public int GetPlayerIndex(PlayerCore core)
+    //{
+    //    if (core == null) return -1;
+    //    return PlayerList.IndexOf(core);
+    //}
+    //public int GetPlayerIndex(PlayerData data)
+    //{
+    //    if (data == null) return -1;
+    //    for (int i = 0; i < PlayerList.Count; i++)
+    //    {
+    //        if (PlayerList[i].PlayerData == data) return i;
+    //    }
+    //    return -1;
+    //}
 
-    public PlayerCore GetPlayerCore(PlayerData data)
-    {
-        if (data == null) return null;
-        foreach(PlayerCore core in PlayerList) { if (core.PlayerData == data) return core; }
-        return null;
-    }
+    //public PlayerCore GetPlayerCore(PlayerData data)
+    //{
+    //    if (data == null) return null;
+    //    foreach(PlayerCore core in PlayerList) { if (core.PlayerData == data) return core; }
+    //    return null;
+    //}
 
     //Timer desde el comienzo del minijuego, no solo para terminar juego
     public float Timer { get; private set; } = 0f;
@@ -157,7 +156,6 @@ public class MinigameManager : Singleton<MinigameManager>
         {
             PlayerCore playerIns = Instantiate(playerPrefab, spawnPositions[i], Quaternion.identity, playerHolder.transform);
             playerIns.InitPlayer(dataList[i]);
-            PlayerList.Add(playerIns);
         }
         
     }
@@ -170,7 +168,7 @@ public class MinigameManager : Singleton<MinigameManager>
     {
         Timer = GameSettings.MAX_TIMER;
         shouldCountTimer = true;
-        foreach (var pl in PlayerList) pl.ToggleMovement(true);
+        foreach (var pl in PlayerCore.AllPlayers) pl.ToggleMovement(true);
         NotifyMinigameStart();
     }
 
@@ -180,7 +178,7 @@ public class MinigameManager : Singleton<MinigameManager>
         shouldCountTimer = false;
         NotifyMinigameEnd();
         SceneNav.GoToWithDelay(SceneType.Gameplay, 2.0f);
-        foreach(PlayerCore player in PlayerList)
+        foreach(PlayerCore player in PlayerCore.AllPlayers)
         {
             if (playersDead.Contains(player.PlayerData)) return;
             AssignPoints(player);
@@ -189,9 +187,9 @@ public class MinigameManager : Singleton<MinigameManager>
 
     public void PlayerDeath(PlayerCore player)
     {
-        if (!PlayerList.Contains(player)) return;
+        //TODO: CASTEAR ESTO O ALGO
+        if (!PlayerCore.AllPlayers.Contains(player)) return;
 
-        PlayerList.Remove(player);
         player.KillPlayer();
         
         //Add a lista de muertos
@@ -201,14 +199,14 @@ public class MinigameManager : Singleton<MinigameManager>
         
         //TODO: Otra forma por si no siempre es uno
         AssignPoints(player);
-        if (PlayerList.Count <= 1) EndMinigame();
+        if (PlayerCore.AllPlayers.Count <= 1) EndMinigame();
     }
 
     //Se utiliza cuando se desconecta un mando, para matar al jugador.
     public void KillPlayer(PlayerData arg0)
     {
         //List<PlayerCore> copyList = PlayerList;
-        foreach(var player in PlayerList) 
+        foreach(var player in PlayerCore.AllPlayers) 
         {
             if (player != null && player.PlayerData == arg0) 
             {

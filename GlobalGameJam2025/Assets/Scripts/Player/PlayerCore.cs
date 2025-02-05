@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +21,21 @@ public class PlayerCore : MonoBehaviour
     public PlayerFX PlayerFX { get { return playerFX; } }
     public PlayerController PlayerController { get { return playerController; } }
     public PlayerInputHandler PlayerInput { get { return playerInput; } }
+
     
+    private static List<PlayerCore> allPlayers = new List<PlayerCore>();
+    public static List<PlayerCore> AllPlayers
+    {
+        get
+        {
+            allPlayers.RemoveAll(player => player == null);
+            return allPlayers;
+        }
+        private set
+        {
+            allPlayers = value;
+        }
+    }
     public void InitPlayer(PlayerData data, PlayerActionType mapType = PlayerActionType.Gameplay)
     {
         playerData = data;
@@ -32,7 +47,11 @@ public class PlayerCore : MonoBehaviour
         playerFX.Init(playerData);
         PlayerInput.Init(data, playerController, mapType);
         PlayerInput.InitCallbacks(NotifyDash, NotifySpecial);
+
+        //Auto add a la lista de Cores cuando todo esta ready
+        allPlayers.Add(this);
     }
+
     private void NotifyDash()
     {
         playerController.OnPlayerDash();
@@ -51,8 +70,13 @@ public class PlayerCore : MonoBehaviour
             PlayerController.PlayerState.CanMove :
             PlayerController.PlayerState.Waiting);
     }
+    private void OnDestroy()
+    {
+        if (allPlayers.Contains(this)) allPlayers.Remove(this);
+    }
     public void KillPlayer()
     {
+        if(allPlayers.Contains(this)) allPlayers.Remove(this);
         playerController.KillPlayer();
         PlayerFX.KillPlayer();
         Destroy(gameObject, 1.0f);
