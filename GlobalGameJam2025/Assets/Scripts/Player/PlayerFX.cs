@@ -11,12 +11,12 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     [SerializeField] private Renderer playerRenderer;
     [SerializeField] private Renderer playerIndicator;
     [SerializeField] private Renderer playerDash;
+    [SerializeField] private Renderer hatRenderer;
     [SerializeField] private ParticleSystem playerParticles;
 
     [Space(10)]
     [Header("Extra")]
     [SerializeField] private CollisionPainter collisionPainter;
-    private Sequence spawnSeq;
 
     [Header("Collision FX")]
     [SerializeField] private float scaleMultiplier = 0.85f;
@@ -43,7 +43,6 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     }
     private void OnDisable()
     {
-        spawnSeq?.Kill();
         playerSeq?.Kill();
 
         EventBus<PlayerConnectionEvent>.DeRegister(OnPlayerConnection);
@@ -114,15 +113,23 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
    
     private void PlaySpawnAnim()
     {
-        if(spawnSeq != null) spawnSeq.Restart();
-        else spawnSeq = DOTween.Sequence();
+        if (!hatRenderer || !playerDash || !playerRenderer) return;
+        
+        if(playerSeq != null) playerSeq.Kill();
+        else playerSeq = DOTween.Sequence();
 
         Transform playerTr = playerRenderer.transform;
         playerTr.localScale = Vector3.zero;
+        hatRenderer.transform.localScale = Vector3.zero;
+        playerDash.transform.localScale = Vector3.zero;
         playerRenderer.material.SetFloat("_Sat", 1.0f);
+        hatRenderer.material.SetFloat("_Sat", 1.0f);
 
-        spawnSeq.Append(playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
-        .Join(playerRenderer.material.DOFloat(0, "_Sat", 0.65f));
+        playerSeq.Append(playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
+        .Join(playerRenderer.material.DOFloat(0, "_Sat", 0.65f))
+        .Insert(0.15f, playerDash.transform.DOScale(2.5f, 0.4f).SetEase(Ease.OutBack))
+        .Join(hatRenderer.transform.DOScale(1, 0.4f).SetEase(Ease.OutBack))
+        .Join(hatRenderer.material.DOFloat(0, "_Sat", 0.4f));
     }
 
     

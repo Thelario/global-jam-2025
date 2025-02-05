@@ -34,6 +34,7 @@ Transform:
   - {fileID: 6510537955376470440}
   - {fileID: 938890598551099039}
   - {fileID: 5962022301948620730}
+  - {fileID: 2709428325115709519}
   m_Father: {fileID: 3139690833539739720}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1785076030379638802
@@ -5266,7 +5267,6 @@ Transform:
   - {fileID: 1301616208319290822}
   - {fileID: 1018594252577552286}
   - {fileID: 1447704315158184064}
-  - {fileID: 2709428325115709519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5885236349941548951
@@ -5297,6 +5297,7 @@ MonoBehaviour:
   playerRenderer: {fileID: 169845784150075049}
   playerIndicator: {fileID: 2089984327738672125}
   playerDash: {fileID: 6737859183260022632}
+  hatRenderer: {fileID: 7552206631359789174}
   playerParticles: {fileID: 1482520850257127716}
   collisionPainter: {fileID: 0}
   scaleMultiplier: 0.65
@@ -5384,7 +5385,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 0be81f40-6ab4-4b9d-9f15-6ad5d0938b1c
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!135 &4031469406445159302
@@ -5546,13 +5547,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7552206631359789174}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8114655665286595001}
-  m_Father: {fileID: 3139690833539739720}
+  m_Father: {fileID: 1018594252577552286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8990953348357075426
 MonoBehaviour:
@@ -5570,7 +5571,6 @@ MonoBehaviour:
   swayFactor: 75
   maxRotation: 50
   returnSpeed: 10
-  playerTransform: {fileID: 1301616208319290822}
 --- !u!1001 &8581526802319124050
 PrefabInstance:
   m_ObjectHideFlags: 0

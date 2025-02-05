@@ -11,7 +11,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         base.Awake();
         PlayerConnection = gameObject.AddComponent<PlayerConnection>();
-        PlayerConnection.Init(this);
+        PlayerConnection.Init(this, AddPlayer, RemovePlayer);
     }
 
     #region PLAYER MANAGEMENT
@@ -40,7 +40,8 @@ public class GameManager : PersistentSingleton<GameManager>
         player.SetSkin(newSkin);
     }
 
-    public void AddPlayer(PlayerData playerData)
+    //Se llaman desde PlayerConnection
+    private void AddPlayer(PlayerData playerData)
     {
         if (playerData == null) return;
 
@@ -48,26 +49,23 @@ public class GameManager : PersistentSingleton<GameManager>
         EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Connected, data = playerData });
     }
 
-    public void RemovePlayer(PlayerData playerData)
+    private void RemovePlayer(PlayerData playerData)
     {
         if (playerData == null) return;
 
         PlayersConnected.Remove(playerData);
         EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Disconnected, data = playerData });
     }
-
+    //Excepcion para eliminar jugadores con boton desde Lobby
     public void RemovePlayer(int index)
     {
-        if (PlayersConnected[index] != null)
-        {
-            RemovePlayer(PlayersConnected[index]);
-        }
+        if (PlayersConnected[index] != null) RemovePlayer(PlayersConnected[index]);
     }
 
     public void ClearAllPlayers()
     {
         PlayersConnected.Clear();
-        PlayerConnection.Init(this); // Reinitialize player connection
+        //PlayerConnection.Init(this); // Reinitialize player connection
     }
 
     #endregion

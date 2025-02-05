@@ -2,27 +2,34 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
+/// <summary>
+/// Se encarga de la conexion/desconexion de Controladores
+/// Solo se comunica con el GameManager y no es accesible desde ningun otro sitio
+/// Cuando se conecta un mando, crea un PlayerData y se lo pasa a GameManager
+/// </summary>
 public class PlayerConnection : MonoBehaviour
 {
     private GameManager gameManager;
 
+    private Action<PlayerData> OnPlayerDataAdded;
+    private Action<PlayerData> OnPlayerDataRemoved;
+
     private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
     private void OnDisable() => InputSystem.onDeviceChange -= OnDeviceChange;
 
-    public void Init(GameManager manager)
+    public void Init(GameManager manager, Action<PlayerData> addPlayer, Action<PlayerData> removePlayer)
     {
         gameManager = manager;
+        OnPlayerDataAdded = addPlayer;
+        OnPlayerDataRemoved = removePlayer;
 
         if (GameSettings.INITIALIZE_CONTROLLERS)
         {
-            foreach (var connPl in GetAllConnectedDevices())
-            {
-                AddPlayer(connPl);
-            }
+            foreach (var connPl in GetAllConnectedDevices()) TryAddPlayer(connPl);
         }
 
-        // Optionally simulate players if needed
         // if (GameSettings.SIMULATE_PLAYERS != 0) AddFakePlayers();
     }
 
@@ -36,13 +43,13 @@ public class PlayerConnection : MonoBehaviour
         // Connect controller on START
         if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {
-            AddPlayer(Gamepad.current);
+            TryAddPlayer(Gamepad.current);
         }
 
         // Connect keyboard on ENTER
         if (Input.GetKey(KeyCode.Return))
         {
-            AddPlayer(Keyboard.current);
+            TryAddPlayer(Keyboard.current);
         }
     }
 
@@ -50,41 +57,31 @@ public class PlayerConnection : MonoBehaviour
     {
         if (change == InputDeviceChange.Added)
         {
-            if (device is Gamepad || device is Keyboard)
-                AddPlayer(device);
+            if (device is Gamepad || device is Keyboard) TryAddPlayer(device);
         }
         else if (change == InputDeviceChange.Removed)
         {
-            if (device is Gamepad || device is Keyboard)
-                RemovePlayer(device);
+            if (device is Gamepad || device is Keyboard) TryRemovePlayer(device);
         }
     }
 
-    // Check if player already exists by device ID
-    public bool PlayerExists(InputDevice device)
-    {
-        return gameManager.PlayersConnected.Exists(p => p.GetID() == device.deviceId);
-    }
-
-    private void AddPlayer(InputDevice device)
+    private void TryAddPlayer(InputDevice device)
     {
         if (device == null || PlayerExists(device)) return;
 
         PlayerData newPlayerData = new PlayerData(device, GetPlayerSkin());
-        gameManager.AddPlayer(newPlayerData);
+        OnPlayerDataAdded?.Invoke(newPlayerData);
+        //gameManager.AddPlayer(newPlayerData);
     }
 
-    private void RemovePlayer(InputDevice device)
+    private void TryRemovePlayer(InputDevice device)
     {
         if (device == null) return;
 
         PlayerData playerToRemove = gameManager.PlayersConnected
             .FirstOrDefault(p => p.GetID() == device.deviceId);
 
-        if (playerToRemove != null)
-        {
-            gameManager.RemovePlayer(playerToRemove);
-        }
+        if (playerToRemove != null) OnPlayerDataRemoved?.Invoke(playerToRemove);
     }
 
     public List<InputDevice> GetAllConnectedDevices()
@@ -92,6 +89,12 @@ public class PlayerConnection : MonoBehaviour
         return InputSystem.devices
             .Where(device => device is Keyboard || device is Gamepad)
             .ToList();
+    }
+    
+    // Check if player already exists by device ID
+    public bool PlayerExists(InputDevice device)
+    {
+        return gameManager.PlayersConnected.Exists(p => p.GetID() == device.deviceId);
     }
 
     private PlayerSkin GetPlayerSkin()

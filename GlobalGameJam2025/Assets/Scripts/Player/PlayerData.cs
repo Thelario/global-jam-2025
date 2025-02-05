@@ -30,4 +30,10 @@ public static class PlayerDataExtensions
     {
         return playerData.GetID() == other.GetID();
     }
+    public static int GetHashCode(this PlayerData playerData)
+    {
+        int hash = 17;//Numero Primo para Hash
+        hash = hash * 23 + playerData.GetID().GetHashCode();
+        return hash;
+    }
 }
