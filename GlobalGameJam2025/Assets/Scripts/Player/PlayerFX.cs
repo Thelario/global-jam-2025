@@ -22,6 +22,7 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     [SerializeField] private float scaleMultiplier = 0.85f;
 
     private Sequence playerSeq;
+    PlayerController controller;
     PlayerData playerData;
 
     #region Init Methods / Main 
@@ -29,6 +30,9 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     {
         playerData = data;
         if (playerFollow) playerFollow.Init(this as MonoBehaviour);
+        controller = GetComponent<PlayerController>();
+        //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
+        controller.onPlayerCollision += CollisionFX;
         RefreshRenderer(data);
         PlaySpawnAnim();
     }
@@ -38,8 +42,7 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
         OnPlayerConnection = new EventBinding<PlayerConnectionEvent>(PlayerConnected);
         EventBus<PlayerConnectionEvent>.Register(OnPlayerConnection);
 
-        //TODO: Cambiar esto por un wrapper en Core, Definir una vez la Sequence
-        GetComponent<PlayerController>().onPlayerCollision += CollisionFX;
+        
     }
     private void OnDisable()
     {
@@ -83,10 +86,6 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     
     #endregion
 
-    public void UpdateDash()
-    {
-        playerDash.material.SetFloat("_FillAmmount", 0.25f);
-    }
 
     public void KillPlayer()
     {
@@ -149,8 +148,12 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
             playerIndicator.material.SetVector("_Color", Color.white);
         }
     }
-
-    public void OnPlayerDash() => UpdateDash();
+    private void Update()
+    {
+        if (!playerDash || controller) return;
+        playerDash.material.SetFloat("_FillAmmount", controller.DashTimer / controller.DashReloadTime);
+    }
+    public void OnPlayerDash() { }
 
     public void OnPlayerSpecial() => RefreshRenderer(playerData);
 }

@@ -31,10 +31,7 @@ public class PlayerCore : MonoBehaviour
             allPlayers.RemoveAll(player => player == null);
             return allPlayers;
         }
-        private set
-        {
-            allPlayers = value;
-        }
+        private set { allPlayers = value; }
     }
     public void InitPlayer(PlayerData data, PlayerActionType mapType = PlayerActionType.Gameplay)
     {
@@ -45,30 +42,19 @@ public class PlayerCore : MonoBehaviour
 
         playerController.Init(playerData);
         playerFX.Init(playerData);
-        PlayerInput.Init(data, playerController, mapType);
-        PlayerInput.InitCallbacks(NotifyDash, NotifySpecial);
+        PlayerInput.Init(data, mapType);
 
         //Auto add a la lista de Cores cuando todo esta ready
         allPlayers.Add(this);
     }
 
-    private void NotifyDash()
-    {
-        playerController.OnPlayerDash();
-        playerFX.OnPlayerDash();
-    }
-    private void NotifySpecial()
-    {
-        playerController.OnPlayerSpecial();
-        playerFX.OnPlayerSpecial();
-    }
     #region Wrappers
     public void AddForce(Vector3 forceDir) => playerController.AddForce(forceDir);
     public void ToggleMovement(bool value)
     {
         playerController.ChangeState(value ?
             PlayerController.PlayerState.CanMove :
-            PlayerController.PlayerState.Waiting);
+            PlayerController.PlayerState.Locked);
     }
     private void OnDestroy()
     {

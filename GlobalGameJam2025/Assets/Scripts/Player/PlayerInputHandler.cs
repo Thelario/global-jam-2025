@@ -11,62 +11,42 @@ public enum PlayerActionType
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
-    private Action onSpecial;
-    private Action onDash;
-
-
     private PlayerData playerData;
     private PlayerInput playerInput;
     private PlayerController playerController;
+    private PlayerFX playerFX;
 
-    public void Init(PlayerData data, PlayerController pl, PlayerActionType actionType = PlayerActionType.Gameplay)
+    public void Init(PlayerData data, PlayerActionType actionType = PlayerActionType.Gameplay)
     {
         playerData = data;
-        playerController = pl;
-
+        playerController = GetComponent<PlayerController>();
+        playerFX = GetComponent<PlayerFX>();
         playerInput = GetComponent<PlayerInput>();
+
         playerInput.SwitchCurrentControlScheme(data.GetDeviceType());
-        
-        BindActions(actionType);
-    }
-    public void InitCallbacks(Action notifyDash, Action notifySpecial)
-    {
-        onDash = notifyDash;
-        onSpecial = notifySpecial;
-    }
-    private void OnDisable()
-    {
-        playerInput.onActionTriggered -= HandleAction;
+        //playerInput.SwitchCurrentActionMap(actionType.ToString());
     }
 
-    private void BindActions(PlayerActionType actionType)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        if (!playerInput) return;
-        playerInput.SwitchCurrentActionMap(actionType.ToString());
-        playerInput.onActionTriggered += HandleAction;
+        playerController.MoveInput(context.ReadValue<Vector2>());
     }
-
-    private void HandleAction(InputAction.CallbackContext context)
+    public void OnDash(InputAction.CallbackContext context)
     {
-        switch(context.action.name) 
+        if (context.action.WasPerformedThisFrame())
         {
-            case "Move":
-                playerController.MoveInput(context.ReadValue<Vector2>());
-                break;
-            case "Dash":
-                if (context.action.WasPerformedThisFrame())
-                {
-                    EventBus<PlayerDash>.Raise(new PlayerDash { data = playerData });
-                    onDash?.Invoke();
-                }
-                break;
-            case "Special":
-                if (context.action.WasPerformedThisFrame())
-                {
-                    EventBus<PlayerSpecial>.Raise(new PlayerSpecial { data = playerData });
-                    onSpecial?.Invoke();
-                }
-                break;
+            if(playerController) playerController.OnPlayerDash();
+            if(playerFX) playerFX.OnPlayerDash();
+            EventBus<PlayerDash>.Raise(new PlayerDash { data = playerData });
+        }
+    }
+    public void OnSpecial(InputAction.CallbackContext context)
+    {
+        if (context.action.WasPerformedThisFrame())
+        {
+            if (playerController) playerController.OnPlayerSpecial();
+            if (playerFX) playerFX.OnPlayerSpecial();
+            EventBus<PlayerSpecial>.Raise(new PlayerSpecial { data = playerData });
         }
     }
 }

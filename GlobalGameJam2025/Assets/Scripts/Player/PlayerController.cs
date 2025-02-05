@@ -6,13 +6,17 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerController : MonoBehaviour, IPlayerEvents
 {
-    public enum PlayerState { Waiting, CanMove }
+    public enum PlayerState { Locked, CanMove, Dashing }
 
     #region Properties
 
-    public PlayerState State { get; private set; } = PlayerState.Waiting;
+    public PlayerState State { get; private set; } = PlayerState.Locked;
 
-    private bool CanUseDash => dashDelayTimer >= dashDelayTime * 0.9f;
+    // Current buffer for dash
+    public float DashTimer { get; private set; } = 0.0f;
+    // Time until dash can be used again
+    public float DashReloadTime { get; private set; } = 2.0f;
+    public bool IsDashing => DashTimer > 0.0f;
 
     #endregion
 
@@ -22,41 +26,66 @@ public class PlayerController : MonoBehaviour, IPlayerEvents
     [SerializeField] private float minimumVelocityOnCollision = 5;
 
     [Header("Movement")]
-    [SerializeField] private float movementForce = 5;
-    private float _movementForceInit;
+    [SerializeField] private float moveSpeed = 30;
+    [SerializeField] private float accelerationRate = 5; // How fast the player accelerates
+    [SerializeField] private float decelerationRate = 1.25f;
 
     [Header("Dash")]
     [SerializeField] private float dashForce = 500;
-    [SerializeField] private float dashTime = 0.1f;
-    [SerializeField] private float dashDelayTime = 2;
-    private float dashDelayTimer;
-    private bool dashing;
-    private Vector2 dashDirection;
-    private Vector2 movementInput;
+    private float dashDuration = 0.75f;
+
+    private Vector2 inputDir;
+    private float currentSpeed = 0f; // Tracks the player's current speed
     #endregion
 
     private Rigidbody rb;
+    private Collider col;
+
     public event Action onPlayerCollision;
 
-    #region Unity Methods
+    #region Core Methods
 
-    private void Update()
+    public void Init(PlayerData data)
     {
-        if (State == PlayerState.Waiting) return;
-        dashDelayTimer += Time.deltaTime;
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+
+        DashTimer = DashReloadTime;
+        ChangeState(PlayerState.Locked);
+    }
+
+    public void ChangeState(PlayerState newState)
+    {
+        State = newState;
+        if (rb) rb.isKinematic = newState == PlayerState.Locked;
     }
 
     public void KillPlayer()
     {
-        ChangeState(PlayerState.Waiting);
+        ChangeState(PlayerState.Locked);
         rb.isKinematic = true;
-        GetComponent<Collider>().enabled = false;
+        col.enabled = false;
+    }
+
+    // InputHandler Methods
+    public void MoveInput(Vector2 moveDir) => inputDir = moveDir;
+    public void OnPlayerDash() => Dash();
+    public void OnPlayerSpecial() { }
+
+    #endregion
+
+    #region Physics
+
+    private void Update()
+    {
+        if (State == PlayerState.Locked) return;
+        if (DashTimer > 0) DashTimer -= Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        if (State == PlayerState.Waiting) return;
-        Move();
+        if (State == PlayerState.Locked) return;
+        ApplyMovement();
     }
 
     public void AddForce(Vector3 forceDir)
@@ -64,83 +93,36 @@ public class PlayerController : MonoBehaviour, IPlayerEvents
         if (rb) rb.AddForce(forceDir);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision) => HandleCollision(collision);
+
+    private void ApplyMovement()
     {
-        HandleCollision(collision);
-    }
+        // Gradually increase speed based on input direction
+        if (inputDir.magnitude > 0)
+        {
+            // Accelerate to moveSpeed based on time and accelerationRate
+            currentSpeed = Mathf.MoveTowards(currentSpeed, moveSpeed, accelerationRate * Time.deltaTime);
+        }
+        else
+        {
+            // If no input, start decelerating
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0, accelerationRate * Time.deltaTime);
+        }
 
-    public void ChangeState(PlayerState newState)
-    {
-        State = newState;
-        if (rb) rb.isKinematic = newState == PlayerState.Waiting;
-    }
-
-    #endregion
-
-    #region Initialization
-
-    public void Init(PlayerData data)
-    {
-        rb = GetComponent<Rigidbody>();
-
-        _movementForceInit = movementForce;
-        SetMovementForceMultiplier(1f);
-        ChangeState(PlayerState.Waiting);
-    }
-
-    #endregion
-
-    #region Movement
-
-    public void MoveInput(Vector2 moveDir)
-    {
-        movementInput = moveDir;
-    }
-
-    private void Move()
-    {
-        Vector3 force = new Vector3(movementInput.x, 0, movementInput.y) * movementForce * Time.deltaTime;
+        // Apply movement force based on current speed
+        Vector3 force = new Vector3(inputDir.x, 0, inputDir.y).normalized * currentSpeed;
         rb.AddForce(force);
 
-        if (!dashing && movementInput.magnitude < 0.1f)
-        {
-            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime);
-        }
+        // Deceleration (slows down the player when there's no input)
+        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, Vector3.zero, Time.deltaTime * decelerationRate);
     }
-
-    public void SetMovementForceMultiplier(float multiplier)
-    {
-        movementForce *= multiplier;
-    }
-
-    public void ResetMovementForce()
-    {
-        movementForce = _movementForceInit;
-    }
-
-    #endregion
-
-    #region Dash
 
     public void Dash()
     {
-        dashDelayTimer = 0;
+        DashTimer = DashReloadTime;
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-        dashDirection = movementInput;
-        rb.AddForce(dashDirection * dashForce);
-        dashing = true;
-        StartCoroutine(DashCoroutine());
+        rb.AddForce(new Vector3(inputDir.x, 0, inputDir.y).normalized * dashForce);
     }
-
-    private IEnumerator DashCoroutine()
-    {
-        yield return new WaitForSeconds(dashTime);
-        dashing = false;
-    }
-
-    #endregion
-
-    #region Collision Handling
 
     private void HandleCollision(Collision collision)
     {
@@ -159,15 +141,8 @@ public class PlayerController : MonoBehaviour, IPlayerEvents
         if (playerVelocity > otherVelocity)
         {
             rb.linearVelocity = direction * impactVelocity / 2;
-            otherPlayer.rb.linearVelocity = dashing ? -direction * impactVelocity : -direction * impactVelocity * 1.2f;
+            otherPlayer.rb.linearVelocity = IsDashing ? -direction * impactVelocity : -direction * impactVelocity * 1.2f;
         }
     }
-
-    public void OnPlayerDash() => Dash();
-
-    public void OnPlayerSpecial()
-    {
-    }
-
     #endregion
 }
