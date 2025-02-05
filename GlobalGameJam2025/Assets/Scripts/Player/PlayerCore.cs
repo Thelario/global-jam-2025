@@ -14,13 +14,14 @@ public class PlayerCore : MonoBehaviour
     PlayerController playerController;
     PlayerInputHandler playerInput;
 
+    public Action OnPlayerDash;
 
     public PlayerData PlayerData { get { return playerData; } }
     public PlayerFX PlayerFX { get { return playerFX; } }
     public PlayerController PlayerController { get { return playerController; } }
     public PlayerInputHandler PlayerInput { get { return playerInput; } }
-
-    public void InitPlayer(PlayerData data)
+    
+    public void InitPlayer(PlayerData data, PlayerActionType mapType = PlayerActionType.Gameplay)
     {
         playerData = data;
         playerController = GetComponent<PlayerController>();
@@ -29,9 +30,19 @@ public class PlayerCore : MonoBehaviour
 
         playerController.Init(playerData);
         playerFX.Init(playerData);
-        PlayerInput.Init(data, playerController);
+        PlayerInput.Init(data, playerController, mapType);
+        PlayerInput.InitCallbacks(NotifyDash, NotifySpecial);
     }
-
+    private void NotifyDash()
+    {
+        playerController.OnPlayerDash();
+        playerFX.OnPlayerDash();
+    }
+    private void NotifySpecial()
+    {
+        playerController.OnPlayerSpecial();
+        playerFX.OnPlayerSpecial();
+    }
     #region Wrappers
     public void AddForce(Vector3 forceDir) => playerController.AddForce(forceDir);
     public void ToggleMovement(bool value)

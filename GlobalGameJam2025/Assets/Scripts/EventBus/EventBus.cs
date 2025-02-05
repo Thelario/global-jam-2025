@@ -24,7 +24,7 @@ public static class EventBus<T> where T : IEvent
 
     static void Clear()
     {
-        Debug.Log($"Clearing {typeof(T).Name} bindings");
+        if(GameSettings.LOG_EVENT_BUS) Debug.Log($"Clearing {typeof(T).Name} bindings");
         bindings.Clear();
     }
 }

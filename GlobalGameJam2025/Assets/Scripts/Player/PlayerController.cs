@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputHandler))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerEvents
 {
     public enum PlayerState { Waiting, CanMove }
 
@@ -161,6 +161,12 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = direction * impactVelocity / 2;
             otherPlayer.rb.linearVelocity = dashing ? -direction * impactVelocity : -direction * impactVelocity * 1.2f;
         }
+    }
+
+    public void OnPlayerDash() => Dash();
+
+    public void OnPlayerSpecial()
+    {
     }
 
     #endregion

@@ -97,7 +97,7 @@ public class PlayerConnection : MonoBehaviour
     private PlayerSkin GetPlayerSkin()
     {
         return GameSettings.ASSIGN_SKINS_IN_ORDER ?
-            PlayerSkin.GetFirstAvailableSkin(gameManager.PlayersConnected) :
-            PlayerSkin.GetRandomUnassignedSkin(gameManager.PlayersConnected);
+            PlayerSkin.GetFirstAvailableSkin() :
+            PlayerSkin.GetRandomUnassignedSkin();
     }
 }

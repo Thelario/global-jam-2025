@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerFX : MonoBehaviour
+public class PlayerFX : MonoBehaviour, IPlayerEvents
 {
     EventBinding<PlayerConnectionEvent> OnPlayerConnection;
 
@@ -84,6 +84,11 @@ public class PlayerFX : MonoBehaviour
     
     #endregion
 
+    public void UpdateDash()
+    {
+        playerDash.material.SetFloat("_FillAmmount", 0.25f);
+    }
+
     public void KillPlayer()
     {
         Destroy(playerFollow.gameObject);
@@ -139,4 +144,8 @@ public class PlayerFX : MonoBehaviour
             playerIndicator.material.SetVector("_Color", Color.white);
         }
     }
+
+    public void OnPlayerDash() => UpdateDash();
+
+    public void OnPlayerSpecial() => RefreshRenderer(playerData);
 }

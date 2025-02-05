@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerSelector : MonoBehaviour
 {
     EventBinding<PlayerConnectionEvent> OnPlayerConnected;
+    EventBinding<PlayerSpecial> OnPlayerSpecial;
 
     [Header("Player Panel Window")]
     [SerializeField] private TextMeshProUGUI playerCountText;
@@ -31,14 +32,18 @@ public class PlayerSelector : MonoBehaviour
         //Added
         OnPlayerConnected = new EventBinding<PlayerConnectionEvent>(HandlePlayerConnection);
         EventBus<PlayerConnectionEvent>.Register(OnPlayerConnected);
+        OnPlayerSpecial = new EventBinding<PlayerSpecial>(HandlePlayerSpecial);
+        EventBus<PlayerSpecial>.Register(OnPlayerSpecial);
 
         if (gobackButton) gobackButton.onClick.AddListener(GoToMainMenu);
         if (continueButton) continueButton.onClick.AddListener(TryChangeScene);
     }
 
+
     private void OnDisable()
     {
         EventBus<PlayerConnectionEvent>.DeRegister(OnPlayerConnected);
+        EventBus<PlayerSpecial>.DeRegister(OnPlayerSpecial);
 
         if (gobackButton) gobackButton.onClick.RemoveAllListeners();
         if (continueButton) continueButton.onClick.RemoveAllListeners();
@@ -82,13 +87,17 @@ public class PlayerSelector : MonoBehaviour
         if(pl.conType == ConnectionType.Connected) PlayerAdded(pl.data);
         else PlayerRemoved(pl.data);
     }
-    
+    private void HandlePlayerSpecial(PlayerSpecial special)
+    {
+        gameManager.SetNextPlayerSkin(special.data);
+    }
+
     private void PlayerAdded(PlayerData newPlayer)
     {
         Vector3 spawnPos = Random.insideUnitSphere * 5.5f;
         spawnPos.y = 1;
         PlayerCore core = Instantiate(AssetLocator.Data.PlayerPrefab, spawnPos, Quaternion.identity);
-        core.InitPlayer(newPlayer);
+        core.InitPlayer(newPlayer, PlayerActionType.Lobby);
         core.ToggleMovement(true);
 
         playerList.Add(core);

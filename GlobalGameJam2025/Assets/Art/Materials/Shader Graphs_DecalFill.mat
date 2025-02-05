@@ -53,6 +53,7 @@ Material:
     m_Floats:
     - _FillAmmount: 1
     - _InnerRing: 0.8
+    - _OutterRing: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

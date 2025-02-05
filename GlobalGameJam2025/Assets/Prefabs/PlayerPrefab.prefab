@@ -5384,7 +5384,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 0be81f40-6ab4-4b9d-9f15-6ad5d0938b1c
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!135 &4031469406445159302

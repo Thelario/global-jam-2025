@@ -33,6 +33,12 @@ public class GameManager : PersistentSingleton<GameManager>
             PlayersConnected[playerIndex] = newPlayerData;
         }
     }
+    public void SetNextPlayerSkin(PlayerData player)
+    {
+        if (player == null) return;
+        PlayerSkin newSkin = PlayerSkin.GetNextAvailableSkin(player.GetSkin());
+        player.SetSkin(newSkin);
+    }
 
     public void AddPlayer(PlayerData playerData)
     {

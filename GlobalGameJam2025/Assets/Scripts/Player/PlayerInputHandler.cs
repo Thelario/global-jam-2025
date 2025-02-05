@@ -4,28 +4,45 @@ using UnityEngine.InputSystem;
 
 public enum PlayerActionType
 {
-    Menu,
+    Lobby,
     Gameplay
 }
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputHandler : MonoBehaviour
 {
+    private Action onSpecial;
+    private Action onDash;
+
+
+    private PlayerData playerData;
     private PlayerInput playerInput;
     private PlayerController playerController;
 
     public void Init(PlayerData data, PlayerController pl, PlayerActionType actionType = PlayerActionType.Gameplay)
     {
+        playerData = data;
         playerController = pl;
+
         playerInput = GetComponent<PlayerInput>();
         playerInput.SwitchCurrentControlScheme(data.GetDeviceType());
-        BindActions();
+        
+        BindActions(actionType);
+    }
+    public void InitCallbacks(Action notifyDash, Action notifySpecial)
+    {
+        onDash = notifyDash;
+        onSpecial = notifySpecial;
+    }
+    private void OnDisable()
+    {
+        playerInput.onActionTriggered -= HandleAction;
     }
 
-    private void BindActions()
+    private void BindActions(PlayerActionType actionType)
     {
         if (!playerInput) return;
-
+        playerInput.SwitchCurrentActionMap(actionType.ToString());
         playerInput.onActionTriggered += HandleAction;
     }
 
@@ -37,9 +54,17 @@ public class PlayerInputHandler : MonoBehaviour
                 playerController.MoveInput(context.ReadValue<Vector2>());
                 break;
             case "Dash":
-                if (context.action.WasPressedThisFrame())
+                if (context.action.WasPerformedThisFrame())
                 {
-                    playerController.Dash();
+                    EventBus<PlayerDash>.Raise(new PlayerDash { data = playerData });
+                    onDash?.Invoke();
+                }
+                break;
+            case "Special":
+                if (context.action.WasPerformedThisFrame())
+                {
+                    EventBus<PlayerSpecial>.Raise(new PlayerSpecial { data = playerData });
+                    onSpecial?.Invoke();
                 }
                 break;
         }
