@@ -11,7 +11,7 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     [SerializeField] private Renderer playerRenderer;
     [SerializeField] private Renderer playerIndicator;
     [SerializeField] private Renderer playerDash;
-    [SerializeField] private Renderer hatRenderer;
+    [SerializeField] private GameObject hatRenderer;
     [SerializeField] private ParticleSystem playerParticles;
 
     [Space(10)]
@@ -123,13 +123,11 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
         hatRenderer.transform.localScale = Vector3.zero;
         playerDash.transform.localScale = Vector3.zero;
         playerRenderer.material.SetFloat("_Sat", 1.0f);
-        hatRenderer.material.SetFloat("_Sat", 1.0f);
 
         playerSeq.Append(playerTr.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack))
         .Join(playerRenderer.material.DOFloat(0, "_Sat", 0.65f))
         .Insert(0.15f, playerDash.transform.DOScale(2.5f, 0.4f).SetEase(Ease.OutBack))
-        .Join(hatRenderer.transform.DOScale(1, 0.4f).SetEase(Ease.OutBack))
-        .Join(hatRenderer.material.DOFloat(0, "_Sat", 0.4f));
+        .Join(hatRenderer.transform.DOScale(1, 0.25f).SetEase(Ease.OutBack));
     }
 
     

@@ -13,17 +13,12 @@ public class PlayerConnection : MonoBehaviour
 {
     private GameManager gameManager;
 
-    private Action<PlayerData> OnPlayerDataAdded;
-    private Action<PlayerData> OnPlayerDataRemoved;
-
     private void OnEnable() => InputSystem.onDeviceChange += OnDeviceChange;
     private void OnDisable() => InputSystem.onDeviceChange -= OnDeviceChange;
 
-    public void Init(GameManager manager, Action<PlayerData> addPlayer, Action<PlayerData> removePlayer)
+    public void Init(GameManager manager)
     {
         gameManager = manager;
-        OnPlayerDataAdded = addPlayer;
-        OnPlayerDataRemoved = removePlayer;
 
         if (GameSettings.INITIALIZE_CONTROLLERS)
         {
@@ -70,8 +65,7 @@ public class PlayerConnection : MonoBehaviour
         if (device == null || PlayerExists(device)) return;
 
         PlayerData newPlayerData = new PlayerData(device, GetPlayerSkin());
-        OnPlayerDataAdded?.Invoke(newPlayerData);
-        //gameManager.AddPlayer(newPlayerData);
+        gameManager.AddPlayer(newPlayerData);
     }
 
     private void TryRemovePlayer(InputDevice device)
@@ -81,7 +75,10 @@ public class PlayerConnection : MonoBehaviour
         PlayerData playerToRemove = gameManager.PlayersConnected
             .FirstOrDefault(p => p.GetID() == device.deviceId);
 
-        if (playerToRemove != null) OnPlayerDataRemoved?.Invoke(playerToRemove);
+        if (playerToRemove != null)
+        {
+            gameManager.RemovePlayer(playerToRemove);
+        }
     }
 
     public List<InputDevice> GetAllConnectedDevices()

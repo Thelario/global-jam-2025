@@ -14,7 +14,7 @@ public class PlayerProfileUI : MonoBehaviour
 
     private Color initBackColor;
     private CanvasGroup cg;
-    private int lastIndex = -1;
+    private int assignedIndex = -1;
     private void Awake()
     {
         cg = GetComponent<CanvasGroup>();
@@ -34,7 +34,8 @@ public class PlayerProfileUI : MonoBehaviour
 
     private void TryRemovePlayer()
     {
-        if(lastIndex != -1) GameManager.Instance.RemovePlayer(lastIndex);
+        if (assignedIndex == -1) return;
+        GameManager.Instance.RemovePlayer(GameManager.Instance.GetPlayer(assignedIndex));
     }
     private void OnDisable()
     {
@@ -43,7 +44,7 @@ public class PlayerProfileUI : MonoBehaviour
     //Para cuando se desconecte un mando
     public void SetProfileEmpty()
     {
-        lastIndex = -1;
+        assignedIndex = -1;
         cg.alpha = 0.2f;
         backgroundColor.color = initBackColor;
         playerText.text = "Press Start";
@@ -52,10 +53,9 @@ public class PlayerProfileUI : MonoBehaviour
     public void SetProfile(float alpha, PlayerData data)
     {
         cg.alpha = alpha;
-        int index = GameManager.Instance.GetPlayerIndex(data);
-        lastIndex = index;
+        assignedIndex = GameManager.Instance.GetPlayerIndex(data);
         controllerIcon.sprite = AssetLocator.GetControllerIcon(data.GetDeviceType());
         backgroundColor.color = data.GetSkin().mainColor;
-        playerText.text = $"Player {index + 1}";
+        playerText.text = $"Player {assignedIndex + 1}";
     }
 }

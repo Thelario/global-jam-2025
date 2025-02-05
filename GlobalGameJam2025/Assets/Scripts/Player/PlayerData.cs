@@ -21,6 +21,10 @@ public class PlayerData
     public PlayerSkin GetSkin() => m_skin;
     public void SetSkin(PlayerSkin newSkin) => m_skin = newSkin;
     public void AddPoints(int value) => m_points += value;
+
+    //Ovverride para ser nullable
+    public static bool operator true(PlayerData playerData) => playerData != null;
+    public static bool operator false(PlayerData playerData) => playerData == null;
 }
 
 public static class PlayerDataExtensions

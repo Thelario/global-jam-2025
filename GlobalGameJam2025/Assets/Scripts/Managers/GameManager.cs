@@ -1,5 +1,7 @@
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
@@ -11,19 +13,17 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         base.Awake();
         PlayerConnection = gameObject.AddComponent<PlayerConnection>();
-        PlayerConnection.Init(this, AddPlayer, RemovePlayer);
+        PlayerConnection.Init(this);
     }
 
-    #region PLAYER MANAGEMENT
 
+
+    #region PLAYER MANAGEMENT
     public List<PlayerData> PlayersConnected { get; private set; } = new List<PlayerData>();
     public int PlayerCount => PlayersConnected.Count;
 
-    public int GetPlayerIndex(PlayerData data)
-    {
-        if (data == null) return -1;
-        return PlayersConnected.IndexOf(data);
-    }
+    public int GetPlayerIndex(PlayerData data) => data ? PlayersConnected.IndexOf(data) : -1;
+    public PlayerData GetPlayer(int playerIndex) => PlayersConnected[playerIndex] ? PlayersConnected[playerIndex] : null;
 
     // Para cambiar de Skins/Datos/etc.
     public void SetPlayerData(int playerIndex, PlayerData newPlayerData)
@@ -41,25 +41,21 @@ public class GameManager : PersistentSingleton<GameManager>
     }
 
     //Se llaman desde PlayerConnection
-    private void AddPlayer(PlayerData playerData)
+    public void AddPlayer(PlayerData playerData)
     {
-        if (playerData == null) return;
-
         PlayersConnected.Add(playerData);
-        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Connected, data = playerData });
+        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent
+        {
+            conType = ConnectionType.Connected, data = playerData
+        });
     }
-
-    private void RemovePlayer(PlayerData playerData)
+    public void RemovePlayer(PlayerData playerData)
     {
-        if (playerData == null) return;
-
         PlayersConnected.Remove(playerData);
-        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent { conType = ConnectionType.Disconnected, data = playerData });
-    }
-    //Excepcion para eliminar jugadores con boton desde Lobby
-    public void RemovePlayer(int index)
-    {
-        if (PlayersConnected[index] != null) RemovePlayer(PlayersConnected[index]);
+        EventBus<PlayerConnectionEvent>.Raise(new PlayerConnectionEvent
+        { 
+            conType = ConnectionType.Disconnected, data = playerData
+        });
     }
 
     public void ClearAllPlayers()
