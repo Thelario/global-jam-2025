@@ -51,14 +51,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FillAmmount: 1
-    - _InnerRing: 0.8
+    - _FillAmmount: 0.222
+    - _Float: 0.22
+    - _Float_1: -0.9
+    - _InnerRing: 0.75
     - _OutterRing: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 0.9960785, g: 0.75294125, b: 0.33333334, a: 1}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0.8019648, g: 1, b: 0.4009434, a: 1}
     - _SecondaryColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

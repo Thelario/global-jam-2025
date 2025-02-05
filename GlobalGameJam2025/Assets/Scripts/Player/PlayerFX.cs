@@ -150,8 +150,8 @@ public class PlayerFX : MonoBehaviour, IPlayerEvents
     }
     private void Update()
     {
-        if (!playerDash || controller) return;
-        playerDash.material.SetFloat("_FillAmmount", controller.DashTimer / controller.DashReloadTime);
+        if (!playerDash || !controller) return;
+        playerDash.material.SetFloat("_FillAmmount", 1 - (controller.DashTimer / controller.DashReloadTime));
     }
     public void OnPlayerDash() { }
 

@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour, IPlayerEvents
     public void Dash()
     {
         DashTimer = DashReloadTime;
-        rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+        //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
         rb.AddForce(new Vector3(inputDir.x, 0, inputDir.y).normalized * dashForce);
     }
 
