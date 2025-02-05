@@ -85,9 +85,6 @@ public class PlayerController : MonoBehaviour
 
         _movementForceInit = movementForce;
         SetMovementForceMultiplier(1f);
-
-        PlayerInput input = GetComponent<PlayerInput>();
-        input.SwitchCurrentControlScheme(data.GetDeviceType());
         ChangeState(PlayerState.Waiting);
     }
 
@@ -125,17 +122,14 @@ public class PlayerController : MonoBehaviour
 
     #region Dash
 
-    public void Dash_Input(InputAction.CallbackContext context)
+    public void Dash()
     {
-        if (context.started && CanUseDash)
-        {
-            dashDelayTimer = 0;
-            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            dashDirection = movementInput;
-            rb.AddForce(dashDirection * dashForce);
-            dashing = true;
-            StartCoroutine(DashCoroutine());
-        }
+        dashDelayTimer = 0;
+        rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+        dashDirection = movementInput;
+        rb.AddForce(dashDirection * dashForce);
+        dashing = true;
+        StartCoroutine(DashCoroutine());
     }
 
     private IEnumerator DashCoroutine()

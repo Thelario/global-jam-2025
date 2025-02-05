@@ -29,7 +29,7 @@ public class PlayerCore : MonoBehaviour
 
         playerController.Init(playerData);
         playerFX.Init(playerData);
-        PlayerInput.Init(playerController);
+        PlayerInput.Init(data, playerController);
     }
 
     #region Wrappers
