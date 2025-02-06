@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
-  m_Name: Rotating Walls Minigame
+  m_Name: RotatingCookiesMinigame
   m_EditorClassIdentifier: 
-  minigameName: Rotating Walls
-  usesTimer: 1
-  maxTimer: 60
-  minigamePrefab: {fileID: 4594624404338652149, guid: 71b8d3ba9a3365f4684ce5b8ad82622f, type: 3}
+  minigameID: GameID
+  miniGamePrefab: {fileID: 4594624404338652149, guid: 71b8d3ba9a3365f4684ce5b8ad82622f, type: 3}
