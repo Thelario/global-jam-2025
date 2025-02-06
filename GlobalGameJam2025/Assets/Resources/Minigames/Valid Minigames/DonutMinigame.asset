@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
-  m_Name: Chocolate
+  m_Name: DonutMinigame
   m_EditorClassIdentifier: 
   minigameID: GameID
-  miniGamePrefab: {fileID: 8953291886907528084, guid: 436a75c351f89334d8aa36bf203f5653, type: 3}
+  miniGamePrefab: {fileID: 1722444747706364920, guid: 0c01b56d3d3cfe14198e4f7f57563357, type: 3}
