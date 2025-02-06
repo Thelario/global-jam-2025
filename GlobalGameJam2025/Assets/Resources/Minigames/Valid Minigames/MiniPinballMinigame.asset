@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
-  m_Name: Many Mini Pinball Minigame
+  m_Name: MiniPinballMinigame
   m_EditorClassIdentifier: 
-  minigameName: Many Mini Pinball Minigame
-  usesTimer: 1
-  maxTimer: 15
-  minigamePrefab: {fileID: 8695392380013012607, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}
+  minigameID: GameID
+  miniGamePrefab: {fileID: 8695392380013012607, guid: a7d14bfd5d6180943a3e8bdd25459d2a, type: 3}

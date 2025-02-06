@@ -1399,7 +1399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7502104227217027831}
   m_Layer: 0
-  m_Name: Many Mini Pinball Minigame
+  m_Name: MiniPinballMinigame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
