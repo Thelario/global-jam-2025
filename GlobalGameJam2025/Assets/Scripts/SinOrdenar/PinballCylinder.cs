@@ -19,7 +19,7 @@ public class PinballCylinder : MonoBehaviour
         Vector3 hitDirection = other.transform.position - other.contacts[0].point;
         hitDirection.Normalize();
 
-        //SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
+        SoundManager.Instance.PlaySound(Sound.BubbleGiggly);
         playerCore.AddForce(hitDirection * pinballForce*100);//.SetLinearVelocity(hitDirection * pinballForce);
         PopUp();
     }

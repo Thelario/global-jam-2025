@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfd1df141c4b094f9f5687898c606ec, type: 3}
+  m_Name: SoundDataSO
+  m_EditorClassIdentifier: 
+  defaultVolume: 2
+  defaultPitch: 1
+  defaultPitchModifier: 0.2
+  playerMoveTimerMax: 0.25
+  defaultSfxAudioSource: {fileID: 3760216133089599005, guid: a41d6993d1d67b24fbf4efa3dd6dcbe8, type: 3}
+  defaultMusicAudioSource: {fileID: 3385173024947401682, guid: 1f55920408cfb87449b987ab3e8cabab, type: 3}
