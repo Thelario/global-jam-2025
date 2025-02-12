@@ -18,7 +18,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
     protected override void Awake()
     {
         base.Awake();
-
+        
         Configure();
     }
 
@@ -32,7 +32,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
             Debug.LogError("The SoundData couldn't be properly loaded!!!");
         }
 
-        bool playGameplayMusic = false;
+        bool playMusic = false;
         if (transform.childCount == 0)
         {
             // This case might occur when we want to play a minigame directly from gameplay, for example.
@@ -44,7 +44,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
                 _defaultAudioSource = Instantiate(_soundData.DefaultSfxAudioSource, transform).GetComponent<AudioSource>();
                 _musicAudioSource = Instantiate(_soundData.MusicAudioSource, transform).GetComponent<AudioSource>();
 
-                playGameplayMusic = true;
+                playMusic = true;
             }
             else
             {
@@ -78,8 +78,10 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         // If we want to directly play from gameplay (or other scene), we play the music.
 
-        if (playGameplayMusic) {
-            PlaySound(Sound.GameMusic);
+        if (playMusic)
+        {
+            Sound soundToPlay = SceneNav.IsGameplay() ? Sound.GameMusic : Sound.MenuMusic;
+            PlaySound(soundToPlay);
         }
     }
     

@@ -3,16 +3,31 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    bool canPresss = false;
-    IEnumerator Start()
+    [SerializeField] private bool canPresss = false;
+
+    private bool _canPress = false;
+    private static bool _playMenuMusic = true;
+
+    private void Awake()
     {
-        yield return new WaitForSeconds(1.5f);
-        canPresss = true;
+        if (_playMenuMusic) {
+            SoundManager.Instance.PlaySound(Sound.MenuMusic);
+            _playMenuMusic = false;
+        }  
     }
 
-    void Update()
+    private IEnumerator Start()
     {
-        if (canPresss && Input.anyKey)
+        yield return new WaitForSeconds(1f);
+
+        _canPress = canPresss;
+    }
+
+    private void Update()
+    {
+        if (_canPress && Input.anyKey)
+        {
             SceneNav.GoTo(SceneType.PlayerSelect);
+        }
     }
 }

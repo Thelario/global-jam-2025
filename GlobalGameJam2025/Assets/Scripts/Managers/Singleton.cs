@@ -16,16 +16,20 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (Instance == null) SetInstance(this as T);
-        else if (Instance != this) Destroy(gameObject); // Prevent duplicates
+        if (Instance == null)
+        {
+            SetInstance(this as T);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject); // Prevent duplicates
+        }
     }
 
     private void OnDestroy() => ClearInstance();
 }
 
-public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
-{
-}
+public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour { }
 
 /// <summary>
 /// Persistent singleton that persists across scenes and auto-instantiates if missing.
@@ -37,6 +41,7 @@ public abstract class PersistentSingleton<T> : StaticInstance<T> where T : MonoB
     protected override void Awake()
     {
         base.Awake();
+
         DontDestroyOnLoad(gameObject); // Make sure it persists across scenes.
     }
 
@@ -49,7 +54,8 @@ public abstract class PersistentSingleton<T> : StaticInstance<T> where T : MonoB
     {
         get
         {
-            if (isQuitting) return null;
+            if (isQuitting)
+                return null;
 
             if (StaticInstance<T>.Instance == null)
             {
@@ -58,6 +64,7 @@ public abstract class PersistentSingleton<T> : StaticInstance<T> where T : MonoB
                 DontDestroyOnLoad(obj);
                 SetInstance(instance);
             }
+
             return StaticInstance<T>.Instance;
         }
     }

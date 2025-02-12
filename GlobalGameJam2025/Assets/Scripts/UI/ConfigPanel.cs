@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +7,17 @@ public class ConfigPanel : UIPanel
 
     private void OnEnable()
     {
-        if (backButton) backButton.onClick.AddListener(GoBack);
-    }
-    private void OnDisable()
-    {
-        if (backButton) backButton.onClick.RemoveListener(GoBack);
+        if (backButton) {
+            backButton.onClick.AddListener(GoBack);
+        }
     }
 
+    private void OnDisable()
+    {
+        if (backButton) {
+            backButton.onClick.RemoveListener(GoBack);
+        }
+    }
 
     private void GoBack()
     {

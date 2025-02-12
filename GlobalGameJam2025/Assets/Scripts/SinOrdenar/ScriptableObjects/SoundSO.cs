@@ -4,7 +4,7 @@ using UnityEngine;
 public enum Sound
 {
     None = 0, MenuMusic = 6, GameMusic = 7, BubbleHit = 1, BubbleDeep = 2, BubbleGiggly = 3, BubbleRoll = 4,
-    BubbleExplosion = 5
+    BubbleExplosion = 5, SelectButton = 8, DeselectButton = 9
 };
 
 [CreateAssetMenu(fileName = "SO_Sound_", menuName = "ScriptableObjects/SoundSO", order = 1)]
