@@ -13,7 +13,7 @@ public class RankManager : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(GameManager.Instance.PlayerCount);
+        //Debug.Log(GameManager.Instance.PlayerCount);
     }
     private void PlacePodiums()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OptionsManager : StaticInstance<OptionsManager>
+public class OptionsManager : Singleton<OptionsManager>
 {
 
 
