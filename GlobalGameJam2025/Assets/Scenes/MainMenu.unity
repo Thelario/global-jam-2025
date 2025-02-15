@@ -924,6 +924,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5176838539879486519, guid: e6eb1d078257fee40bd21d558908cd09, type: 3}
+      propertyPath: m_text
+      value: "Alberte D\xEDaz"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176838539879486519, guid: e6eb1d078257fee40bd21d558908cd09, type: 3}
       propertyPath: m_fontStyle
       value: 1
       objectReference: {fileID: 0}
