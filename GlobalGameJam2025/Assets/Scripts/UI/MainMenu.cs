@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator Start()
     {
+        UIPanel.GetPanel(typeof(MainMenuPanel)).Show();
+
         yield return new WaitForSeconds(1f);
 
         _canPress = canPresss;

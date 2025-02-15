@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,14 +7,35 @@ public class SoundManager : PersistentSingleton<SoundManager>
 {
     private string _soundsLoadPath = "Sounds";
     private string _soundsDataLoadPath = "Config/SoundDataSO";
-    
+
     private SoundData _soundData;
-    
+    private OptionsData _optionsData;
+
     private AudioSource _defaultAudioSource;
     private AudioSource _musicAudioSource;
 
     private Dictionary<Sound, SoundSO> _sounds;
     private Dictionary<Sound, float> _soundTimerDictionary;
+
+    public void SetOptionsData(OptionsData optionsData)
+    {
+        _optionsData = optionsData;
+
+        // Update the music volume based on both the slider and the modifier of the music scriptable object.
+
+        if (_musicAudioSource != null)
+        {
+            Sound soundToPlay = SceneNav.IsGameplay() ? Sound.GameMusic : Sound.MenuMusic;
+            _sounds.TryGetValue(soundToPlay, out SoundSO clip);
+
+            if (clip == null) {
+                Debug.LogError("The sound " + soundToPlay + " couldn't be found.");
+                return;
+            }
+
+            _musicAudioSource.volume = _optionsData.masterVolume * _optionsData.musicVolume * clip.VolumeModifier;
+        }
+    }
 
     protected override void Awake()
     {
@@ -27,9 +49,15 @@ public class SoundManager : PersistentSingleton<SoundManager>
         // Configure all the necessary data for the SoundManager to properly work.
 
         _soundData = Resources.Load<SoundData>(_soundsDataLoadPath);
+        _optionsData = OptionsManager.LoadData(Application.persistentDataPath + "/playerData.json");
 
         if (_soundData == null) {
             Debug.LogError("The SoundData couldn't be properly loaded!!!");
+        }
+
+        if (_soundData == null)
+        {
+            Debug.LogError("The OptionsData couldn't be properly loaded!!!");
         }
 
         bool playMusic = false;
@@ -41,8 +69,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
             if (_soundData != null)
             {
-                _defaultAudioSource = Instantiate(_soundData.DefaultSfxAudioSource, transform).GetComponent<AudioSource>();
-                _musicAudioSource = Instantiate(_soundData.MusicAudioSource, transform).GetComponent<AudioSource>();
+                _defaultAudioSource = Instantiate(_soundData.defaultSfxAudioSource, transform).GetComponent<AudioSource>();
+                _musicAudioSource = Instantiate(_soundData.defaultMusicAudioSource, transform).GetComponent<AudioSource>();
 
                 playMusic = true;
             }
@@ -96,7 +124,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
                 if (!_soundTimerDictionary.TryGetValue(sound, out var lastTimePlayed))
                     return true;
 
-                if (!(lastTimePlayed + _soundData.PlayerMoveTimerMax < Time.time))
+                if (!(lastTimePlayed + _soundData.playerMoveTimerMax < Time.time))
                     return false;
                     
                 _soundTimerDictionary[sound] = Time.time;
@@ -108,7 +136,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
     /// <summary>
     /// A direct and easy approach to playing any sound at any time.
     /// </summary>
-    public void PlaySound(Sound sound, float volumeModifier = 1f)
+    public void PlaySound(Sound sound)
     {
         if (CanPlaySound(sound) == false) {
             return;
@@ -127,6 +155,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         {
             _musicAudioSource.Stop();
             _musicAudioSource.clip = clip.Clip;
+            _musicAudioSource.volume = _optionsData.masterVolume * _optionsData.musicVolume * clip.VolumeModifier;
             _musicAudioSource.PlayDelayed(1f);
             return;
         }
@@ -135,11 +164,14 @@ public class SoundManager : PersistentSingleton<SoundManager>
               clip.OtherClips != null && clip.OtherClips.Count > 0
             ? clip.OtherClips[Random.Range(0, clip.OtherClips.Count)]
             : clip.Clip;
-        
+
+
+        float soundVolume = _optionsData.masterVolume * _optionsData.sfxVolume * clip.VolumeModifier;
+
         // If not a music, modify pitch and play the sound
 
-        _defaultAudioSource.pitch = Random.Range(_soundData.DefaultPitch - _soundData.DefaultPitchModifier, _soundData.DefaultPitch + _soundData.DefaultPitchModifier);
-        _defaultAudioSource.PlayOneShot(clipToPlay, _soundData.DefaultVolume * clip.VolumeModifier * volumeModifier);
+        _defaultAudioSource.pitch = Random.Range(_soundData.defaultPitch - _soundData.defaultPitchModifier, _soundData.defaultPitch + _soundData.defaultPitchModifier);
+        _defaultAudioSource.PlayOneShot(clipToPlay, soundVolume);
     }
 
     /// <summary>
@@ -162,11 +194,14 @@ public class SoundManager : PersistentSingleton<SoundManager>
         {
             source.Stop();
             source.clip = clip.Clip;
+            source.volume = _optionsData.masterVolume * _optionsData.musicVolume * clip.VolumeModifier;
             source.PlayDelayed(1f);
             return;
         }
 
-        source.pitch = Random.Range(_soundData.DefaultPitch - _soundData.DefaultPitchModifier, _soundData.DefaultPitch + _soundData.DefaultPitchModifier);
-        source.PlayOneShot(clip.Clip, _soundData.DefaultVolume * clip.VolumeModifier);
+        float soundVolume = _optionsData.masterVolume * _optionsData.sfxVolume * clip.VolumeModifier;
+
+        source.pitch = Random.Range(_soundData.defaultPitch - _soundData.defaultPitchModifier, _soundData.defaultPitch + _soundData.defaultPitchModifier);
+        source.PlayOneShot(clip.Clip, soundVolume);
     }
 }

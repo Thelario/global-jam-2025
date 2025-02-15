@@ -1,16 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsPanel : UIPanel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Button backButton;
+
+    private void OnEnable()
     {
-        
+        if (backButton)
+        {
+            backButton.onClick.AddListener(GoBack);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        if (backButton)
+        {
+            backButton.onClick.RemoveListener(GoBack);
+        }
+    }
+
+    private void GoBack()
+    {
+        GetPanel(typeof(MainMenuPanel)).Show();
     }
 }

@@ -14,8 +14,9 @@ public class UIPanel : MonoBehaviour
     protected event UnityAction onHide;
 
     protected CanvasGroup canvasGroup;
-    protected bool isVisible;
     protected Tween fadeTween;
+
+    [SerializeField] protected bool isVisible = false;
     [SerializeField] protected float fadeTime = 0.4f;
 
     protected virtual void Awake()
@@ -40,7 +41,6 @@ public class UIPanel : MonoBehaviour
             m_panels.Remove(panelType);
         }
     }
-    
     
     public virtual void Show()
     {
