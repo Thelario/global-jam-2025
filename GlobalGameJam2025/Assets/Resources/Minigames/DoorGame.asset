@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a54907d6444485faab1d043f02bd08a, type: 3}
   m_Name: DoorGame
   m_EditorClassIdentifier: 
-  minigameName: Doors game
-  usesTimer: 0
-  maxTimer: 60
-  minigamePrefab: {fileID: 5070963138451693332, guid: e022ab4a6aebbcd4ca69bb56989590ea, type: 3}
+  minigameID: GameID
+  miniGamePrefab: {fileID: 7405862036239717772, guid: 4bc785b27ca856a469137a09bc014dd5, type: 3}

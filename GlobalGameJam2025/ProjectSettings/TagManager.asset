@@ -10,6 +10,7 @@ TagManager:
   - Cell
   - Death
   - Triggerable
+  - Platform
   layers:
   - Default
   - TransparentFX
