@@ -17,7 +17,7 @@ public class OptionsData
     public float masterVolume;
     public float musicVolume;
     public float sfxVolume;
-}
+};
 
 public class OptionsManager : Singleton<OptionsManager>
 {
@@ -36,7 +36,7 @@ public class OptionsManager : Singleton<OptionsManager>
     {
         base.Awake();
 
-        _filePath = Application.persistentDataPath + "/playerData.json";
+        _filePath = Application.persistentDataPath + "/bubble_gum_royale_player_data.json";
 
         _currentLoadedOptions = LoadData(_filePath);
     }
@@ -98,13 +98,13 @@ public class OptionsManager : Singleton<OptionsManager>
 
     private void SaveOptions()
     {
-        SaveData(_currentLoadedOptions);
+        SaveData(_currentLoadedOptions, _filePath);
     }
 
-    public void SaveData(OptionsData data)
+    public static void SaveData(OptionsData data, string filePath)
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(_filePath, json);
+        File.WriteAllText(filePath, json);
     }
 
     public static OptionsData LoadData(string filePath)

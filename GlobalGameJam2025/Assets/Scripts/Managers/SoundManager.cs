@@ -49,15 +49,23 @@ public class SoundManager : PersistentSingleton<SoundManager>
         // Configure all the necessary data for the SoundManager to properly work.
 
         _soundData = Resources.Load<SoundData>(_soundsDataLoadPath);
-        _optionsData = OptionsManager.LoadData(Application.persistentDataPath + "/playerData.json");
+        _optionsData = OptionsManager.LoadData(Application.persistentDataPath + "/bubble_gum_royale_player_data.json");
 
         if (_soundData == null) {
             Debug.LogError("The SoundData couldn't be properly loaded!!!");
         }
 
-        if (_soundData == null)
+        if (_optionsData == null)
         {
-            Debug.LogError("The OptionsData couldn't be properly loaded!!!");
+            _optionsData = new OptionsData
+            {
+                language = LanguageType.English,
+                musicVolume = 0.5f,
+                masterVolume = 0.5f,
+                sfxVolume = 0.5f
+            };
+        
+            OptionsManager.SaveData(_optionsData, Application.persistentDataPath + "/bubble_gum_royale_player_data.json");
         }
 
         bool playMusic = false;
