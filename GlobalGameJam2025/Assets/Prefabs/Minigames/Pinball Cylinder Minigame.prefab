@@ -2434,8 +2434,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Circular Arena
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 5199243913626151792, guid: cbcae8f8e078bb8488c69ab3a30ae92b, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7613494777494016146, guid: cbcae8f8e078bb8488c69ab3a30ae92b, type: 3}
+    - {fileID: 1598492714116749236, guid: cbcae8f8e078bb8488c69ab3a30ae92b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbcae8f8e078bb8488c69ab3a30ae92b, type: 3}

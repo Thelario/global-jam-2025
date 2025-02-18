@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NormalRace
   m_EditorClassIdentifier: 
   minigameID: GameID
-  miniGamePrefab: {fileID: 4358635767290153665, guid: ecb23f4fa602c8e498ba42a6af71c602, type: 3}
+  miniGamePrefab: {fileID: 873838797753959773, guid: ecb23f4fa602c8e498ba42a6af71c602, type: 3}
